@@ -255,8 +255,20 @@ def inspect_pdf_source(blob: bytes, role: str, expected_subject: str) -> dict:
 def process_batch(index: dict, *, max_papers: int = 4, max_documents: int = 9,
                   download: bool = False, require_all: bool = False,
                   fetch=fetch_pdf, inspect=inspect_pdf_source,
-                  pause_seconds: float = 0.0) -> dict:
+                  pause_seconds: float = 0.0,
+                  extract_questions: bool = False,
+                  min_question_candidates: int = 0,
+                  enrich=None) -> dict:
     source = validate_index(index)
+    if extract_questions and not download:
+        raise BatchReviewError('question and answer extraction requires actual PDF downloads')
+    if not isinstance(min_question_candidates, int) or not 0 <= min_question_candidates <= 100:
+        raise BatchReviewError('invalid minimum question candidate count')
+    if min_question_candidates and not extract_questions:
+        raise BatchReviewError('minimum question count requires candidate extraction mode')
+    if extract_questions and enrich is None:
+        from moex_question_pipeline import make_question_answer_review
+        enrich = make_question_answer_review
     if not 1 <= max_documents <= MAX_DOCUMENTS:
         raise BatchReviewError('document limit out of bounds')
     selected = choose_representative(source, max_papers)
@@ -291,6 +303,7 @@ def process_batch(index: dict, *, max_papers: int = 4, max_documents: int = 9,
                 succeeded += 1
                 continue
             complete_document_sample = True
+            validated_pdf_blobs = {} if extract_questions else None
             for role, ref in p['links'].items():
                 # In generic CSV links, a PDF link on an official host does not
                 # establish that the given answer belongs to this question.
@@ -304,9 +317,12 @@ def process_batch(index: dict, *, max_papers: int = 4, max_documents: int = 9,
                     break
                 downloaded += 1  # attempts bounded even if a fetch raises
                 try:
-                    doc = inspect(fetch(ref), role, p['subject'])
+                    pdf_bytes = fetch(ref)
+                    doc = inspect(pdf_bytes, role, p['subject'])
                     if not isinstance(doc, dict) or not doc.get('pdf_structure_readable'):
                         raise BatchReviewError('PDF did not pass structural inspection')
+                    if extract_questions:
+                        validated_pdf_blobs[role] = pdf_bytes
                     result['documents'].append({'role': role, 'url': ref['url'], **doc,
                                                 'content_and_options_verified': False,
                                                 'final_answer_verified': False,
@@ -323,6 +339,42 @@ def process_batch(index: dict, *, max_papers: int = 4, max_documents: int = 9,
                 if pause_seconds:
                     time.sleep(pause_seconds)
             question_readable = 'Q' in {d['role'] for d in result['documents']}
+            if extract_questions:
+                try:
+                    if not question_readable:
+                        raise BatchReviewError('question PDF was not readable')
+                    review = enrich(validated_pdf_blobs,
+                                    expected_subject=p['subject'],
+                                    identity_paired=p['pair_identity_confirmed'])
+                    if (not isinstance(review, dict)
+                        or review.get('schema') != 'lexflow.moex.question.candidates.v1'
+                        or review.get('publication_allowed') is not False
+                        or review.get('scoring_enabled') is not False
+                        or not isinstance(review.get('questions'), list)):
+                        raise BatchReviewError('candidate extraction schema or nonpublication gate invalid')
+                    # Enforce flags at the integration boundary too. Neither
+                    # a faulty plug-in nor a future parser can enable scoring.
+                    for candidate in review['questions']:
+                        if not isinstance(candidate, dict):
+                            raise BatchReviewError('invalid individual extraction candidate')
+                        for protected in ('eligible_for_scoring', 'question_text_verified',
+                                          'options_verified', 'final_answer_verified',
+                                          'correction_applied', 'legal_explanation_verified'):
+                            candidate[protected] = False
+                    for protected in ('publication_allowed', 'scoring_enabled',
+                                      'final_answer_verified', 'special_scoring_applied',
+                                      'question_text_and_options_verified'):
+                        review[protected] = False
+                    result['question_answer_candidates'] = review
+                    if review.get('candidate_question_count', 0) < min_question_candidates:
+                        result['warnings'].append('too_few_extracted_four_choice_candidates')
+                        complete_document_sample = False
+                except (OSError, ValueError, RuntimeError, ImportError) as exc:
+                    result['warnings'].append('question_answer_extraction_isolated')
+                    result['extraction_failure'] = type(exc).__name__ + ': ' + str(exc)[:180]
+                    complete_document_sample = False
+                finally:
+                    validated_pdf_blobs.clear()  # do not persist raw PDF bytes
             result['state'] = ('pdfs_readable_CONTENT_NOT_VERIFIED'
                 if question_readable and not result.get('errors') and complete_document_sample
                 else 'isolated_needs_review')
@@ -348,6 +400,17 @@ def process_batch(index: dict, *, max_papers: int = 4, max_documents: int = 9,
                'isolated_papers': sum(x['state'].startswith('isolated_') for x in results),
                'focus_coverage': {x: sum(x in p.get('focus_subjects', [])
                                         for p in results) for x in FOCUS}}
+    if extract_questions:
+        extracts = [item.get('question_answer_candidates', {}) for item in results]
+        summary['candidate_question_pipeline'] = {
+            'four_option_candidacies': sum(int(x.get('candidate_question_count', 0)) for x in extracts),
+            'published_standard_key_pairs': sum(int(x.get('candidate_answer_pair_count', 0)) for x in extracts),
+            'papers_needing_extraction_review': sum(
+                not x or x.get('candidate_question_count', 0) < min_question_candidates
+                for x in extracts),
+            'question_and_answer_content_verified': False,
+            'final_scoring_enabled': False,
+        }
     review_queue = [
         {'id': item.get('id', 'invalid'), 'state': item['state'],
          'reasons': ['question_text_options_and_final_answer_not_verified',
@@ -375,10 +438,16 @@ def main(argv=None) -> int:
     ap.add_argument('--max-documents', type=int, default=9)
     ap.add_argument('--download-documents', action='store_true', help='opt in to bounded official PDF downloads')
     ap.add_argument('--require-all', action='store_true', help='fail CI when any chosen source fails')
+    ap.add_argument('--extract-questions', action='store_true',
+                    help='emit unverified question/answer candidates from fetched PDFs')
+    ap.add_argument('--min-choice-candidates-per-paper', type=int, default=0,
+                    help='optional hard quality gate for question extraction (CI only)')
     ap.add_argument('--output', type=Path, required=True)
     args = ap.parse_args(argv)
     if args.require_all and not args.download_documents:
         ap.error('--require-all requires --download-documents')
+    if args.extract_questions and not args.download_documents:
+        ap.error('--extract-questions requires --download-documents')
     if args.input_index and args.input_index.resolve() == args.output.resolve():
         ap.error('cannot overwrite the source index')
     if args.output.name in {'moex_official_index.json', 'moex_official_fallback.json'}:
@@ -395,7 +464,9 @@ def main(argv=None) -> int:
                                max_documents=args.max_documents,
                                download=args.download_documents,
                                require_all=args.require_all,
-                               pause_seconds=0.25 if args.download_documents else 0)
+                               pause_seconds=0.25 if args.download_documents else 0,
+                               extract_questions=args.extract_questions,
+                               min_question_candidates=args.min_choice_candidates_per_paper)
         write_atomic(args.output, report)
         print(json.dumps({'status': report['status'], **report['summary'],
                           'publication_allowed': False, 'scoring_enabled': False}, ensure_ascii=False))

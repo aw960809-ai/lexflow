@@ -23,6 +23,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_document_qa.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_civil_mcq.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -125,6 +126,7 @@ jobs:
           "$RUNNER_TEMP/lexflow-batch-venv/bin/python" scripts/moex_batch_engine.py \
             --live-exam 114120 --max-papers 3 --max-documents 9 \
             --download-documents --require-all \
+            --extract-questions --min-choice-candidates-per-paper 3 \
             --output "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json"
       - name: Upload isolated review data (no quiz answers published)
         if: always()
