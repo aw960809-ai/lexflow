@@ -57,6 +57,29 @@ def official_document_url(value: str, *, exam_code: str) -> tuple[str, str, tupl
         return None
 
 
+def official_aggregate_answer_url(value: str, *, exam_code: str) -> str:
+    """Allow MOEX's exam-wide standard-answer PDF (t=A) as metadata only.
+
+    It is NOT an individual subject Q/S/M link and must never assign answers
+    to a subject or bypass origin/parameter validation.
+    """
+    url = html.unescape(str(value or '').strip())
+    try:
+        x = urllib.parse.urlsplit(url)
+        if (x.scheme != 'https' or x.username or x.password or x.port not in (None, 443)
+            or (x.hostname or '').lower() != 'wwwq.moex.gov.tw'
+            or x.path.lower() != '/exam/whandexamqanda_file.ashx'
+            or x.fragment):
+            return ''
+        pairs = urllib.parse.parse_qs(x.query, strict_parsing=True, keep_blank_values=True)
+        if (set(pairs) != {'code', 't'} or any(len(v) != 1 for v in pairs.values())
+            or pairs['code'][0] != exam_code or pairs['t'][0] != 'A'):
+            return ''
+        return url
+    except (ValueError, KeyError):
+        return ''
+
+
 class TextLinks(HTMLParser):
     """Extract visible text/anchors in document order; no arbitrary HTML execution."""
     def __init__(self):
@@ -157,6 +180,7 @@ def create_fallback_index(page_html: bytes, *, exam_code: str = '114120', min_it
     active_key = None
     items: dict[str, dict] = {}
     invalid_official_doc = 0
+    aggregate_answers_url = ''
     for kind, value in parsed.tokens:
         if kind == 'text':
             label = _group(value)
@@ -178,6 +202,12 @@ def create_fallback_index(page_html: bytes, *, exam_code: str = '114120', min_it
             continue
         checked = official_document_url(href, exam_code=exam_code)
         if not checked:
+            aggregate = official_aggregate_answer_url(href, exam_code=exam_code)
+            if aggregate:
+                if aggregate_answers_url and aggregate_answers_url != aggregate:
+                    raise SourceFailure('conflicting official exam-wide answer links')
+                aggregate_answers_url = aggregate
+                continue
             invalid_official_doc += 1
             continue
         absolute, role, link_key = checked
@@ -226,6 +256,7 @@ def create_fallback_index(page_html: bytes, *, exam_code: str = '114120', min_it
         'source': {
             'agency': '考選部', 'method': 'official_exam_page_html',
             'exam_pages': [page_url(exam_code)],
+            'exam_wide_answer_url': aggregate_answers_url,
             'fingerprint_sha256': hashlib.sha256(json.dumps(entries, ensure_ascii=False, sort_keys=True).encode()).hexdigest(),
         },
         'summary': {'source_rows': len(parsed.tokens), 'index_papers': len(entries),

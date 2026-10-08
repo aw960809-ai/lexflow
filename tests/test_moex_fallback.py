@@ -1,4 +1,5 @@
 """Fixture-only tests: no fictional items are distributed as MOEX exam records."""
+import html
 import json
 import tempfile
 import unittest
@@ -6,7 +7,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from moex_index import SourceFailure
-from moex_page_fallback import create_fallback_index, official_document_url, fetch_exam_page
+from moex_page_fallback import create_fallback_index, official_document_url, official_aggregate_answer_url, fetch_exam_page
 from moex_sync import sync
 
 BASE='https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=201&code=114120&q=1&s=0405&t='
@@ -41,6 +42,31 @@ class MoexFallbackTests(unittest.TestCase):
              BASE.replace('wwwq.moex.gov.tw','wwwq.moex.gov.tw@evil.com')+'Q']
         for url in bad:
             self.assertIsNone(official_document_url(url,exam_code='114120'),url)
+
+    def test_official_exam_wide_answer_pdf_is_not_an_invalid_subject_link(self):
+        global_url = 'https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?code=114120&t=A'
+        self.assertEqual(official_aggregate_answer_url(global_url, exam_code='114120'), global_url)
+        self.assertIsNone(official_document_url(global_url, exam_code='114120'))
+        page = H.replace('<table>', '<a href="/exam/wHandExamQandA_File.ashx?code=114120&amp;t=A">本考試所有測驗題標準答案</a><table>')
+        data = create_fallback_index(page.encode(), min_items=3)
+        self.assertEqual(data['summary']['index_papers'], 3)
+        self.assertEqual(data['source']['exam_wide_answer_url'], global_url)
+        self.assertEqual(data['items'], create_fallback_index(H.encode(), min_items=3)['items'])
+
+    def test_malformed_exam_wide_answer_pdf_still_fails_closed(self):
+        global_link = '/exam/wHandExamQandA_File.ashx?code=114120&amp;t=A'
+        variants = [
+            global_link + '&amp;unexpected=1',
+            global_link.replace('114120', '114119'),
+            global_link.replace('t=A', 't=X'),
+            global_link.replace('t=A', 't=A&amp;t=A'),
+            'https://evil.com/exam/wHandExamQandA_File.ashx?code=114120&amp;t=A',
+        ]
+        for link in variants:
+            self.assertEqual(official_aggregate_answer_url(html.unescape(link), exam_code='114120'), '')
+            page = H.replace('<table>', '<a href="' + link + '">本考試所有測驗題標準答案</a><table>')
+            with self.assertRaises(SourceFailure):
+                create_fallback_index(page.encode(), min_items=3)
 
     def test_approved_source_and_deduplicated_groups(self):
         result=create_fallback_index(H.encode(),min_items=3)
