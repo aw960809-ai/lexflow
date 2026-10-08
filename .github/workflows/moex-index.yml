@@ -22,6 +22,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_fallback.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_document_qa.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_civil_mcq.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -102,6 +103,37 @@ jobs:
           path: ${{ runner.temp }}/lexflow-civil-25-UNVERIFIED-questions.json
           if-no-files-found: ignore
           retention-days: 14
+
+
+  # Reusable across subjects and years: bounded documents, isolated failures,
+  # official Q/S/M source identity and no automatic scoring/publication.
+  universal-batch-smoke:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-page-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned PDF parser (isolated environment)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-batch-venv"
+          "$RUNNER_TEMP/lexflow-batch-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Run bounded cross-field official PDF review (never score)
+        run: |
+          "$RUNNER_TEMP/lexflow-batch-venv/bin/python" scripts/moex_batch_engine.py \
+            --live-exam 114120 --max-papers 3 --max-documents 9 \
+            --download-documents --require-all \
+            --output "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json"
+      - name: Upload isolated review data (no quiz answers published)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-cross-field-UNVERIFIED-batch-review
+          path: ${{ runner.temp }}/lexflow-universal-batch-UNVERIFIED.json
+          if-no-files-found: ignore
+          retention-days: 7
 
   candidates:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
