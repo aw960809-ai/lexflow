@@ -25,12 +25,16 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
+      - name: Verify V0.3 local-only practice model and safety flags
+        run: node --test tests/practice-core.test.mjs
       - name: Check JavaScript syntax
         run: |
           node --check app.js
           node --check official-index.js
           node --check quiz.js
           node --check data.js
+          node --check practice-lab.js
+          node --check practice-core.mjs
 
   # This deliberately exposes true HTTP/HTML failures instead of claiming
   # a successful CI test proves the official live source worked.
