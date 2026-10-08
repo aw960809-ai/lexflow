@@ -20,3 +20,28 @@
 @media(max-width:700px){.lp-shell{padding:0 14px 23px}.lp-head{padding:15px 0}.lp-nav{gap:9px;font-size:11px}.lp-brand strong{font-size:18px}.lp-hero{padding:19px 0}.lp-grid{grid-template-columns:1fr;gap:0}.lp-card{padding:18px}.lp-card>p{min-height:0}.lp-top{margin:17px 0}.lp-question{padding:16px}.lp-question h2{font-size:17px}.lp-option{padding:12px;min-height:60px}.lp-paper{display:block}.lp-paper button{margin-top:12px}.lp-result-grid b{font-size:24px}.lp-result-grid>div{padding:11px}.lp-review summary{display:block}.lp-review summary span{display:inline}.lp-index{max-height:125px;overflow:auto}.lp-footer{padding-bottom:30px}}
 
 .lp-resume{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--accentSoft);padding:13px 16px;border:1px solid var(--border);border-radius:14px}.lp-resume b{display:block;font-size:13px}.lp-resume small{display:block;color:var(--muted);font-size:12px}.lp-resume button{white-space:nowrap}
+
+/* Compact phone-first V0.3 acceptance fixes — not changes to V0.2 rendering. */
+.lp-navigator{margin:0 0 13px;border:1px solid var(--border);border-radius:12px;background:var(--paper)}
+.lp-navigator summary{cursor:pointer;padding:10px 14px;color:var(--ink);font-size:13px;font-weight:750;min-height:42px}
+.lp-navigator summary span{color:var(--muted);font-weight:500;font-size:12px;margin-left:6px}
+.lp-navigator .lp-index{padding:5px 12px 12px;margin:0;max-height:180px;overflow:auto}
+.lp-exam-detail{font-size:12px;color:var(--muted);margin-top:5px}
+.lp-exam-detail summary{cursor:pointer;line-height:1.7}
+.lp-exam-detail p{padding:5px 10px 0;line-height:1.7}
+.lp-result-actions{display:grid;grid-template-columns:auto auto 1fr;gap:8px;align-items:center;justify-content:start}
+.lp-result-actions .lp-backup-action{justify-self:end}
+.lp-paper-selected{background:var(--accentSoft);padding:14px!important;border-radius:12px}
+@media(max-width:700px){
+ .lp-navigator summary{padding:10px 12px}
+ .lp-result-grid{gap:7px}
+ .lp-result-grid>div{padding:10px 8px;min-width:0}
+ .lp-result-grid b{font-size:24px}
+ .lp-result-grid span{font-size:11px;word-break:keep-all}
+ .lp-result-actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .lp-result-actions .btn:not(.lp-backup-action){min-width:0;padding:10px 6px;font-size:13px}
+ .lp-result-actions .lp-backup-action{grid-column:2;justify-self:end;border:0;background:transparent;color:var(--accent);font-size:12px;padding:3px 6px}
+ .lp-top{margin:11px 0 13px}
+ .lp-track{margin:9px 0 10px}
+ .lp-exam-detail{max-width:100%;}
+}

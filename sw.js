@@ -1,5 +1,5 @@
-const CACHE = 'lexflow-pages-v03-lab-preview-20261009';
-const SHELL = ['./','./index.html','./styles.css','./app.js','./data.js','./quiz.js','./practice-lab.html','./practice-lab.js','./practice-lab.css','./practice-core.mjs','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const CACHE = 'lexflow-pages-v03-unified-catalog-20261009';
+const SHELL = ['./','./index.html','./styles.css','./app.js','./data.js','./quiz.js','./practice-lab.html','./practice-lab.js','./practice-lab.css','./practice-core.mjs','./catalog-core.mjs','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
