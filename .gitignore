@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+LexFlow*_backup*.json
+*personal*backup*.json
+*.key
+.env
+.env.*

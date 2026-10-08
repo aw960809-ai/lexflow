@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0e1116">
+  <meta name="description" content="考選部公開試題網址的候審索引，尚非逐題核驗題庫">
+  <title>LexFlow｜官方國考試卷索引（候審）</title>
+  <link rel="stylesheet" href="official-index.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div><div class="eyebrow">LEXFLOW / VERIFIED-SOURCE INDEX</div><h1>官方國考試卷索引</h1>
+      <p class="desc">由考選部開放資料提供試卷連結。<strong>尚非逐題題庫，也不是已核對的最終答案。</strong></p></div>
+      <a class="back" href="./">← 返回 LexFlow</a>
+    </header>
+    <div class="warning" role="note">
+      <strong>法律正確性提醒</strong>：只列出來源索引，沒有自動判定答案對錯；官方更正答案、PDF 逐題內容、法源與詳解仍須進一步核驗。
+    </div>
+    <section class="panel" aria-label="資料狀態">
+      <div class="info-head"><div><small>資料同步狀態</small><h2 id="status">正在讀取索引…</h2></div><button id="reload" class="btn" type="button">重新讀取</button></div>
+      <p id="meta" class="muted">不會讀取或上傳你的 LexFlow 私人作答。</p>
+      <div class="tools">
+        <label class="btn ghost">預覽候審 JSON（不會上傳）<input type="file" id="file" accept="application/json,.json" hidden></label>
+        <a class="btn ghost" href="https://data.gov.tw/dataset/170565" target="_blank" rel="noopener noreferrer">考選部開放資料來源 ↗</a>
+      </div>
+    </section>
+    <section class="panel" aria-label="官方索引清單">
+      <h2>搜尋已建立的試卷索引</h2>
+      <div class="filter-grid">
+        <label>法律領域<select id="subject"><option value="全部">全部</option><option value="民法">民法</option><option value="刑法">刑法</option><option value="憲法">憲法</option><option value="待分類">待分類混合題</option></select></label>
+        <label>試卷種類<select id="type"><option value="全部">全部</option><option value="申論題">申論題</option><option value="測試題">測驗題</option><option value="混合題">混合題</option></select></label>
+        <label class="span">關鍵字<input id="search" type="search" placeholder="搜尋考試名稱、年度、類科及科目"></label>
+      </div>
+      <p class="muted" id="count" role="status">尚未載入</p>
+      <div id="results" class="results"></div>
+    </section>
+    <footer>LexFlow V0.3 候審功能 · 非考選部官方 App · 不執行 AI 自動給分 · 原始 V0.2 資料不受此頁面影響</footer>
+  </main>
+  <script type="module" src="./official-index.js"></script>
+</body>
+</html>
