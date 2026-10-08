@@ -47,6 +47,32 @@ jobs:
           path: ${{ runner.temp }}/lexflow-official-page-smoke.json
           retention-days: 7
 
+  official-pdf-document-smoke:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-page-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF parser in isolated virtual environment
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-pdf-venv"
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Check bounded official Q/S/M/A PDF sample and enforce non-publication
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" scripts/moex_document_qa.py --live \
+            --output "$RUNNER_TEMP/lexflow-document-qa.json"
+      - name: Upload PDF QA report (only if check succeeded)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-pdf-document-qa-not-scored
+          path: ${{ runner.temp }}/lexflow-document-qa.json
+          if-no-files-found: ignore
+          retention-days: 7
+
   candidates:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     needs: tests
