@@ -161,9 +161,19 @@ def _maybe_subject(text: str) -> str:
 
 
 def _group(text: str) -> str | None:
-    if '_' in text and '類科' in text and ('考試' in text or '司法' in text or '調查' in text):
-        return text[:180]
-    return None
+    """Recognize official *exam-level* headings, not only labels with 類科.
+
+    Investigation and other group labels often have an exam name and "組" but
+    no "類科". Missing this boundary inherited the last 司法五等 group for 32
+    later papers. This is a strict heading recognizer, NOT fuzzy law classification.
+    """
+    text = text.strip()
+    if len(text) > 180:
+        return None
+    match = re.fullmatch(r'([^_＿\s]{2,45}等考試)[_＿](.{1,130})', text)
+    if not match or not match.group(2).strip():
+        return None
+    return text
 
 
 def create_fallback_index(page_html: bytes, *, exam_code: str = '114120', min_items: int = 3) -> dict:

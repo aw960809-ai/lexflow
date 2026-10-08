@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
 from moex_index import SourceFailure
-from moex_page_fallback import create_fallback_index, official_document_url, official_aggregate_answer_url, fetch_exam_page
+from moex_page_fallback import create_fallback_index, official_document_url, official_aggregate_answer_url, fetch_exam_page, _group
 from moex_sync import sync
 
 BASE='https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?c=201&code=114120&q=1&s=0405&t='
@@ -42,6 +42,25 @@ class MoexFallbackTests(unittest.TestCase):
              BASE.replace('wwwq.moex.gov.tw','wwwq.moex.gov.tw@evil.com')+'Q']
         for url in bad:
             self.assertIsNone(official_document_url(url,exam_code='114120'),url)
+
+    def test_investigation_exam_heading_does_not_inherit_old_justice_group(self):
+        other='調查三等考試_調查工作組(選試英文)'
+        self.assertEqual(_group(other), other)
+        self.assertEqual(_group('司法五等考試_庭務員類科'), '司法五等考試_庭務員類科')
+        self.assertEqual(_group('民法概要'), None)
+        # The next approved document belongs to the next exam class. No stale label.
+        link='/exam/wHandExamQandA_File.ashx?c=401&amp;code=114120&amp;q=1&amp;s=0501&amp;t=Q'
+        html_extra='<tr><td>'+other+'</td></tr><tr><td>刑法與刑事訴訟法</td><td><a href="'+link+'">試題</a></td></tr>'
+        page=H.replace('</table>',html_extra+'</table>')
+        data=create_fallback_index(page.encode(),min_items=3)
+        found=[x for x in data['items'] if x['subject']=='刑法與刑事訴訟法']
+        self.assertEqual(len(found),1)
+        self.assertEqual(found[0]['groups'],[other])
+        self.assertNotIn('司法五等考試_庭務員類科', found[0]['groups'])
+
+    def test_unrecognized_unstructured_exam_like_text_is_not_a_group(self):
+        for label in ('民法概要', '刑法與刑事訴訟法', '司法五等考試', '公告檢討考試_此為測試'):
+            self.assertIsNone(_group(label), label)
 
     def test_official_exam_wide_answer_pdf_is_not_an_invalid_subject_link(self):
         global_url = 'https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?code=114120&t=A'

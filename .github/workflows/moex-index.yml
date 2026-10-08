@@ -20,6 +20,8 @@ jobs:
         run: |
           python3 -m unittest discover -s tests -p 'test_moex_index.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_fallback.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_document_qa.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_civil_mcq.py' -v
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -72,6 +74,34 @@ jobs:
           path: ${{ runner.temp }}/lexflow-document-qa.json
           if-no-files-found: ignore
           retention-days: 7
+
+  # Separate *non-publishing* 25-key verification from PDF readability check.
+  # It can fail if MOEX legitimately revises either source; this is intentional.
+  civil-published-answer-candidate:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-pdf-document-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up locked PDF library in temporary venv
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-civil-venv"
+          "$RUNNER_TEMP/lexflow-civil-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Verify exact published MOEX 2201 question and answer PDF snapshots
+        run: |
+          "$RUNNER_TEMP/lexflow-civil-venv/bin/python" scripts/moex_civil_mcq.py --live \
+            --output "$RUNNER_TEMP/lexflow-civil-25-UNVERIFIED-questions.json"
+      - name: Upload source-linked candidate for review (never automatically publish)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-114120-civil-25-answer-keys-CANDIDATE-NOT-SCORED
+          path: ${{ runner.temp }}/lexflow-civil-25-UNVERIFIED-questions.json
+          if-no-files-found: ignore
+          retention-days: 14
 
   candidates:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
