@@ -6,7 +6,7 @@ on:
     branches: ['feat/**', 'bot/moex-index-review']
   workflow_dispatch:
   schedule:
-    - cron: '23 23 * * *' # daily UTC; best-effort, not exact
+    - cron: '23 23 * * *' # daily UTC, best effort; runs only after workflow is merged to main
 
 permissions:
   contents: read
@@ -16,14 +16,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Test indexer (offline fixtures, no public data fabricated)
-        run: python3 -m unittest discover -s tests -p 'test_moex_index.py' -v
-      - name: Check existing JS syntax
+      - name: Offline regression tests (no fabricated official answers)
+        run: |
+          python3 -m unittest discover -s tests -p 'test_moex_index.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_fallback.py' -v
+      - name: Check JavaScript syntax
         run: |
           node --check app.js
           node --check official-index.js
           node --check quiz.js
           node --check data.js
+
+  # This deliberately exposes true HTTP/HTML failures instead of claiming
+  # a successful CI test proves the official live source worked.
+  official-page-smoke:
+    if: github.event_name == 'pull_request'
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and parse one approved MOEX exam page (real network)
+        run: |
+          python3 scripts/moex_page_fallback.py --fetch --exam-code 114120 --min-items 3 \
+            --output "$RUNNER_TEMP/lexflow-official-page-smoke.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-page-smoke-unverified-links
+          path: ${{ runner.temp }}/lexflow-official-page-smoke.json
+          retention-days: 7
 
   candidates:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
@@ -34,33 +56,35 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch official MOEX CSV (strict validation; never rewrite old index on failure)
-        run: python3 scripts/moex_index.py --fetch --min-rows 30 --output data/moex_official_index.json
-      - uses: actions/upload-artifact@v4
+      - name: Try CSV first, individual official exam page second
+        run: python3 scripts/moex_sync.py --primary data/moex_official_index.json --fallback data/moex_official_fallback.json
+      - name: Upload candidate snapshots (not scored questions)
+        uses: actions/upload-artifact@v4
         with:
           name: official-moex-index-candidate
-          path: data/moex_official_index.json
+          path: |
+            data/moex_official_index.json
+            data/moex_official_fallback.json
           retention-days: 14
-      - name: Open or update a candidate PR (never update main directly)
+      - name: Stage review PR without overwriting an existing review branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch origin '+refs/heads/bot/moex-index-review:refs/remotes/origin/bot/moex-index-review' || true
-          if git show origin/bot/moex-index-review:data/moex_official_index.json 2>/dev/null | cmp -s - data/moex_official_index.json; then
-            echo 'Same candidate is already staged on the review branch.'
-            exit 0
-          fi
-          git checkout -B bot/moex-index-review
-          git add data/moex_official_index.json
+          git add data/moex_official_index.json data/moex_official_fallback.json
           if git diff --cached --quiet; then
-            echo 'Official legal exam index unchanged; no publication needed.'
+            echo 'No official index changes detected; no PR needed.'
             exit 0
           fi
-          git commit -m 'data: stage official MOEX exam-link index for review'
-          git push --force-with-lease origin HEAD:refs/heads/bot/moex-index-review
-          if ! gh pr list --head bot/moex-index-review --base main --state open --json number --jq '.[0].number' | grep -q '[0-9]'; then
-            gh pr create --title 'Data review: MOEX official exam link index' --base main --head bot/moex-index-review --body 'Automated candidate index only. URLs exist in published MOEX open dataset, but PDFs, final answer versions, and explanations have NOT been checked. Do not merge without review. Main is unchanged until human approval.'
+          if git ls-remote --exit-code --heads origin bot/moex-index-review >/dev/null 2>&1; then
+            echo 'Existing review branch left unchanged. Updated candidate is available as workflow artifact.'
+            exit 0
           fi
+          git switch -c bot/moex-index-review
+          git commit -m 'data: stage MOEX public exam document links for review'
+          git push -u origin bot/moex-index-review
+          gh pr create --draft --title 'Data review: MOEX unverified public exam link index' \
+            --base main --head bot/moex-index-review \
+            --body 'Unverified official DOCUMENT LINKS only. MOEX PDF content, corrected final answers and explanations have NOT been verified. Do not merge without source review. Main is unchanged until approved.'

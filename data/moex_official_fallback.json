@@ -1,0 +1,16 @@
+{
+  "schema": "lexflow.moex.index.v1",
+  "status": "awaiting_first_official_page_sync",
+  "source": {
+    "agency": "考選部",
+    "method": "official_exam_page_html",
+    "exam_pages": ["https://wwwq.moex.gov.tw/exam/wFrmExamQandASearch.aspx?e=114120&y=2025"]
+  },
+  "summary": {
+    "index_papers": 0,
+    "subject_papers": {"民法": 0, "刑法": 0, "憲法": 0},
+    "needs_classification": 0
+  },
+  "disclaimer": "尚未成功從個別官方考試頁面執行機器讀取。瀏覽器可開啟單一 PDF，不能視為本程式已抓取所有試題或驗證答案。",
+  "items": []
+}
