@@ -51,6 +51,25 @@ class MoexIndexTests(unittest.TestCase):
         self.assertEqual(r['items'][0]['classification'], 'needs_classification')
         self.assertEqual(r['items'][0]['focus_subjects'], [])
 
+    def test_embedded_law_names_do_not_misclassify_subjects(self):
+        # "行刑法" contains "刑法"; "國民法官法" contains "民法".
+        for unrelated in ('監獄行刑法概要', '監獄行刑法與羈押法', '國民法官法'):
+            self.assertIsNone(subjects_of(unrelated), unrelated)
+        self.assertEqual(subjects_of('刑法與監獄行刑法'), (['刑法'], 'mixed'))
+        self.assertEqual(subjects_of('國民法官法與民法'), (['民法'], 'mixed'))
+        self.assertEqual(subjects_of('刑法與少年事件處理法'), (['刑法'], 'mixed'))
+
+    def test_substring_collisions_excluded_from_document_index(self):
+        rows = [entry('民法'), entry('刑法'), entry('監獄行刑法概要'),
+                entry('監獄行刑法與羈押法'), entry('國民法官法'),
+                entry('刑法與少年事件處理法')]
+        out = create_index(blob(rows), min_rows=1)
+        self.assertEqual(out['summary']['index_papers'], 3)
+        subjects = {i['subject']: i for i in out['items']}
+        self.assertNotIn('監獄行刑法概要', subjects)
+        self.assertNotIn('國民法官法', subjects)
+        self.assertEqual(subjects['刑法與少年事件處理法']['classification'], 'mixed')
+
     def test_no_arbitrary_nonlaw_rows(self):
         with self.assertRaises(SourceFailure):
             create_index(blob([entry('線性代數')]), min_rows=1)

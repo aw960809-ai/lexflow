@@ -87,11 +87,15 @@ def fetch_csv(url: str = SOURCE) -> bytes:
 
 
 def subjects_of(subject: str) -> tuple[list[str], str] | None:
-    found = [x for x in FOCUS if x in subject]
+    # Exclude unrelated legal subjects that merely contain a focus name as a substring.
+    # Keep the original published subject untouched; only classification uses this view.
+    focus_text = subject.replace('監獄行刑法', '').replace('國民法官法', '')
+    found = [x for x in FOCUS if x in focus_text]
     if found:
         # A paper can include more than one field or mix one field with other law courses.
         mixing = any(x in subject for x in ('綜合法學', '法學知識', '法學大意', '行政法', '民事訴訟法',
-                                           '刑事訴訟法', '土地法', '商事法', '保險法', '公司法'))
+                                           '刑事訴訟法', '土地法', '商事法', '保險法', '公司法',
+                                           '監獄行刑法', '國民法官法', '少年事件處理法'))
         return found, ('mixed' if len(found) > 1 or mixing else 'subject_named')
     if any(x in subject for x in ('綜合法學', '法學知識', '法學大意')):
         return [], 'needs_classification'
