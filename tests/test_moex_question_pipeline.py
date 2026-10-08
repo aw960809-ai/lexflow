@@ -65,13 +65,18 @@ class UniversalQuestionAnswerTests(unittest.TestCase):
         self.assertEqual(r['four_option_candidates'],2)
         self.assertIn('mixed_option_marker_styles_are_ambiguous',r['items'][0]['review_reasons'])
 
-    def test_paged_footer_is_isolated_not_silently_stripped(self):
+    def test_complete_page_frame_is_excluded_only_from_candidate_with_provenance(self):
         raw=Q3.replace('3 下列何者', '代號：20120\n頁次：4－2\n3 下列何者')
-        # Footer is attached to question 2 and not silently erased.
+        # Keep unmodified raw source; drop an exact boundary footer from the
+        # candidate's last option, which still needs visual PDF comparison.
         result=split_question_text(raw)
         self.assertTrue(result['count_matches_declared'])
-        self.assertEqual(result['four_option_candidates'],2)
-        self.assertIn('page_header_or_footer_inside_question',result['items'][1]['review_reasons'])
+        self.assertEqual(result['four_option_candidates'],3)
+        self.assertIn('代號：20120',result['items'][1]['raw_pdf_excerpt_unverified'])
+        self.assertNotIn('代號：20120',result['items'][1]['options_unverified']['D'])
+        self.assertIn('trailing_official_page_frame_excluded_from_candidate',
+                      result['items'][1]['source_normalizations_unverified'])
+        self.assertFalse(result['items'][1]['eligible_for_scoring'])
         self.assertNotIn('page_header_or_footer_inside_question',result['items'][0]['review_reasons'])
 
     def test_scrambled_options_are_never_claimed_valid(self):

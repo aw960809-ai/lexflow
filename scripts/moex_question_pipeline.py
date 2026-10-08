@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import io
 import re
+import statistics
 import unicodedata
 
 GLYPH_TO_LETTER = {'\ue18c': 'A', '\ue18d': 'B', '\ue18e': 'C', '\ue18f': 'D'}
@@ -28,7 +29,16 @@ MAX_QUESTIONS = 100
 MAX_QUESTION_RAW = 3500
 MAX_EXCERPT = 1400
 FOOTER = re.compile(r'(?m)^\s*(?:代\s*號|頁\s*次)\s*[:：]')
-SPECIAL_CREDIT = re.compile(r'一律給分|均予給分|全部給分|皆予給分|送分|複數答案|多重答案|不予計分|不計分')
+SPECIAL_CREDIT = re.compile(r'一律給分|均予給分|均給分|全部給分|皆予給分|送分|複數答案|多重答案|不予計分|不計分')
+# Only an identifiable official page frame at the very END of a numbered
+# fragment may be excluded from the option preview. The raw evidence stays
+# intact. Never remove a line merely because it mentions a page or a code.
+TRAILING_PAGE_FRAME = re.compile(
+    r'\n\s*代\s*號\s*[:：][ \t]*[\d \t]{2,24}'
+    r'(?:\n[ \t]*\d{4,8}[ \t]*){0,5}'
+    r'\n[ \t]*頁\s*次\s*[:：][ \t]*\d{1,3}[－–-]\d{1,3}[ \t]*\Z')
+ONE_HEADING_CELL = re.compile(r'^第\s*(\d{1,3})\s*題$')
+ONE_ANSWER_CELL = re.compile(r'^[A-D]$')
 
 
 class QuestionExtractionError(ValueError):
@@ -97,6 +107,11 @@ def split_question_text(text: str, *, expected_count: int | None = None) -> dict
         end = runs[i + 1][1] if i + 1 < len(runs) else len(mcq_text)
         raw = mcq_text[start:end].strip()
         body = mcq_text[content_start:end].strip()
+        page_frame = TRAILING_PAGE_FRAME.search(body)
+        source_normalizations = []
+        if page_frame:
+            body = body[:page_frame.start()].rstrip()
+            source_normalizations.append('trailing_official_page_frame_excluded_from_candidate')
         issues = []
         glyph_marks = list(GLYPH_RE.finditer(body))
         parenthesized_marks = list(PAREN_RE.finditer(body))
@@ -126,8 +141,9 @@ def split_question_text(text: str, *, expected_count: int | None = None) -> dict
                 options[letters[j]] = option[:1800]
         if len(stem) < 4:
             issues.append('missing_question_stem')
-        # Strip neither punctuation nor trailing lines: precise fidelity must
-        # be checked against the source PDF image before student use.
+        # Raw source remains unchanged; only a separately annotated candidate
+        # excludes a complete boundary-only page frame. Visual review is still
+        # mandatory before any official question is displayed to students.
         if len(raw) > MAX_QUESTION_RAW:
             issues.append('raw_fragment_exceeds_review_limit')
         rows.append({
@@ -137,6 +153,7 @@ def split_question_text(text: str, *, expected_count: int | None = None) -> dict
             'stem_unverified': stem[:MAX_EXCERPT],
             'options_unverified': options if letters == ['A', 'B', 'C', 'D'] else {},
             'raw_pdf_excerpt_unverified': raw[:MAX_EXCERPT],
+            'source_normalizations_unverified': source_normalizations,
             'review_reasons': sorted(set(issues)),
             'question_text_verified': False, 'options_verified': False,
             'eligible_for_scoring': False,
@@ -158,7 +175,122 @@ def split_question_text(text: str, *, expected_count: int | None = None) -> dict
     }
 
 
-def parse_answer_table_text(texts: list[str], *, expected_count: int | None) -> dict:
+def positioned_pdf_cells(blob: bytes) -> list[dict]:
+    """Obtain PDF text fragments with locations, never infer omitted cells.
+
+    pypdf's text visitor sometimes merges whole rows or lacks usable character
+    positions. In that case no positional answers are returned. The caller may
+    still show a candidate from a separately unambiguous textual table.
+    """
+    from pypdf import PdfReader
+    reader = PdfReader(io.BytesIO(blob), strict=False)
+    if not 1 <= len(reader.pages) <= 4:
+        raise QuestionExtractionError('answer PDF needs an independent multi-page layout review')
+    found = []
+    for page_no, page in enumerate(reader.pages):
+        def visitor(value, cm, tm, font, size):
+            if len(found) > 1500:
+                return
+            label = _tight(value)
+            if not (ONE_HEADING_CELL.fullmatch(label) or ONE_ANSWER_CELL.fullmatch(label)):
+                return
+            # The text matrix is relative to the graphics-state transform.
+            # Ordinary PDF table cells have a position near their printed row.
+            x = cm[0] * tm[4] + cm[2] * tm[5] + cm[4]
+            y = cm[1] * tm[4] + cm[3] * tm[5] + cm[5]
+            if not (-100 <= x <= 3000 and -100 <= y <= 3000):
+                return
+            found.append({'page': page_no, 'x': round(x, 2), 'y': round(y, 2),
+                          'text': label})
+        page.extract_text(visitor_text=visitor)
+    return found[:1500]
+
+
+def pair_positioned_answer_cells(cells: list[dict], *, expected_count: int) -> dict[int, str]:
+    """Align numbered cells with letter cells on adjacent physical PDF rows.
+
+    A partial final row is permitted ONLY if its empty cells fall outside the
+    declared number of questions and x/y coordinates prove all other pairs.
+    Any collision, missing interior cell or uncertain row rejects ALL keys.
+    """
+    if not 1 <= expected_count <= MAX_QUESTIONS or len(cells) > 1500:
+        return {}
+    rows = []
+    for page in sorted({cell.get('page') for cell in cells}):
+        members = sorted((c for c in cells if c.get('page') == page),
+                         key=lambda c: (-c['y'], c['x']))
+        for cell in members:
+            try:
+                y = float(cell['y'])
+                x = float(cell['x'])
+                if not (-100 < x < 3000 and -100 < y < 3000):
+                    return {}
+            except (TypeError, ValueError, KeyError):
+                return {}
+            if rows and rows[-1]['page'] == page and abs(rows[-1]['y'] - y) <= 3:
+                rows[-1]['cells'].append(cell)
+            else:
+                rows.append({'page': page, 'y': y, 'cells': [cell]})
+    pairs: dict[int, str] = {}
+    used_answer_rows = set()
+    for i, row in enumerate(rows):
+        headings = []
+        for cell in row['cells']:
+            m = ONE_HEADING_CELL.fullmatch(cell['text'])
+            if m:
+                headings.append((int(m.group(1)), float(cell['x'])))
+        if len(headings) < 2:
+            continue
+        headings.sort(key=lambda z: z[1])
+        nums = [n for n, _ in headings]
+        if nums != list(range(nums[0], nums[0] + len(nums))):
+            return {}
+        gaps = [headings[j+1][1] - headings[j][1] for j in range(len(headings)-1)]
+        if not all(12 <= gap <= 250 for gap in gaps):
+            return {}
+        pitch = statistics.median(gaps)
+        # Only a single physically adjacent answer row can satisfy a heading.
+        answer_rows = []
+        for j in range(i + 1, len(rows)):
+            other = rows[j]
+            if other['page'] != row['page'] or row['y'] - other['y'] > 48:
+                break
+            if any(ONE_HEADING_CELL.fullmatch(c['text']) for c in other['cells']):
+                break
+            letters = [c for c in other['cells'] if ONE_ANSWER_CELL.fullmatch(c['text'])]
+            if letters and 2 <= row['y'] - other['y'] <= 48:
+                answer_rows.append((j, letters))
+        if len(answer_rows) != 1 or answer_rows[0][0] in used_answer_rows:
+            # A header row with no answers is valid only when ALL its headings
+            # exceed the declared last question (blank official template).
+            if any(n <= expected_count for n in nums):
+                return {}
+            continue
+        j, letters = answer_rows[0]
+        used_answer_rows.add(j)
+        if len(letters) > len(headings):
+            return {}
+        seen_for_row = set()
+        for c in letters:
+            ranked = sorted(((abs(float(c['x'])-hx), n) for n, hx in headings))
+            if len(ranked) > 1 and abs(ranked[0][0] - ranked[1][0]) < 1:
+                return {}
+            if ranked[0][0] > pitch * 0.44:
+                return {}
+            _, number = ranked[0]
+            if number in seen_for_row or number in pairs or number > expected_count:
+                return {}
+            seen_for_row.add(number)
+            pairs[number] = c['text']
+        # Missing an answer in the middle is NEVER equivalent to blank trailing
+        # template cells. Numbered columns <= expected_count must be complete.
+        if any(n <= expected_count and n not in seen_for_row for n in nums):
+            return {}
+    return pairs if set(pairs) == set(range(1, expected_count+1)) else {}
+
+
+def parse_answer_table_text(texts: list[str], *, expected_count: int | None,
+                            positioned_cells: list[dict] | None = None) -> dict:
     """Extract S (published standard) letters only from unambiguous tables.
 
     The PDF may use a visual grid with an extraction order that loses columns.
@@ -171,6 +303,12 @@ def parse_answer_table_text(texts: list[str], *, expected_count: int | None) -> 
         return {'status': 'answer_count_unconfirmed_NEEDS_REVIEW', 'published_candidates': [],
                 'review_reasons': ['missing_trusted_question_count'], 'final_answer_verified': False}
     collected = []
+    position_candidate = None
+    if positioned_cells is not None:
+        position_candidate = pair_positioned_answer_cells(positioned_cells,
+                                                          expected_count=expected_count)
+        if position_candidate:
+            collected.append(position_candidate)
     special = False
     for text in texts:
         if len(text) > 200_000:
@@ -183,7 +321,14 @@ def parse_answer_table_text(texts: list[str], *, expected_count: int | None) -> 
                     'special_scoring_mentioned': special, 'final_answer_verified': False}
         # Format A: explicit individually paired entries (not just one global
         # sequence of A/B/C/D letters, which loses row/column association).
-        inline = re.findall(r'第\s*(\d{1,3})\s*題\s*[:：=｜|]?\s*([A-D])(?=\s|$|[、，,。])', text)
+        # In a positioned PDF layout, the last heading in a ten-column row
+        # is followed by a newline and then the FIRST column's answer. Using
+        # \s* here would silently mispair that answer with column ten.
+        # Only a number and letter printed on the SAME physical text line
+        # qualifies for this non-positional inline extraction mode.
+        inline = re.findall(
+            r'第[ \t]*(\d{1,3})[ \t]*題[ \t]*[:：=｜|]?[ \t]*([A-D])(?=[ \t]|$|[、，,。])',
+            text, flags=re.M)
         if inline:
             pairs = [(int(n), a) for n, a in inline]
             if len(set(n for n, _ in pairs)) == len(pairs):
@@ -239,6 +384,9 @@ def parse_answer_table_text(texts: list[str], *, expected_count: int | None) -> 
     return {'status': 'published_standard_letter_candidates_NOT_FINAL',
             'published_candidates': [{'number': n, 'published_standard_candidate': candidate[n]}
                                      for n in range(1, expected_count + 1)],
+            'evidence_method': ('positioned_pdf_cell_alignment_WITH_VISUAL_REVIEW_REQUIRED'
+                                if position_candidate and candidate == position_candidate
+                                else 'explicit_number_and_letter_text_alignment_UNVERIFIED'),
             'review_reasons': ['final_corrections_and_special_credit_not_verified'],
             'special_scoring_mentioned': False, 'final_answer_verified': False}
 
@@ -274,6 +422,36 @@ def _subject_evidence(expected: str, text: str) -> str:
     raise QuestionExtractionError('published subject label absent from PDF text')
 
 
+def correction_notice_review(text: str, *, expected_count: int | None = None) -> dict:
+    """Locate an MOEX M notice without converting it into a final answer.
+
+    Numbered cells in the large corrected-answer GRID are not correction
+    notices. Only explicit numbered references in 備註 are possible targets.
+    A complex/missing note always remains a paper-wide manual-review issue.
+    """
+    cleaned = unicodedata.normalize('NFKC', text or '')
+    anchor = re.search(r'備\s*註\s*[:：]\s*', cleaned)
+    after = cleaned[anchor.end():] if anchor else ''
+    after = re.split(r'標\s*準\s*答\s*案\s*[:：]', after, maxsplit=1)[0]
+    note = re.sub(r'\s+', ' ', after).strip()[:600]
+    numbers = sorted({int(n) for n in Q_LABEL.findall(note)
+                      if expected_count is None or 1 <= int(n) <= expected_count})
+    # A source with no legible 備註 still demands special-score review if such
+    # text appears elsewhere; but its question number is NOT inferred.
+    special = bool(SPECIAL_CREDIT.search(note or cleaned))
+    marker = bool(re.search(r'答案標註\s*#|標註\s*#|更正答案|#者', cleaned))
+    return {
+        'status': 'official_correction_notice_PRESENT_UNAPPLIED',
+        'affected_question_numbers_NEEDS_VISUAL_CHECK': numbers,
+        'published_notice_excerpt_unverified': note[:350],
+        'notice_is_bounded_to_remarks': bool(anchor),
+        'correction_marker_present': marker,
+        'special_scoring_mentioned': special,
+        'final_answer_verified': False,
+        'correction_applied': False,
+    }
+
+
 def make_question_answer_review(pdf_documents: dict[str, bytes], *,
                                 expected_subject: str, identity_paired: bool) -> dict:
     """Bridge Q/S/M bytes to a non-scoring candidate report for one paper."""
@@ -293,21 +471,34 @@ def make_question_answer_review(pdf_documents: dict[str, bytes], *,
             raise QuestionExtractionError('unpaired answer document cannot create mapped keys')
         s_plain, s_layout = _get_pdf_texts(pdf_documents['S'])
         answer_subject_evidence = _subject_evidence(expected_subject, s_plain)
-        answer = parse_answer_table_text([s_layout, s_plain], expected_count=expected)
+        # Positional cells are only a second independent candidate view.
+        # Incomplete/misaligned cells are silently ignored (no invented keys).
+        positioned = None
+        if pdf_documents['S'].startswith(b'%PDF-'):
+            try:
+                positioned = positioned_pdf_cells(pdf_documents['S'])
+            except Exception:
+                positioned = None
+        answer = parse_answer_table_text([s_layout, s_plain], expected_count=expected,
+                                         positioned_cells=positioned)
     correction = {'status': 'corrections_not_proven_absent', 'detected': False,
                   'special_scoring_mentioned': False, 'correction_applied': False}
     if 'M' in pdf_documents:
         if not identity_paired:
             raise QuestionExtractionError('unpaired correction document cannot be mapped')
         m_plain, _ = _get_pdf_texts(pdf_documents['M'])
-        correction = {'status': 'official_correction_document_present_REQUIRES_REVIEW',
-                      'detected': True, 'special_scoring_mentioned': bool(SPECIAL_CREDIT.search(m_plain)),
-                      'correction_applied': False}
+        correction = correction_notice_review(m_plain, expected_count=expected)
+        correction['detected'] = True
+    else:
+        correction['review_required_to_confirm_no_later_changes'] = True
     by_num = {p['number']: p['published_standard_candidate'] for p in answer['published_candidates']}
     qrows = []
     for row in question['items']:
         new_row = dict(row)
         new_row['published_standard_candidate'] = by_num.get(row['number'])
+        new_row['correction_notice_mentions_question'] = (row['number'] in
+            correction.get('affected_question_numbers_NEEDS_VISUAL_CHECK', []))
+        new_row['requires_official_correction_finality_review'] = True
         new_row['final_answer_verified'] = False
         new_row['correction_applied'] = False
         new_row['legal_explanation_verified'] = False

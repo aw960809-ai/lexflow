@@ -24,6 +24,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_civil_mcq.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -128,12 +129,19 @@ jobs:
             --download-documents --require-all \
             --extract-questions --min-choice-candidates-per-paper 3 \
             --output "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json"
+      - name: Audit release gates against original downloaded candidate (still never score)
+        run: |
+          python3 scripts/moex_release_gate.py \
+            --input "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json" \
+            --output "$RUNNER_TEMP/lexflow-release-readiness-UNVERIFIED.json"
       - name: Upload isolated review data (no quiz answers published)
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: moex-cross-field-UNVERIFIED-batch-review
-          path: ${{ runner.temp }}/lexflow-universal-batch-UNVERIFIED.json
+          path: |
+            ${{ runner.temp }}/lexflow-universal-batch-UNVERIFIED.json
+            ${{ runner.temp }}/lexflow-release-readiness-UNVERIFIED.json
           if-no-files-found: ignore
           retention-days: 7
 
