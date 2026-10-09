@@ -20,6 +20,7 @@ import sqlite3
 import sys
 import tempfile
 import time
+from collections import Counter
 from urllib.parse import parse_qs, urlsplit
 
 SCHEMA = 'lexflow.moex.whole-paper-plan.v1'
@@ -35,6 +36,30 @@ METADATA_COLUMNS = [
     '類科代碼', '類科組別', '節次', '科目全名', '試題型態',
     '試題網址', '測驗式試題答案網址', '備註',
 ]
+MAX_CATALOG_ROWS = 150_000
+LEGAL_CLASSES = ('名稱明確法律科目', '綜合／基礎法學科目',
+                 '跨領域涉法候選（待複核）', '其他／未標記')
+# This is ONLY an opt-in discovery filter on the official subject title,
+# not a replacement for the exam's published subject/classification.
+GENERAL_TITLE = re.compile(r'綜合法學|綜合法政|法學知識|法學大意|法學緒論|法律常識|法律概論|基礎能力測驗')
+DIRECT_TITLE = re.compile(
+    r'民法|刑法|憲法|行政法|訴訟法|國際法|國際公法|國際私法|法規|法律|法制|法令|'
+    r'強制執行|非訟事件|家事事件|公證|信託|票據|公司法|商事法|證券交易|保險法|'
+    r'土地法|稅法|著作權|專利|商標|公平交易|警察法|監獄行刑|(?<!漁)法學|'
+    r'海商法|稅務法|懲治走私|國籍法|移民法|海洋法|勞動法|智慧財產|稅捐稽徵|行政救濟')
+CONTEXT_TITLE = re.compile(r'犯罪學|犯罪偵查|國境執法|刑事|司法|檢察|監所|監獄|'
+                           r'勞工行政|土地登記|不動產|稅務|入出國|移民|戶政|法律倫理|監察|裁判|法務')
+DOMAIN_TERMS = [
+    ('民事訴訟法','民事訴訟法'),('刑事訴訟法','刑事訴訟法'),('行政訴訟法','行政訴訟法'),
+    ('民法','民法'),('刑法','刑法'),('憲法','憲法'),('行政法','行政法'),
+    ('國際公法','國際公法'),('國際私法','國際私法'),('商事法','商事法'),('公司法','公司法'),
+    ('證券交易法','證券交易法'),('票據法','票據法'),('保險法','保險法'),('強制執行法','強制執行法'),
+    ('非訟事件','非訟事件'),('家事事件','家事事件'),('信託法','信託法'),('公證法','公證法'),
+    ('智慧財產','智慧財產法'),('著作權','著作權法'),('專利','專利法相關'),('商標','商標法相關'),
+    ('土地法','土地法'),('公平交易法','公平交易法'),('稅務法規','稅務法規'),('稅法','稅法'),
+    ('移民法','移民法'),('警察法','警察法'),('勞動法','勞動法'),('海商法','海商法'),
+    ('監獄行刑法','監獄行刑法'),('關稅法','關稅法'),('國際法','國際法')
+]
 
 class UnsafeSource(ValueError):
     pass
@@ -42,6 +67,61 @@ class UnsafeSource(ValueError):
 
 def digest(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
+
+
+def sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open('rb') as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b''):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def classify_official_title(subject: str) -> tuple[str, str]:
+    """Conservative TITLE-only discovery. Never renames or splits official subjects.
+
+    A general/composite subject such as 綜合法政知識與英文 stays a SINGLE
+    official subject; optional explicit title hints are *not* per-item topics.
+    """
+    if not isinstance(subject, str) or not subject.strip():
+        raise UnsafeSource('official subject title is missing')
+    base = re.split(r'[（(]', subject, maxsplit=1)[0]
+    if base.startswith(('漁法學','漁具漁法學')):
+        return '其他／未標記', ''
+    if GENERAL_TITLE.search(subject):
+        label = '綜合／基礎法學科目'
+    elif DIRECT_TITLE.search(base):
+        label = '名稱明確法律科目'
+    elif DIRECT_TITLE.search(subject) or CONTEXT_TITLE.search(subject):
+        label = '跨領域涉法候選（待複核）'
+    else:
+        label = '其他／未標記'
+    # Longer official act names must not leak short false-positive field tags:
+    # 國民法官法 is NOT 民法; 監獄行刑法 is NOT 刑法. If the short act is named
+    # separately elsewhere in the title, it will still be detected.
+    unambiguous_focus = subject.replace('國民法官法','').replace('監獄行刑法','')
+    tags = list(dict.fromkeys(v for needle,v in DOMAIN_TERMS
+                              if needle in (unambiguous_focus if needle in ('民法','刑法') else subject)))
+    if '國際法' in tags and ('國際公法' in tags or '國際私法' in tags):
+        tags.remove('國際法')
+    return label, '；'.join(tags)
+
+
+def normalize_catalog_classification(row: dict, source_class: str | None = None) -> dict:
+    """Use the same rule for original 14-column CSV, enriched CSV and SQLite.
+
+    Earlier source labels remain visible as evidence if classification versions
+    disagree; a disagreement is isolated before PDF download, never hidden.
+    """
+    found, tags = classify_official_title(row['official_subject'])
+    previous = source_class or row.get('legal_candidate_class') or ''
+    row['catalog_classification_conflict'] = (
+        bool(previous and previous not in ('未分類（原始 CSV）', found))
+    )
+    row['legacy_title_classification'] = previous
+    row['legal_candidate_class'] = found
+    row['title_domain_tags'] = tags
+    return row
 
 
 def atomic_bytes(path: Path, data: bytes) -> None:
@@ -97,7 +177,7 @@ def catalog_records(path: Path):
             cur = db.execute('SELECT * FROM papers ORDER BY source_row ASC')
             for row in cur:
                 raw = dict(row)
-                yield {
+                record = {
                     'source_row': int(raw['source_row']), 'paper_id':raw['paper_id'],
                     'year_roc':raw['year_roc'], 'exam_code':raw['exam_code'],
                     'exam_name':raw['exam_name'], 'grade_code':raw['grade_code'],
@@ -109,6 +189,7 @@ def catalog_records(path: Path):
                     'official_note':raw['official_note'], 'legal_candidate_class':raw['legal_candidate_class'],
                     'title_domain_tags':raw.get('title_domain_tags') or '',
                 }
+                yield normalize_catalog_classification(record)
         finally:
             db.close()
     elif path.suffix.lower() == '.csv':
@@ -117,10 +198,14 @@ def catalog_records(path: Path):
             if not set(METADATA_COLUMNS).issubset(reader.fieldnames or []):
                 raise UnsafeSource('CSV missing official 14 columns')
             for i, row in enumerate(reader, 1):
+                if i > MAX_CATALOG_ROWS:
+                    raise UnsafeSource('catalog unexpectedly exceeded maximum row count')
+                if None in row or any(row.get(k) is None for k in METADATA_COLUMNS):
+                    raise UnsafeSource(f'malformed catalog row {i}')
                 url=row['試題網址']
                 # The full original 14-column official CSV and the enriched CSV
                 # both work; the original can be 67,026+ rows.
-                yield {
+                record = {
                     'source_row':int(row.get('原始資料序號') or i),
                     'paper_id':row.get('穩定試卷ID') or 'moex-'+digest(url.encode())[:24],
                     'year_roc':row['考試年度'], 'exam_code':row['考試代碼'],
@@ -134,13 +219,132 @@ def catalog_records(path: Path):
                     'legal_candidate_class':row.get('法律相關候選狀態') or '未分類（原始 CSV）',
                     'title_domain_tags':row.get('官方標題可見領域標籤') or '',
                 }
+                yield normalize_catalog_classification(record)
     else:
         raise UnsafeSource('catalog must be an official CSV or previous SQLite')
 
 
 def is_candidate(row: dict) -> bool:
     """Only an optimization, NOT a claim that other papers are not about law."""
-    return row['legal_candidate_class'] not in ('其他／未標記', '無關法律', '未分類（原始 CSV）')
+    return row['legal_candidate_class'] in LEGAL_CLASSES[:3]
+
+
+def appearance(row: dict) -> dict:
+    """An official row may reference a shared paper; never erase its class."""
+    return {k:row[k] for k in (
+        'source_row','exam_code','exam_name','year_roc','grade_code','grade_label',
+        'exam_grade','class_code','class_group','session_code','official_subject','official_type')}
+
+
+def _source_key(row: dict) -> tuple:
+    """Canonical URL identity, unaffected by query-parameter ordering."""
+    try:
+        return ('Q', *source_ref(row['question_url'], 'Q'))
+    except (UnsafeSource, TypeError, KeyError, ValueError):
+        # Keep the damaged row visible for isolation, never merge it into a
+        # healthy paper or drop it without a trace.
+        return ('invalid_source_row', row['source_row'])
+
+
+def unique_papers(rows) -> tuple[list[dict], int, int]:
+    """Preserve EVERY source-row association while deduping known Q identities.
+
+    Shared URL identity is proof of the same *source reference*, not proof
+    that two distinct URLs serve the same PDF bytes. Different URLs can only
+    be content-deduplicated after separate SHA-256 checks of their PDFs.
+    """
+    seen = {}
+    duplicate_rows = 0
+    conflicted_sources = 0
+    for row in rows:
+        key = _source_key(row)
+        prior = seen.get(key)
+        if prior is None:
+            prior = dict(row)
+            prior['source_appearances'] = [appearance(row)]
+            prior['any_title_candidate'] = is_candidate(row)
+            prior['source_metadata_conflict'] = bool(row.get('catalog_classification_conflict'))
+            seen[key] = prior
+            continue
+        duplicate_rows += 1
+        prior['source_appearances'].append(appearance(row))
+        prior['any_title_candidate'] |= is_candidate(row)
+        # A label-only change or source-answer change cannot be silently
+        # merged into the older document, even when its Q URL is shared.
+        mismatch = any(prior.get(k) != row.get(k) for k in (
+            'exam_code','exam_name','year_roc','grade_code','class_code',
+            'session_code','official_subject','official_type','answer_url'))
+        if mismatch and not prior['source_metadata_conflict']:
+            conflicted_sources += 1
+        prior['source_metadata_conflict'] |= mismatch or bool(row.get('catalog_classification_conflict'))
+    return list(seen.values()), duplicate_rows, conflicted_sources
+
+
+def inventory_catalog(catalog: Path) -> dict:
+    """Offline audit of ALL original official metadata, including non-law rows.
+
+    No network request, no PDF, no user data. This report is intentionally
+    compact; the unchanged CSV/SQLite remains the full 1-row-per-record index.
+    """
+    total = 0
+    year_counts, kind_counts, title_classes = Counter(), Counter(), Counter()
+    unique_exams, unique_subjects, unique_class_groups = set(), set(), set()
+    isolated = Counter(); examples = []
+    def source_rows():
+        nonlocal total
+        for row in catalog_records(catalog):
+            total += 1
+            if total > MAX_CATALOG_ROWS:
+                raise UnsafeSource('unexpectedly many catalog rows')
+            year_counts[row['year_roc']] += 1
+            kind_counts[row['official_type']] += 1
+            title_classes[row['legal_candidate_class']] += 1
+            unique_exams.add(row['exam_code'])
+            unique_subjects.add(row['official_subject'])
+            unique_class_groups.add((row['exam_code'], row['class_code'], row['class_group']))
+            reason = None
+            if row.get('catalog_classification_conflict'):
+                reason = 'prior_title_classification_disagrees'
+            else:
+                try:
+                    validate_paper(row)
+                except (UnsafeSource, KeyError, ValueError, TypeError):
+                    reason = 'source_identity_or_type_invalid'
+            if reason:
+                isolated[reason] += 1
+                if len(examples) < 12:
+                    examples.append({'source_row':row['source_row'],
+                                     'reason':reason,'paper_id':row['paper_id']})
+            yield row
+    documents, duplicates, conflicts = unique_papers(source_rows())
+    if not total:
+        raise UnsafeSource('no official source records')
+    if conflicts:
+        isolated['source_metadata_conflicting_for_same_Q'] += conflicts
+    return {
+        'schema':'lexflow.moex.catalog-inventory.v1',
+        'status':'full_official_catalog_metadata_only_UNSCORED',
+        'source_catalog_file':catalog.name,
+        'catalog_sha256':sha256_file(catalog),
+        'source_rows':total,
+        'unique_official_Q_source_identities':len(documents),
+        'duplicate_Q_reference_rows':duplicates,
+        'shared_source_reference_identity_is_not_PDF_content_equivalence':True,
+        'original_record_rows_preserved_in_source_file':True,
+        'year_counts':dict(sorted(year_counts.items())),
+        'type_counts':dict(sorted(kind_counts.items())),
+        'candidate_class_counts':dict(sorted(title_classes.items())),
+        'law_related_title_candidate_rows':sum(title_classes[x] for x in LEGAL_CLASSES[:3]),
+        'official_exam_codes':len(unique_exams),
+        'official_subject_names':len(unique_subjects),
+        'official_class_group_references':len(unique_class_groups),
+        'metadata_isolation_reasons':dict(sorted(isolated.items())),
+        'isolated_examples':examples,
+        'source_PDFs_downloaded':0,
+        'human_content_and_answers_verified':False,
+        'publication_allowed':False,'scoring_enabled':False,
+        'private_attempts_included':False,
+    }
 
 
 def pick_rows(rows: list[dict], *, max_papers: int, strategy: str='coverage') -> list[dict]:
@@ -182,15 +386,21 @@ def pick_rows(rows: list[dict], *, max_papers: int, strategy: str='coverage') ->
 
 
 def paper_metadata(row: dict) -> dict:
-    return {k:row[k] for k in (
+    base = {k:row[k] for k in (
       'source_row','paper_id','year_roc','exam_code','exam_name','grade_code',
       'grade_label','exam_grade','class_code','class_group','session_code',
       'official_subject','official_type','question_url','answer_url',
       'official_note','legal_candidate_class','title_domain_tags')}
+    # These are official *references* to the same Q URL; do not turn them into
+    # separate exam papers or lose a class_group when one Q link is shared.
+    base['source_appearances'] = row.get('source_appearances', [appearance(row)])
+    return base
 
 
 def validate_paper(row: dict) -> tuple[dict, list[str]]:
     warnings=[]
+    if row.get('catalog_classification_conflict') or row.get('source_metadata_conflict'):
+        raise UnsafeSource('incompatible source metadata/classification; manual review required')
     if row['official_type'] not in ALLOWED_KINDS:
         raise UnsafeSource('unknown official question type')
     q_identity=source_ref(row['question_url'],'Q')
@@ -218,27 +428,50 @@ def validate_paper(row: dict) -> tuple[dict, list[str]]:
 
 
 def make_plan(catalog: Path, *, years: list[str]|None=None, types:list[str]|None=None,
-              scope='candidates',strategy='coverage',max_papers=9,start_row=1) -> dict:
+              scope='candidates',strategy='coverage',max_papers=9,start_row=1,
+              exam_codes:list[str]|None=None, subjects:list[str]|None=None,
+              class_groups:list[str]|None=None) -> dict:
     if scope not in ('candidates','all') or strategy not in ('coverage','sequential'):
         raise UnsafeSource('unknown plan scope or strategy')
     if years and any(not re.fullmatch(r'\d{2,3}',y) for y in years):
         raise UnsafeSource('invalid ROC year filter')
     if types and any(t not in ALLOWED_KINDS for t in types):
         raise UnsafeSource('invalid official format filter')
+    if exam_codes and any(not re.fullmatch(r'\d{5,8}',v) for v in exam_codes):
+        raise UnsafeSource('invalid official examination code filter')
+    if any(not isinstance(v,str) or not v.strip() or len(v)>200 for group in (
+            subjects or [],class_groups or []) for v in group):
+        raise UnsafeSource('invalid subject/class filter')
     if not 1 <= max_papers <= MAX_BATCH or start_row<1:
         raise UnsafeSource('invalid start/limit bounds')
-    source_fingerprint=digest(catalog.read_bytes())
-    filtered=[]; total=0; candidates=0
-    for row in catalog_records(catalog):
-        total+=1
-        if is_candidate(row):candidates+=1
+    source_fingerprint=sha256_file(catalog)
+    total=0; candidates=0
+    def catalog_rows():
+        nonlocal total, candidates
+        for row in catalog_records(catalog):
+            total+=1
+            if total>MAX_CATALOG_ROWS:
+                raise UnsafeSource('unexpectedly many catalog rows')
+            if is_candidate(row):candidates+=1
+            yield row
+    unique_records, dup_rows, conflicting_documents=unique_papers(catalog_rows())
+    filtered=[]
+    for row in unique_records:
         if row['source_row']<start_row:continue
         if years and row['year_roc'] not in years:continue
         if types and row['official_type'] not in types:continue
-        if scope=='candidates' and not is_candidate(row):continue
+        if exam_codes and row['exam_code'] not in exam_codes:continue
+        if subjects and row['official_subject'] not in subjects:continue
+        if class_groups and not any(a['class_group'] in class_groups
+                                    for a in row['source_appearances']):continue
+        # Earlier and later official appearances are one source reference,
+        # without losing those classes when only one appearance is selected.
+        if scope=='candidates' and not row['any_title_candidate']:continue
         filtered.append(row)
     if scope=='candidates' and not candidates:
-        raise UnsafeSource('no verified title classification in this catalog; use enriched CSV/SQLite or --scope all')
+        raise UnsafeSource('no law-related titles in the supplied official catalog; try --scope all')
+    if not filtered:
+        raise UnsafeSource('no paper matched official year, exam, subject, class and type filters')
     chosen=pick_rows(filtered,max_papers=max_papers,strategy=strategy)
     papers=[]
     for row in chosen:
@@ -254,8 +487,13 @@ def make_plan(catalog: Path, *, years: list[str]|None=None, types:list[str]|None
     result={'schema':SCHEMA,'state':'offline_planned_no_PDF_download',
       'catalog_file_name':catalog.name,'catalog_sha256':source_fingerprint,
       'catalog_total_records':total,'catalog_title_candidates':candidates,
+      'unique_official_Q_source_identities':len(unique_records),
+      'duplicate_Q_reference_rows':dup_rows,
+      'source_metadata_conflict_documents':conflicting_documents,
       'eligible_filtered_records':len(filtered),'selected_papers':len(papers),
       'strategy':strategy,'scope':scope,'years_filter':years or [],'types_filter':types or [],
+      'exam_codes_filter':exam_codes or [],'subjects_filter':subjects or [],
+      'class_groups_filter':class_groups or [],
       'cursor_last_selected_source_row':max((p['source_row'] for p in papers),default=None),
       'source_rows_in_requested_window':len(filtered),
       'original_catalog_unchanged':True,'publication_allowed':False,
@@ -489,6 +727,9 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     modes=parser.add_subparsers(dest='action',required=True)
+    inv=modes.add_parser('inventory', help='offline full-catalog metadata audit, no PDF/network')
+    inv.add_argument('--catalog',type=Path,required=True)
+    inv.add_argument('--output',type=Path,required=True)
     plan=modes.add_parser('plan',help='offline only: plan real official paper sources')
     plan.add_argument('--catalog',type=Path,required=True)
     plan.add_argument('--output',type=Path,required=True)
@@ -498,6 +739,12 @@ def main(argv=None):
     plan.add_argument('--strategy',choices=('coverage','sequential'),default='coverage')
     plan.add_argument('--start-row',type=int,default=1)
     plan.add_argument('--limit',type=int,default=9)
+    plan.add_argument('--exam-code',action='append',dest='exam_codes',default=[],
+                      help='exact official exam code; repeat for several')
+    plan.add_argument('--subject',action='append',dest='subjects',default=[],
+                      help='exact original official subject name; repeat for several')
+    plan.add_argument('--class-group',action='append',dest='class_groups',default=[],
+                      help='exact official class/group name; repeat for several')
     run=modes.add_parser('review',help='explicit bounded Q/S/M download and unverified extraction')
     run.add_argument('--plan',type=Path,required=True)
     run.add_argument('--output-dir',type=Path,required=True)
@@ -507,13 +754,29 @@ def main(argv=None):
     run.add_argument('--start-at',type=int,default=1,help='1-based manifest index for a later bounded batch')
     args=parser.parse_args(argv)
     try:
+        if args.action=='inventory':
+            if args.catalog.resolve()==args.output.resolve():
+                raise UnsafeSource('never overwrite original catalog')
+            if args.output.exists():
+                raise UnsafeSource('existing inventory preserved: choose a new output path')
+            inventory=inventory_catalog(args.catalog)
+            save_json(args.output,inventory)
+            print(json.dumps({
+                'status':'FULL_CATALOG_METADATA_ONLY','source_rows':inventory['source_rows'],
+                'unique_sources':inventory['unique_official_Q_source_identities'],
+                'legal_candidate_rows':inventory['law_related_title_candidate_rows'],
+                'metadata_isolation_reasons':inventory['metadata_isolation_reasons'],
+                'publication_allowed':False,'scoring_enabled':False}, ensure_ascii=False))
+            return 0
         if args.action=='plan':
             if args.catalog.resolve()==args.output.resolve():
                 raise UnsafeSource('never overwrite original catalog')
             years=args.years.split(',') if args.years else None
             kinds=args.types.split(',') if args.types else None
             output=make_plan(args.catalog,years=years,types=kinds,scope=args.scope,
-                             strategy=args.strategy,max_papers=args.limit,start_row=args.start_row)
+                             strategy=args.strategy,max_papers=args.limit,start_row=args.start_row,
+                             exam_codes=args.exam_codes,subjects=args.subjects,
+                             class_groups=args.class_groups)
             if args.output.exists():raise UnsafeSource('existing plan preserved: choose a new output path')
             save_json(args.output,output)
             print(json.dumps({'status':'PLANNED_OFFLINE','selected':output['selected_papers'],
