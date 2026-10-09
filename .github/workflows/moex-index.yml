@@ -26,6 +26,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_catalog_bridge.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
         run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs
       - name: Check JavaScript syntax
