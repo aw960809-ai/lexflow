@@ -77,7 +77,9 @@ function newSession(mode,id){const local=store.imported?.papers.find(x=>x.id===i
  if(!save()){store=backup;paint();notify('進度保存失敗，無法開始練習；請先備份。');return;}
  view='practice';paint();window.scrollTo({top:0});}
 function saveResponse(v){const s=store.session,p=currentPaper();if(!s||!p||s.status!=='active'||!letters.includes(v))return;
- const q=p.questions[s.position];s.answers[String(q.number)]=v;save();const pr=progress(s,p);
+ const q=p.questions[s.position];s.answers[String(q.number)]=v;
+ if(!save()){paint();notify('本次作答無法儲存；請先匯出目前資料，已啟動唯讀保護。');return;}
+ const pr=progress(s,p);
  if($('answered-counter'))$('answered-counter').textContent=`已作答 ${pr.count} / ${pr.total} 題`;
  if($('progress-fill'))$('progress-fill').style.width=pr.percent+'%';
  document.querySelectorAll('.lp-option').forEach(n=>n.classList.toggle('checked',n.querySelector('input')?.value===v));
