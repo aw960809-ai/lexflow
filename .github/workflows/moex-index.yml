@@ -25,8 +25,9 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
-        run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs
+        run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -36,6 +37,7 @@ jobs:
           node --check practice-lab.js
           node --check practice-core.mjs
           node --check catalog-core.mjs
+          node --check candidate-feed.mjs
 
   # This deliberately exposes true HTTP/HTML failures instead of claiming
   # a successful CI test proves the official live source worked.
@@ -139,6 +141,12 @@ jobs:
           python3 scripts/moex_release_gate.py \
             --input "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json" \
             --output "$RUNNER_TEMP/lexflow-release-readiness-UNVERIFIED.json"
+      - name: Generate review-only browser feed (never scored, never deployed by CI)
+        run: |
+          python3 scripts/moex_candidate_feed.py \
+            --input "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json" \
+            --readiness "$RUNNER_TEMP/lexflow-release-readiness-UNVERIFIED.json" \
+            --output "$RUNNER_TEMP/moex_review_candidate.json"
       - name: Upload isolated review data (no quiz answers published)
         if: always()
         uses: actions/upload-artifact@v4
@@ -147,6 +155,7 @@ jobs:
           path: |
             ${{ runner.temp }}/lexflow-universal-batch-UNVERIFIED.json
             ${{ runner.temp }}/lexflow-release-readiness-UNVERIFIED.json
+            ${{ runner.temp }}/moex_review_candidate.json
           if-no-files-found: ignore
           retention-days: 7
 
@@ -160,7 +169,45 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Try CSV first, individual official exam page second
-        run: python3 scripts/moex_sync.py --primary data/moex_official_index.json --fallback data/moex_official_fallback.json
+        run: |
+          set -euo pipefail
+          python3 scripts/moex_sync.py --primary data/moex_official_index.json --fallback data/moex_official_fallback.json \
+            | tee "$RUNNER_TEMP/lexflow-sync-result.json"
+      - name: Install bounded official PDF parser for candidate feed staging
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-nightly-venv"
+          "$RUNNER_TEMP/lexflow-nightly-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Stage candidate feed only when full source checks pass
+        run: |
+          set -euo pipefail
+          MODE=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['mode'])" "$RUNNER_TEMP/lexflow-sync-result.json")
+          if [ "$MODE" = primary_csv ]; then
+            INDEX=data/moex_official_index.json
+          elif [ "$MODE" = separate_individual_exam_fallback ]; then
+            INDEX=data/moex_official_fallback.json
+          else
+            echo "::warning::Unknown sync mode; no feed staged"
+            exit 0
+          fi
+          # A failing source/answer check may NOT replace an earlier candidate feed.
+          if "$RUNNER_TEMP/lexflow-nightly-venv/bin/python" scripts/moex_batch_engine.py \
+              --input-index "$INDEX" --max-papers 3 --max-documents 9 \
+              --download-documents --require-all \
+              --extract-questions --min-choice-candidates-per-paper 3 \
+              --output "$RUNNER_TEMP/nightly-unverified-batch.json" && \
+             python3 scripts/moex_release_gate.py \
+              --input "$RUNNER_TEMP/nightly-unverified-batch.json" \
+              --output "$RUNNER_TEMP/nightly-readiness.json" && \
+             python3 scripts/moex_candidate_feed.py \
+              --input "$RUNNER_TEMP/nightly-unverified-batch.json" \
+              --readiness "$RUNNER_TEMP/nightly-readiness.json" \
+              --output "$RUNNER_TEMP/moex_review_candidate.json"; then
+            cp "$RUNNER_TEMP/moex_review_candidate.json" data/moex_review_candidate.json
+            echo 'Candidate feed staged for manual review; no automatic Pages publication.'
+          else
+            echo '::warning::Candidate PDF QA blocked; no feed was overwritten. Official index still available for review.'
+          fi
+
       - name: Upload candidate snapshots (not scored questions)
         uses: actions/upload-artifact@v4
         with:
@@ -168,6 +215,7 @@ jobs:
           path: |
             data/moex_official_index.json
             data/moex_official_fallback.json
+            data/moex_review_candidate.json
           retention-days: 14
       - name: Stage review PR without overwriting an existing review branch
         env:
@@ -177,6 +225,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/moex_official_index.json data/moex_official_fallback.json
+          if test -f data/moex_review_candidate.json; then git add data/moex_review_candidate.json; fi
           if git diff --cached --quiet; then
             echo 'No official index changes detected; no PR needed.'
             exit 0

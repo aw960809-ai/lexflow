@@ -104,7 +104,33 @@ export function scoreSession(session, questions) {
   return {total,answered,unanswered:total-answered,correct,percentage:total?Math.round(correct*100/total):0,officialScore:null};
 }
 
-export function freshStore(){return {schema:LAB_SCHEMA,version:1,imported:null,session:null,history:[]};}
+export function freshStore(){return {schema:LAB_SCHEMA,version:1,imported:null,remotePaper:null,session:null,history:[]};}
+/** A single remote paper is copied only after a real user starts practising it.
+ *  This safeguards a session from future feed changes without replacing imports. */
+export function safeStoredRemotePaper(p) {
+  if (!p || typeof p !== 'object' || Array.isArray(p) ||
+      typeof p.id !== 'string' || !p.id || p.id.length > 160 ||
+      typeof p.subject !== 'string' || !p.subject || p.subject.length > 240 ||
+      typeof p.questionUrl !== 'string' || !officialUrl(p.questionUrl) ||
+      (p.standardUrl && !officialUrl(p.standardUrl)) ||
+      (p.correctionUrl && !officialUrl(p.correctionUrl)) ||
+      !Array.isArray(p.questions) || !p.questions.length || p.questions.length > 100 ||
+      p.scoring_enabled === true || p.publication_allowed === true ||
+      p.eligible_for_scoring === true) return false;
+  const seen = new Set();
+  for (const q of p.questions) {
+    if (!q || !Number.isInteger(q.number) || q.number < 1 || q.number > 100 || seen.has(q.number) ||
+        typeof q.stem !== 'string' || q.stem.trim().length < 4 || q.stem.length > 2500 ||
+        !Array.isArray(q.options) || q.options.length !== 4 ||
+        q.options.some(v => typeof v !== 'string' || !v.trim() || v.length > 2000) ||
+        (q.publishedCandidate !== null && !ABCD.includes(q.publishedCandidate)) ||
+        q.eligible_for_scoring === true || q.final_answer_verified === true ||
+        q.question_text_verified === true || q.options_verified === true) return false;
+    seen.add(q.number);
+  }
+  return true;
+}
+
 export function checkStored(v){
   check(v && typeof v==='object' && v.schema===LAB_SCHEMA && v.version===1 && Array.isArray(v.history) && v.history.length<=50, '本機學習資料版本不相容');
   check(v.session===null || (v.session && ['demo','official'].includes(v.session.mode) &&
@@ -112,6 +138,7 @@ export function checkStored(v){
     v.session.answers && typeof v.session.answers==='object' && !Array.isArray(v.session.answers)), '本機進度格式不相容');
   check(v.imported===null || (v.imported && v.imported.version===1 && v.imported.officialFinalAnswersConfirmed===false &&
     Array.isArray(v.imported.papers) && v.imported.papers.length<=12), '本機候審資料格式不相容');
+  check(v.remotePaper === undefined || v.remotePaper === null || safeStoredRemotePaper(v.remotePaper), '本機自動候審快照已損壞或不安全');
   if (v.imported) for (const p of v.imported.papers) {
     check(p && typeof p.id==='string' && p.id.length<=160 && typeof p.subject==='string' && p.subject.length<=240 &&
       officialUrl(p.questionUrl) && (!p.standardUrl || officialUrl(p.standardUrl)) &&

@@ -1,5 +1,6 @@
 import {MCQ_ITEMS} from './quiz.js';
-import {LAB_STORAGE_KEY, demoSet, importCandidateReport, scoreSession, officialUrl, freshStore, checkStored} from './practice-core.mjs';
+import {LAB_STORAGE_KEY, demoSet, importCandidateReport, scoreSession, officialUrl, freshStore, checkStored, safeStoredRemotePaper} from './practice-core.mjs';
+import {readCandidateFeed, combinedCandidatePapers} from './candidate-feed.mjs';
 
 const $=(id)=>document.getElementById(id);
 const esc=(v)=>String(v??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
@@ -8,6 +9,7 @@ const root=$('practice-lab');
 const example=demoSet(MCQ_ITEMS);
 const requestedPaper=new URLSearchParams(location.search).get('paper');
 let store,view='home',readonly=false,storageError='',rawBackup=null;
+let remotePapers=[], remoteFeedStatus='loading';
 try {
   const raw=localStorage.getItem(LAB_STORAGE_KEY);
   store=raw===null?freshStore():checkStored(JSON.parse(raw));
@@ -18,7 +20,7 @@ try {
 if(store.session) view=store.session.status==='completed'?'result':'practice';
 // Navigating from the unified catalogue selects the relevant candidate list
 // without silently discarding an existing practice session.
-if(requestedPaper&&store.imported?.papers.some(p=>p.id===requestedPaper))view='home';
+if(requestedPaper)view='home'; // keep any existing session available via Resume; never silently replace it
 
 function save() {
   if(readonly)return false;
@@ -32,16 +34,22 @@ function save() {
 function currentPaper() {
   const s=store.session;
   if(!s) return null;
-  return s.mode==='demo'?example:store.imported?.papers.find(p=>p.id===s.setId) || null;
+  return s.mode==='demo'?example:(store.imported?.papers.find(p=>p.id===s.setId) || (store.remotePaper?.id===s.setId?store.remotePaper:null));
 }
 function notify(t){const n=$('lab-note');if(n){n.textContent=t;n.hidden=false;}}
 function statusStrip(){return `<div class="lp-status"><span>V0.3 私人練習室</span><span class="lp-pill">本機儲存 · 尚未正式發布</span></div>`;}
 function head(){return `<header class="lp-head"><div class="lp-brand"><span class="lp-brandicon">L</span><div><strong>LexFlow</strong><small>選擇題練習室</small></div></div><div class="lp-nav"><a href="./">統一題庫</a><a href="./official-index.html">官方索引 ↗</a></div></header>`;}
 function banner(){return `<div class="lp-banner" role="note"><strong>資料來源分級</strong><span>自編題：可查看自編題答案與法條解析，不是國考成績。　｜　官方候審：僅供私人練習與參考，未核對最終答案，<b>不計分、不標示答對答錯</b>。</span></div>`;}
 function paperRow(p){return `<div class="lp-paper ${requestedPaper===p.id?'lp-paper-selected':''}"><div><div class="lp-kicker">${esc(p.year?'民國'+p.year+'年 · ':'')}${esc(p.focus?.join('／')||'混合科目')} · 考選部來源候審</div><h3>${esc(p.subject)}</h3><p>${esc(p.exam)} · 可練習 ${p.questions.length} 題${p.excluded?` · 隔離 ${p.excluded} 題`:''}</p></div><button class="btn small" type="button" data-action="start-official" data-id="${esc(p.id)}">開始私人自測 →</button></div>`;}
+function feedMessage() {
+ if(remoteFeedStatus==='ready_unscored')return `已取得 ${remotePapers.length} 份網站候審試卷（來源未逐題核驗、不計分）。按下「開始」後才會保存所選試卷的本機快照。`;
+ if(remoteFeedStatus==='loading')return '正在檢查本網站是否已有候審試卷…';
+ if(remoteFeedStatus==='not_published')return '網站尚無可供自動載入的候審試卷；仍可自行匯入 JSON。';
+ return '候審資料未通過安全檢查或暫時無法取得；已停止載入，私人作答不受影響。';
+}
 function historyMarkup(){if(!store.history.length)return '<p class="lp-muted">尚無完成的多題練習紀錄。</p>';
   return store.history.slice(0,8).map(h=>`<div class="lp-hist"><div><strong>${esc(h.subject)}</strong><small>${esc(h.mode==='demo'?'自編法條自測':'官方候審自測')} · ${esc(h.completedAt?.slice(0,16).replace('T',' ')||'')}</small></div><span>${h.answered}/${h.total} 題已作答${h.mode==='demo'?` · 自編題 ${h.correct} 題正確`:''}</span></div>`).join('');}
-function home(){const papers=store.imported?.papers||[];const ordered=requestedPaper?[...papers].sort((a,b)=>(a.id===requestedPaper?-1:0)-(b.id===requestedPaper?-1:0)):papers;return `${statusStrip()}${store.session?`<div class="lp-resume"><span><b>${store.session.status==='active'?'尚未完成的練習':'上一份練習結果'}</b><small>${esc(currentPaper()?.subject||'請重新選擇練習')} · ${store.session.status==='active'?'進度已保存在本機，計時已暫停':'可重新檢視本次結果'}</small></span><button class="btn small" data-action="resume">${store.session.status==='active'?'繼續作答 →':'查看結果 →'}</button></div>`:''}<div class="lp-hero"><div class="lp-eyebrow">PRACTICE / LEARN / REVIEW</div><h1>讓題庫真正開始被使用。</h1><p>不用再為每份試卷重新寫程式。你可以一次練習多道題、標記疑問、查看練習紀錄；正式國考題維持候審、不提供未核驗的分數。</p></div>${banner()}<div class="lp-grid"><section class="lp-card"><div class="lp-eyebrow">01 / 可查看自編解析</div><h2>自編法條多題練習</h2><div class="lp-number">${example.questions.length} <span>題</span></div><p>使用 V0.2 原有的民法、刑法、憲法示範題。完成後查看自編答案與逐選項解說，成績不代表國考表現。</p><button class="btn primary" type="button" data-action="start-demo">開始練習 →</button></section><section class="lp-card"><div class="lp-eyebrow">02 / 官方來源・候審</div><h2>考選部原題私人自測</h2><div class="lp-number">${store.imported?.papers.length||0} <span>份可選試卷</span></div><p>匯入 GitHub Actions 產生的「候審批次 JSON」。題文可能有 PDF 擷取誤差，原答案與更正仍須核對；不會自動評分。</p><label class="btn" for="candidate-file">匯入候審 JSON（僅在本機）</label><input type="file" id="candidate-file" accept=".json,application/json" class="lp-file" aria-label="匯入官方候審 JSON"></section></div>${store.imported?.papers?.length?`<section id="official-papers" class="lp-card lp-full"><div class="lp-heading"><h2>已匯入候審試卷</h2><small>完整四選項才可自測，其餘題目維持隔離</small></div>${ordered.map(paperRow).join('')}</section>`:''}<section class="lp-card lp-full"><div class="lp-heading"><h2>練習紀錄與備份</h2><button type="button" class="btn small" data-action="export">匯出私人練習備份</button></div>${historyMarkup()}<div class="lp-backup"><label class="btn small" for="restore-file">匯入私人練習備份</label><input id="restore-file" type="file" accept=".json,application/json" class="lp-file"><span>學習室使用獨立的本機資料鍵，不修改原本 V0.2 的作答、計時、備份。</span></div></section>`;}
+function home(){const papers=combinedCandidatePapers(store.imported?.papers||[],remotePapers,store.remotePaper);const ordered=requestedPaper?[...papers].sort((a,b)=>(a.id===requestedPaper?-1:0)-(b.id===requestedPaper?-1:0)):papers;return `${statusStrip()}${store.session?`<div class="lp-resume"><span><b>${store.session.status==='active'?'尚未完成的練習':'上一份練習結果'}</b><small>${esc(currentPaper()?.subject||'請重新選擇練習')} · ${store.session.status==='active'?'進度已保存在本機，計時已暫停':'可重新檢視本次結果'}</small></span><button class="btn small" data-action="resume">${store.session.status==='active'?'繼續作答 →':'查看結果 →'}</button></div>`:''}<div class="lp-hero"><div class="lp-eyebrow">PRACTICE / LEARN / REVIEW</div><h1>讓題庫真正開始被使用。</h1><p>不用再為每份試卷重新寫程式。你可以一次練習多道題、標記疑問、查看練習紀錄；正式國考題維持候審、不提供未核驗的分數。</p></div>${banner()}<div class="lp-grid"><section class="lp-card"><div class="lp-eyebrow">01 / 可查看自編解析</div><h2>自編法條多題練習</h2><div class="lp-number">${example.questions.length} <span>題</span></div><p>使用 V0.2 原有的民法、刑法、憲法示範題。完成後查看自編答案與逐選項解說，成績不代表國考表現。</p><button class="btn primary" type="button" data-action="start-demo">開始練習 →</button></section><section class="lp-card"><div class="lp-eyebrow">02 / 官方來源・候審</div><h2>考選部原題私人自測</h2><div class="lp-number">${papers.length} <span>份可選試卷</span></div><p>自動讀取本站經審查後提供的候審資料；未發佈時仍可手動匯入。題文與最終答案未核驗、不計分。</p><p class="lp-muted" role="status">${esc(feedMessage())}</p><button class="btn small" type="button" data-action="refresh-feed">檢查候審更新</button><label class="btn small" for="candidate-file">手動匯入 JSON</label><input type="file" id="candidate-file" accept=".json,application/json" class="lp-file" aria-label="匯入官方候審 JSON"></section></div>${papers.length?`<section id="official-papers" class="lp-card lp-full"><div class="lp-heading"><h2>候審試卷（網站／本機）</h2><small>完整四選項才可自測，其餘題目維持隔離</small></div>${ordered.map(paperRow).join('')}</section>`:''}<section class="lp-card lp-full"><div class="lp-heading"><h2>練習紀錄與備份</h2><button type="button" class="btn small" data-action="export">匯出私人練習備份</button></div>${historyMarkup()}<div class="lp-backup"><label class="btn small" for="restore-file">匯入私人練習備份</label><input id="restore-file" type="file" accept=".json,application/json" class="lp-file"><span>學習室使用獨立的本機資料鍵，不修改原本 V0.2 的作答、計時、備份。</span></div></section>`;}
 function timeMs(s){return Math.max(0,(s.elapsedMs||0)+(s.runningSince?Date.now()-s.runningSince:0));}
 function fmtTime(ms){const seconds=Math.floor(ms/1000);return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;}
 function progress(s,p){const n=p.questions.length;const count=p.questions.filter(q=>letters.includes(s.answers[String(q.number)])).length;return {count,total:n,percent:Math.round(100*count/n)};}
@@ -58,9 +66,16 @@ function paint(){
  updateClock();
 }
 function persistAndPaint(){save();paint();}
-function newSession(mode,id){const p=mode==='demo'?example:store.imported?.papers.find(x=>x.id===id);if(!p)return;
+function newSession(mode,id){const local=store.imported?.papers.find(x=>x.id===id), remote=remotePapers.find(x=>x.id===id), persisted=store.remotePaper?.id===id?store.remotePaper:null;
+ const p=mode==='demo'?example:(local||remote||persisted);if(!p)return;
  if(store.session?.status==='active' && !window.confirm('目前的練習尚未完成。開始新練習會覆蓋尚未完成的進度，確定嗎？'))return;
- const s={mode,setId:p.id,status:'active',position:0,answers:{},bookmarks:[],elapsedMs:0,runningSince:Date.now(),startedAt:new Date().toISOString(),completedAt:null};store.session=s;view='practice';persistAndPaint();window.scrollTo({top:0});}
+ // A remote feed is never merged into private imports automatically. Save the
+ // single selected paper with its session, so updates cannot change a live exam.
+ const backup=JSON.parse(JSON.stringify(store));
+ if(mode==='official' && !local){if(!safeStoredRemotePaper(p)){notify('候審來源資料不安全，無法開始');return;}store.remotePaper=JSON.parse(JSON.stringify(p));}
+ const s={mode,setId:p.id,status:'active',position:0,answers:{},bookmarks:[],elapsedMs:0,runningSince:Date.now(),startedAt:new Date().toISOString(),completedAt:null};store.session=s;
+ if(!save()){store=backup;paint();notify('進度保存失敗，無法開始練習；請先備份。');return;}
+ view='practice';paint();window.scrollTo({top:0});}
 function saveResponse(v){const s=store.session,p=currentPaper();if(!s||!p||s.status!=='active'||!letters.includes(v))return;
  const q=p.questions[s.position];s.answers[String(q.number)]=v;save();const pr=progress(s,p);
  if($('answered-counter'))$('answered-counter').textContent=`已作答 ${pr.count} / ${pr.total} 題`;
@@ -117,6 +132,7 @@ document.addEventListener('change',async ev=>{
 });
 document.addEventListener('click',ev=>{const button=ev.target.closest('[data-action]');if(!button)return;const action=button.dataset.action;
  if(readonly && ['start-demo','start-official','prev','next','jump','clear-answer','bookmark','timer','finish','retry'].includes(action)){notify('唯讀保護：此操作無法保存，請先匯出備份。');return;}
+ if(action==='refresh-feed')void refreshCandidateFeed();
  if(action==='start-demo')newSession('demo');
  if(action==='start-official')newSession('official',button.dataset.id);
  if(action==='home'){if(store.session?.status==='active'){stopClock(store.session);save();}view='home';paint();}
@@ -140,3 +156,12 @@ if(store.session?.status==='active' && store.session.runningSince){
   if(!readonly)save();
 }
 paint();
+async function refreshCandidateFeed(){
+ remoteFeedStatus='loading';if(view==='home')paint();
+ const result=await readCandidateFeed();
+ remotePapers=result.papers;
+ remoteFeedStatus=result.status;
+ if(view==='home')paint();
+}
+// Same-origin static review feed only; never requests private answers or performs auto writes.
+if(location.protocol==='https:'||location.protocol==='http:')void refreshCandidateFeed();

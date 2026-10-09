@@ -2,6 +2,7 @@ import { OFFICIAL_PAPERS, PRACTICE_QUESTIONS, RUBRIC, LAW_SOURCES, OFFICIAL_SEAR
 import { MCQ_ITEMS } from './quiz.js';
 import {LAB_STORAGE_KEY,checkStored} from './practice-core.mjs';
 import {buildCatalog,filterCatalog,sourceCounts} from './catalog-core.mjs';
+import {readCandidateFeed,combinedCandidatePapers} from './candidate-feed.mjs';
 
 const STORAGE_KEY = 'lexflow-data-v02';
 const LEGACY_STORAGE_KEY = 'lexflow-data-v01';
@@ -64,6 +65,7 @@ function readState(){
 let state=readState();let tab='bank',selectedRecord=null,bankFilter={subject:'全部',kind:'全部',search:''};let structureVisible=false,toastHandle=0,busy=false;
 let bankMode='unified', quizActiveId=null,quizAnswer=null,quizResult=null,quizSubject='全部',recordMode='essay';
 const unifiedFilter={area:'全部',type:'全部',source:'全部',search:''};
+let automaticPapers=[], automaticStatus='loading';
 function save(){
   if(readOnlyMode){lastPersistError=lastPersistError||'目前為唯讀安全模式，無法保存。';return false;}
   try{const value=JSON.stringify(state);localStorage.setItem(STORAGE_KEY,value);if(localStorage.getItem(STORAGE_KEY)!==value)throw Error('寫入後讀取不一致');lastPersistError='';return true;}
@@ -92,19 +94,20 @@ function readImportedCatalog(){
     const text=localStorage.getItem(LAB_STORAGE_KEY);
     if(text===null)return {papers:[],problem:false};
     const state=checkStored(JSON.parse(text));
-    return {papers:state.imported?.papers||[],problem:false};
+    return {papers:combinedCandidatePapers(state.imported?.papers||[],[],state.remotePaper),problem:false};
   }catch{return {papers:[],problem:true};}
 }
 function unifiedCatalogue(){
   const lab=readImportedCatalog();
   return {lab,records:buildCatalog({essays:PRACTICE_QUESTIONS,officialPapers:OFFICIAL_PAPERS,
-    selfMcq:MCQ_ITEMS,customEssays:state.customQuestions,importedPapers:lab.papers})};
+    selfMcq:MCQ_ITEMS,customEssays:state.customQuestions,importedPapers:combinedCandidatePapers(lab.papers,automaticPapers)})};
 }
 function catalogItems(){
   const {records,lab}=unifiedCatalogue();
   const visible=filterCatalog(records,unifiedFilter);
   const note=lab.problem?'<div class="notice">本機候審資料格式無法辨識；僅停止顯示這部分資料，原有紀錄沒有被修改。可在學習室匯出原始備份。</div>':
-    !lab.papers.length?'<div class="catalog-hint">此網站尚未匯入官方選擇題候審 JSON。先前開啟的離線預覽檔與 GitHub 網站儲存空間不會自動同步；可到多題學習室匯入。</div>':'';
+    !lab.papers.length&&!automaticPapers.length?`<div class="catalog-hint">${automaticStatus==='loading'?'正在檢查候審資料…':automaticStatus==='not_published'?'本站尚未發布可自動載入的候審資料；仍可在多題學習室自行匯入。':'官方候審來源未通過驗證或暫時無法存取，已保持隔離。'}</div>`:
+    automaticPapers.length?`<div class="catalog-hint">已自動取得 ${automaticPapers.length} 份官方候審試卷（僅供私人自測、未核對最終答案、不計分），不會覆蓋本機紀錄。</div>`:'';
   return `<div class="catalog-count" role="status">符合條件：<b>${visible.length}</b> 筆 · 官方候審選擇題僅供自測、不計分</div>${note}<div class="catalog-list">${visible.length?visible.map(p=>{
     const pill=p.source==='官方候審'?'status-pending':p.source==='官方原卷'?'status-official':'status-authored';
     const action=p.action==='essay'?`<button class="btn primary small" type="button" data-action="start-question" data-id="${esc(p.id)}">${p.source==='官方原卷'?'選題寫申論':'開始申論'}</button>`:
@@ -125,7 +128,7 @@ function unifiedBank(){
       <label>來源<select id="unified-source">${options(['全部','自編','官方原卷','官方候審'],unifiedFilter.source)}</select></label>
       <label class="catalog-search">關鍵字<input id="unified-search" type="search" maxlength="150" value="${esc(unifiedFilter.search)}" placeholder="搜尋題名、法科或考試年度…"></label></div>
     <div id="unified-results">${catalogItems()}</div>
-    <div class="notice">官方原卷申論題需由你選取完整題目後貼入編輯器。官方候審選擇題須先在此網站的學習室匯入，才會出現在統一題庫；不核定國考分數。</div>`;
+    <div class="notice">官方原卷申論題需由你選取完整題目後貼入編輯器。官方候審選擇題若已有經審查的本站靜態候審資料，將自動顯示；否則可在學習室自行匯入。所有候審題均不核定國考分數。</div>`;
 }
 function bankSwitch(){return `<div class="switcher" role="group" aria-label="題庫導覽"><button class="${bankMode==='unified'?'selected':''}" data-action="mode-unified">統一題庫</button><button class="${bankMode==='essay'?'selected':''}" data-action="mode-essay">申論編輯器</button><button class="${bankMode==='mcq'?'selected':''}" data-action="mode-mcq">自編單題</button></div>`;}
 function quizBank(){const visible=MCQ_ITEMS.filter(q=>quizSubject==='全部'||q.subject===quizSubject);return `${heading('QUESTION LIBRARY','選擇題與詳解','六道自編法條核對練習，附全部選項理由及官方法條連結。尚非考選部歷屆真題。')}${bankSwitch()}<div class="notice"><strong>出處狀態：</strong>目前六題均為依官方法條編寫的示範題；並無考選部原題或官方選擇題答案。正式國考選擇題將在原題、答案更正與逐項詳解完成查核後分批新增。</div><div class="searchrow"><select id="quiz-subject" aria-label="選擇題科目">${['全部','民法','刑法','憲法'].map(v=>`<option ${quizSubject===v?'selected':''}>${v}</option>`).join('')}</select></div><div class="quiz-list">${visible.map(q=>`<article class="paper-card"><div><div class="meta"><span class="pill">自編法條核對</span><span class="pill">${esc(q.subject)}</span><span class="pill">${esc(q.topic)}</span></div><h3>${esc(q.title)}</h3><p>${esc(q.source)} · 含 A–D 各選項解析</p></div><div class="right"><button class="btn primary small" data-action="start-quiz" data-id="${esc(q.id)}">開始練習 ${ico('arrow',15)}</button></div></article>`).join('')}</div><div class="panel"><h2>考選部歷屆測驗式試題</h2><p class="muted">官方題目與正式答案入口已保留，尚未逐題匯入本機正式題庫。</p><div class="actions"><a class="btn" href="${esc(OFFICIAL_SEARCH_URL)}" target="_blank" rel="noopener noreferrer">官方試題及答案查詢 ${ico('external',15)}</a><a class="btn" href="https://data.gov.tw/dataset/170565" target="_blank" rel="noopener noreferrer">官方試卷開放資料 ${ico('external',15)}</a><a class="btn" href="./official-index.html">LexFlow 試卷候審索引 ↗</a><a class="btn primary" href="./practice-lab.html">V0.3 多題練習室 ↗</a></div></div>`;}
@@ -257,5 +260,21 @@ window.LexFlowBridge = Object.freeze({
   exportAll:()=>clone(state)
 });
 applyTheme();render();
+async function refreshAutomaticPapers(){
+  const feed=await readCandidateFeed();
+  automaticPapers=feed.papers;
+  automaticStatus=feed.status;
+  // Read-only update to display only; never writes private study/localStorage keys.
+  if(tab==='bank' && bankMode==='unified' && !quizActiveId){
+    const results=document.getElementById('unified-results');
+    if(results){
+      const count=sourceCounts(unifiedCatalogue().records);
+      const summary=document.querySelector('.catalog-summary');
+      if(summary){const parts=summary.querySelectorAll('b');if(parts.length===3)parts[2].textContent=String(count.official);}
+      results.innerHTML=catalogItems();
+    }
+  }
+}
+if(location.protocol==='https:'||location.protocol==='http:')void refreshAutomaticPapers();
 window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener?.('change',()=>{if(state.settings.theme==='system')applyTheme();});
 if('serviceWorker' in navigator&&location.protocol!=='file:')window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
