@@ -492,16 +492,23 @@ def inspect_corrected_pdf(raw_pdf:bytes, *, declared_url:str, role:str, report:d
             'final_answers_verified':False, 'scoring_enabled':False,'publication_allowed':False}
 
 
-def _read_cache_pdf(out_dir:Path, report:dict) -> tuple[bytes|None,str|None]:
+def _read_cache_pdf(out_dir:Path, report:dict, *, cache_root:Path|None=None) -> tuple[bytes|None,str|None]:
     # Read only an already-cached and report-SHA-matched official source.
     url=report['official_source'].get('answer_url') or ''
     if not url:return None,None
     role=parse_qs(urlsplit(url).query).get('t',[''])[0]
     if role not in ('S','M'):return None,None
     _identity(url,role)
-    root=out_dir/'official_pdf_cache';key=_sha(url.encode())
+    # The series orchestrator stores PUBLIC PDFs in a shared cache outside each
+    # session's report directory. Legacy single-run callers keep their old path.
+    root=cache_root if cache_root is not None else out_dir/'official_pdf_cache'
+    key=_sha(url.encode())
     pdf=root/(key+'.pdf');meta=root/(key+'.json')
-    if not pdf.exists() or not meta.exists():return None,None
+    if pdf.is_symlink() or meta.is_symlink():
+        raise OverlayError('official PDF cache entry cannot be a symlink')
+    if pdf.exists() != meta.exists():
+        raise OverlayError('incomplete public answer PDF cache entry')
+    if not pdf.exists():return None,None
     m=json.loads(meta.read_text('utf-8'))
     blob=pdf.read_bytes()
     if m.get('url')!=url or m.get('sha256')!=_sha(blob):
@@ -577,7 +584,7 @@ def build_overlay(report:dict, raw_text:str, *, report_bytes:bytes, answer_pdf:b
             **_UNVERIFIED, 'private_attempts_included':False}
 
 
-def make_overlay_from_disk(out_dir:Path, report_path:Path) -> tuple[Path,dict]:
+def make_overlay_from_disk(out_dir:Path, report_path:Path, *, cache_root:Path|None=None) -> tuple[Path,dict]:
     report_bytes=report_path.read_bytes()
     if len(report_bytes)>MAX_SOURCE_BYTES:raise OverlayError('report oversized')
     report=json.loads(report_bytes)
@@ -586,7 +593,7 @@ def make_overlay_from_disk(out_dir:Path, report_path:Path) -> tuple[Path,dict]:
         raise OverlayError('unexpected public report name')
     text_path=out_dir/'extracted_text'/(pid+'.txt')
     raw=text_path.read_text('utf-8')
-    pdf,role=_read_cache_pdf(out_dir,report)
+    pdf,role=_read_cache_pdf(out_dir,report,cache_root=cache_root)
     overlay=build_overlay(report,raw,report_bytes=report_bytes,answer_pdf=pdf,answer_role=role)
     content=(json.dumps(overlay,ensure_ascii=False,indent=2,sort_keys=True)+'\n').encode('utf-8')
     filename=pid+'-'+_sha(content)[:16]+'.json'

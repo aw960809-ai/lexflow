@@ -28,6 +28,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_catalog_bridge.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_review_series.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_shared_cache_audit.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
@@ -82,6 +83,9 @@ jobs:
       - name: Verify positioned answer PDF grids (synthetic, never scored)
         run: |
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
+      - name: Test shared public PDF cache and preview provenance (synthetic only)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_shared_cache_audit.py' -v
       - name: Check bounded official Q/S/M/A PDF sample and enforce non-publication
         run: |
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" scripts/moex_document_qa.py --live \

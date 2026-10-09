@@ -639,7 +639,7 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
             quality_info={}
             try:
                 from moex_quality_overlay import make_overlay_from_disk
-                quality_path,_=make_overlay_from_disk(out_dir,item_path)
+                quality_path,_=make_overlay_from_disk(out_dir,item_path,cache_root=cache_root)
                 quality_info={'quality_preview_state':'unverified_overlay_available',
                               'quality_preview_path':str(quality_path.relative_to(out_dir))}
             except (OSError,ValueError,TypeError,KeyError,ImportError) as exc:
@@ -704,7 +704,7 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
             quality_info={}
             try:
                 from moex_quality_overlay import make_overlay_from_disk
-                quality_path,_=make_overlay_from_disk(out_dir,item_path)
+                quality_path,_=make_overlay_from_disk(out_dir,item_path,cache_root=cache_root)
                 quality_info={'quality_preview_state':'unverified_overlay_available',
                               'quality_preview_path':str(quality_path.relative_to(out_dir))}
             except (OSError,ValueError,TypeError,KeyError,ImportError) as exc:

@@ -322,7 +322,7 @@ def execute(home: Path, *, catalog: Path|None=None, offline_only=False,
         'note':'Individual PDF failures remain isolated and must be reviewed; no scoring/publication.'}
 
 
-def _source_quality(report_root: Path, p: dict, catalog_sha: str) -> dict:
+def _source_quality(report_root: Path, p: dict, catalog_sha: str, *, shared_cache_root: Path|None=None) -> dict:
     pid=p['paper_id']
     out={'paper_id':pid, 'year_roc':p['year_roc'],
         'exam_code':p['exam_code'],'official_subject':p['official_subject'],
@@ -377,36 +377,98 @@ def _source_quality(report_root: Path, p: dict, catalog_sha: str) -> dict:
     if isinstance(e,dict): out['essay_section_candidates_unverified']=e.get('count',0)
     out['PDF_documents_reported']=len(inner.get('documents',[]))
     out['review_warnings']=inner.get('warnings',[])[:12]
+
+    # A shared public Q/S/M cache lives one directory above this session's
+    # reports. Older quality previews were made against an EMPTY session-local
+    # cache. Never treat that older, not-cached preview as current answer proof.
+    active_path=None
+    answer_url=rep.get('official_source',{}).get('answer_url') or ''
+    if answer_url and answer_url not in (p['links'].get('S'),p['links'].get('M')):
+        out['quality_overlay']='isolated_answer_source_identity_mismatch'
+        return out
+    if answer_url and shared_cache_root is not None:
+        key=hashlib.sha256(answer_url.encode('utf-8')).hexdigest()
+        pdf=shared_cache_root/(key+'.pdf')
+        meta=shared_cache_root/(key+'.json')
+        if pdf.exists() or meta.exists() or pdf.is_symlink() or meta.is_symlink():
+            try:
+                # Create-only new preview; the source report and any previous
+                # previews remain byte-for-byte untouched. The overlay verifies
+                # BOTH public cache SHA and original reviewed document SHA.
+                from moex_quality_overlay import make_overlay_from_disk
+                active_path,active_overlay=make_overlay_from_disk(
+                    report_root,file,cache_root=shared_cache_root)
+                if active_overlay.get('answer_PDF_source_sha256_or_state') in (None,'not_cached'):
+                    raise UnsafeSource('shared cache missing verified answer bytes')
+                out['answer_pdf_cached_and_source_sha_matched']=True
+            except (OSError,ValueError,KeyError,TypeError,ImportError) as exc:
+                # A bad cache must NEVER fall back to a previously successful
+                # preview as though the current source had been verified.
+                out['quality_overlay']='isolated_shared_answer_cache_or_overlay_failure'
+                out['quality_refresh_error']=type(exc).__name__
+                return out
+
     overlays=[]
     for qfile in sorted((report_root/'quality_previews').glob(pid+'-*.json')):
-        data=json.loads(qfile.read_text('utf-8'))
+        if qfile.is_symlink():
+            out['quality_overlay']='isolated_symlinked_quality_preview';return out
+        try:
+            data=json.loads(qfile.read_text('utf-8'))
+            if not isinstance(data,dict): raise ValueError('not a JSON object')
+        except (ValueError,UnicodeError,OSError):
+            out['quality_overlay']='isolated_malformed_quality_preview'
+            return out
         if (data.get('paper_id')==pid and data.get('report_source_sha256')==digest(raw)
             and data.get('publication_allowed') is False
             and data.get('scoring_enabled') is False
             and data.get('final_answer_verified') is not True
             and data.get('human_quality_gate_satisfied') is not True):
-            overlays.append(data)
-    if len(overlays)>1:
+            overlays.append((qfile,data))
+    out['quality_preview_versions_for_source']=len(overlays)
+    if active_path is not None:
+        # Prefer the EXACT candidate generated against the verified current
+        # public PDF cache. Older 'not_cached' previews are retained, not mixed.
+        matches=[item for item in overlays if item[0]==active_path]
+        if len(matches)!=1:
+            out['quality_overlay']='isolated_active_preview_source_mismatch';return out
+        overlay=matches[0][1]
+        if (overlay.get('answer_PDF_source_sha256_or_state')!=active_overlay.get('answer_PDF_source_sha256_or_state')
+            or overlay.get('extracted_text_source_sha256')!=text_meta.get('sha256')):
+            out['quality_overlay']='isolated_active_preview_fingerprint_mismatch';return out
+        out['quality_overlay']='current_verified_public_cache_preview'
+    elif len(overlays)>1:
         out['quality_overlay']='ambiguous_multiple_matching_overlays';return out
-    if len(overlays)==1:
-        overlay=overlays[0]
+    elif len(overlays)==1:
+        overlay=overlays[0][1]
+        # The legacy copy can still supply NON-ANSWER title / essay / MCQ
+        # metadata, but never count positional answers without current PDF bytes.
         out['quality_overlay']='fingerprint_matches_saved_report'
+    else:
+        overlay=None
+        out['quality_overlay']='none_matching_original_report'
+    if overlay is not None:
         mcq=overlay.get('multiple_choice_candidates',{})
         if isinstance(mcq,dict):
             out['mcq_four_option_candidates_after_repair_unverified']=mcq.get('candidate_count',0)
         answer=overlay.get('answer_and_correction_evidence',{})
         table=answer.get('table_candidate',{}) if isinstance(answer,dict) else {}
         if isinstance(table,dict):
-            out['positioned_answer_pairs_unverified']=table.get('unique_paired_numbers',0)
+            out['answer_table_candidate_state']=table.get('state','unknown')
             out['answer_pair_conflicts']=table.get('original_candidate_conflict_numbers',[])
-            out['special_credit_number_candidates']=sorted({int(x['number']) for x in
-                answer.get('special_credit_candidate',[]) if isinstance(x,dict) and 'number' in x})
+            if active_path is not None:
+                out['positioned_answer_pairs_unverified']=table.get('unique_paired_numbers',0)
+                out['special_credit_number_candidates']=sorted({int(x['number']) for x in
+                    answer.get('special_credit_candidate',[]) if isinstance(x,dict) and 'number' in x})
+                out['answer_cells_including_special_credit_unverified']=table.get(
+                    'answer_cell_coverage_with_special_notes',0)
         sect=overlay.get('section_candidates',{})
         if isinstance(sect,dict):
             essay=sect.get('essay',{})
             if isinstance(essay,dict):
                 out['essay_sections_after_repair_unverified']=essay.get('count',0)
-    else: out['quality_overlay']='none_matching_original_report'
+    if (p['official_type']=='申論題' and out.get('question_fulltext_sha_matched') is True
+        and out.get('essay_sections_after_repair_unverified',out.get('essay_section_candidates_unverified',0))==0):
+        out['essay_heading_needs_manual_review']=True
     out['official_total_question_count_confirmed']=False
     out['question_completeness_percentage']=None
     return out
@@ -417,11 +479,13 @@ def audit(home: Path) -> dict:
     m=read_session(home)
     root=home.parent.parent
     source=root/'session-reviews'/m['session_id']
+    shared_cache_root=root/'official-review'/'official_pdf_cache'
     papers=[]
     for e in m['batches']:
         plan=json.loads((home/e['plan_path']).read_text('utf-8'))
         for p in plan['papers']:
-            papers.append(_source_quality(source,p,m['catalog_sha256']))
+            papers.append(_source_quality(source,p,m['catalog_sha256'],
+                                          shared_cache_root=shared_cache_root))
     statuses=Counter(x['state'] for x in papers)
     report={'schema':QUALITY_SCHEMA,'session_id':m['session_id'],
         'catalog_sha256':m['catalog_sha256'],
@@ -433,7 +497,14 @@ def audit(home: Path) -> dict:
         'essay_section_candidates_unverified':sum(x.get('essay_sections_after_repair_unverified',
             x.get('essay_section_candidates_unverified',0)) for x in papers),
         'positioned_answer_pairs_unverified':sum(x.get('positioned_answer_pairs_unverified',0) for x in papers),
+        'answer_cells_including_special_credit_unverified':sum(
+            x.get('answer_cells_including_special_credit_unverified',0) for x in papers),
+        'shared_cached_answer_sources_sha_matched':sum(
+            x.get('answer_pdf_cached_and_source_sha_matched') is True for x in papers),
+        'essay_papers_with_headings_needing_review':sum(
+            x.get('essay_heading_needs_manual_review') is True for x in papers),
         'original_answer_pairs_unverified':sum(x.get('original_answer_pairs_unverified',0) for x in papers),
+        'answer_pair_conflict_count':sum(len(x.get('answer_pair_conflicts',[])) for x in papers),
         'special_credit_question_candidates':sorted({i for p in papers for i in
             p.get('special_credit_number_candidates',[])}),
         'papers':papers,
