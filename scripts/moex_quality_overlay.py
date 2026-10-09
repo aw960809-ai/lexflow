@@ -12,6 +12,7 @@ import copy
 import hashlib
 import io
 import json
+import math
 from pathlib import Path
 import re
 import sys
@@ -211,7 +212,7 @@ def _identity(url:str, role:str)->tuple[str,...]:
     return values
 
 
-_CORRECTION = re.compile(r'(?:第\s*(\d{1,3})\s*題|題號\s*(\d{1,3}))[^\n。]{0,100}?([ABCD])\s*(?:或|、|／|\/|及|和)\s*([ABCD])\s*(?:均|都)?\s*(?:給分|計分|給予分數|得分)')
+_CORRECTION = re.compile(r'(?:第\s*(\d{1,3})\s*題|題號\s*(\d{1,3}))[^\n。]{0,100}?([ABCD])\s*(?:或|、|／|\/|及|和)\s*([ABCD])\s*(?:者)?\s*(?:均|都)?\s*(?:給分|計分|給予分數|得分)')
 
 
 def parse_special_credit_note(text:str) -> list[dict]:
@@ -223,6 +224,151 @@ def parse_special_credit_note(text:str) -> list[dict]:
                         'raw_note_unverified':m.group()[:180], 'human_verified':False,
                         'requires_special_scoring_review':True})
     return out
+
+
+# Parse the OFFICIAL PDF by aligned visual cells, never by the arbitrary
+# sequence in which PDF extract_text() happens to return table characters.
+# All coordinates and labels originate from the already SHA-verified PDF.
+_POSITIONED_NUMBER = re.compile(r'第([0-9]{1,3})題')
+_COUNT_DECLARATION = re.compile(r'單選題數\s*[:：]?\s*(\d{1,3})\s*題')
+
+
+def _fragment_kind(fragment: str) -> tuple[str, int | str] | None:
+    text = unicodedata.normalize('NFKC', fragment).strip()
+    # Embedded newlines in a single fragment cannot be positioned separately.
+    if '\n' in text or len(text) > 35:
+        return None
+    compact = re.sub(r'\s+', '', text)
+    if compact in ('題號', '題次'):
+        return ('numbers_label', compact)
+    if compact in ('答案', '標準答案'):
+        return ('answers_label', compact)
+    match = _POSITIONED_NUMBER.fullmatch(compact)
+    if match:
+        return ('number', int(match.group(1)))
+    if compact in ('A', 'B', 'C', 'D', '#'):
+        return ('answer', compact)
+    return None
+
+
+def _read_positioned_tokens(page) -> list[dict]:
+    tokens = []
+    def visitor(fragment, cm, tm, font_dict, font_size):
+        classified = _fragment_kind(fragment)
+        if not classified:
+            return
+        try:
+            # PDF user-space position; account for text and current transforms.
+            x = cm[0] * tm[4] + cm[2] * tm[5] + cm[4]
+            y = cm[1] * tm[4] + cm[3] * tm[5] + cm[5]
+            if not (math.isfinite(x) and math.isfinite(y)):
+                return
+            tokens.append({'x': round(float(x), 3), 'y': round(float(y), 3),
+                           'kind': classified[0], 'value': classified[1]})
+        except (TypeError, ValueError, IndexError, OverflowError):
+            return
+    page.extract_text(visitor_text=visitor)
+    return tokens
+
+
+def _rows_for_positioned(tokens: list[dict]) -> list[dict]:
+    rows = []
+    for token in sorted(tokens, key=lambda x: (-x['y'], x['x'])):
+        if rows and abs(rows[-1]['y'] - token['y']) <= 2.5:
+            rows[-1]['tokens'].append(token)
+        else:
+            rows.append({'y': token['y'], 'tokens': [token]})
+    for row in rows:
+        row['tokens'].sort(key=lambda x: x['x'])
+    return rows
+
+
+def _parse_pdf_positioned_answers(pages, *, expected_question_count: int) -> dict:
+    """Strict column alignment between a labeled question row and answer row.
+
+    No implied reading order, no PDF OCR, no automatic answer promotion.
+    A # is only a change marker and must be resolved by an explicit note.
+    """
+    if not 1 <= expected_question_count <= MAX_QUESTIONS:
+        raise OverlayError('invalid expected question count')
+    pairs = {}
+    markers = set()
+    conflict = set()
+    rejected_groups = 0
+    accepted_groups = 0
+    for page_num, page in enumerate(pages, 1):
+        rows = _rows_for_positioned(_read_positioned_tokens(page))
+        for index, head in enumerate(rows):
+            heads = [t for t in head['tokens'] if t['kind'] == 'numbers_label']
+            numbers = [t for t in head['tokens'] if t['kind'] == 'number']
+            if len(heads) != 1 or len(numbers) < 3:
+                continue
+            # The official horizontal table numbers are consecutive left to right.
+            numlist = [t['value'] for t in numbers]
+            if numlist != list(range(numlist[0], numlist[0]+len(numlist))):
+                rejected_groups += 1
+                continue
+            # Skip the final empty (51-100) table rows, not real answer cells.
+            relevant = [t for t in numbers if 1 <= t['value'] <= expected_question_count]
+            if not relevant:
+                continue
+            options = []
+            for body in rows[index + 1:]:
+                distance = head['y'] - body['y']
+                if distance > 30:
+                    break
+                if not 5 <= distance <= 30:
+                    continue
+                labs = [t for t in body['tokens'] if t['kind']=='answers_label']
+                if len(labs) != 1 or abs(labs[0]['x'] - heads[0]['x']) > 18:
+                    continue
+                options.append(body)
+            if len(options) != 1:
+                rejected_groups += 1
+                continue
+            answers = [t for t in options[0]['tokens'] if t['kind']=='answer']
+            # The row may not contain answers for columns beyond the declared
+            # question count. Reject more values than nonempty question cells.
+            if not answers or len(answers) > len(relevant):
+                rejected_groups += 1
+                continue
+            locations = [t['x'] for t in numbers]
+            steps = [b-a for a,b in zip(locations,locations[1:])]
+            if any(v <= 9 for v in steps):
+                rejected_groups += 1
+                continue
+            tolerance = min(18, max(8, min(steps)*0.34))
+            matched = []
+            for answer in answers:
+                nearest = sorted(((abs(answer['x']-item['x']), item['value']) for item in relevant),key=lambda v:v[0])
+                if not nearest or nearest[0][0] > tolerance or (len(nearest)>1 and nearest[1][0] - nearest[0][0] < 2):
+                    matched=[]
+                    break
+                matched.append((nearest[0][1],answer['value']))
+            # This is a *whole row* proof; if any answer cell cannot be
+            # assigned unambiguously, reject the entire row.
+            if not matched or len({n for n,_ in matched}) != len(matched):
+                rejected_groups += 1
+                continue
+            for n,answer in matched:
+                if n in pairs:
+                    # Duplicate cells (even identical ones) require review.
+                    conflict.add(n)
+                pairs[n] = answer
+            accepted_groups += 1
+    if conflict:
+        pairs = {}
+    for n,answer in pairs.items():
+        if answer == '#':
+            markers.add(n)
+    single = {str(n):v for n,v in sorted(pairs.items()) if v in 'ABCD'}
+    return {'candidates':single,'correction_markers':sorted(markers),
+            'unique_paired_numbers':len(single), 'covered_cell_count':len(pairs),
+            'complete_positioned_grid':len(pairs)==expected_question_count and not conflict,
+            'conflicting_numbers':sorted(conflict),'evidence_group_count':accepted_groups,
+            'rejected_grid_groups':rejected_groups,
+            'pairing_method':'aligned_PDF_cell_positions',
+            'final_answers_verified':False, 'publication_allowed':False,'scoring_enabled':False}
 
 
 def parse_table_candidates(text:str, *, expected_question_count:int) -> dict:
@@ -282,10 +428,62 @@ def inspect_corrected_pdf(raw_pdf:bytes, *, declared_url:str, role:str, report:d
     text='\n'.join((p.extract_text() or '') for p in reader.pages)
     if not text.strip() or len(text)>MAX_TEXT_BYTES:
         raise OverlayError('unreadable answer PDF')
-    preview=parse_table_candidates(text,expected_question_count=expected_count)
+    text_preview=parse_table_candidates(text,expected_question_count=expected_count)
+    positioned=_parse_pdf_positioned_answers(reader.pages,expected_question_count=expected_count)
     special=parse_special_credit_note(text)
     if any(s['number']<1 or s['number']>expected_count for s in special):
         raise OverlayError('special note outside table scope')
+    # Independent sources must agree wherever they overlap. A text run with
+    # ambiguous flat-PDF ordering cannot trump the explicitly aligned cells.
+    mismatches = sorted(n for n,v in positioned['candidates'].items()
+                        if n in text_preview['candidates'] and text_preview['candidates'][n]!=v)
+    declared = [int(n) for n in _COUNT_DECLARATION.findall(unicodedata.normalize('NFKC',text))]
+    count_issue = bool(declared and (len(set(declared))!=1 or declared[0]!=expected_count))
+    markers = positioned['correction_markers']
+    notes_by_number = {}
+    duplicate_note = set()
+    for entry in special:
+        n=entry['number'];choices=entry['candidate_valid_choices']
+        if n in notes_by_number and notes_by_number[n]!=choices:
+            duplicate_note.add(n)
+        notes_by_number[n] = choices
+    unresolved = sorted(set(markers)-set(notes_by_number))
+    unanchored = sorted(set(notes_by_number)-set(markers))
+    if role=='S' and markers:
+        # A correction marker in a standard-answer document is unexpected.
+        unresolved = sorted(set(unresolved)|set(markers))
+    existing = positioned['candidates'] if positioned['evidence_group_count'] else text_preview['candidates']
+    existing = dict(existing)
+    for n in markers:
+        # A # cell has no single-choice answer; it is linked only to the
+        # accompanying explicit multiple-credit note. Never invent a letter.
+        existing.pop(str(n),None)
+    complete = (not count_issue and not mismatches and not duplicate_note
+                and not unanchored and not unresolved and not text_preview['conflicting_numbers']
+                and positioned['complete_positioned_grid']
+                and len(existing)+len(notes_by_number)==expected_count
+                and set(map(int,existing))|set(notes_by_number)==set(range(1,expected_count+1)))
+    if count_issue or mismatches or duplicate_note or text_preview['conflicting_numbers'] or positioned['conflicting_numbers']:
+        # Fail closed even when parts of the extracted PDF look plausible.
+        existing={}
+        complete=False
+    preview={**positioned,
+        'candidates':existing,
+        'unique_paired_numbers':len(existing),
+        'special_credit_choices_unverified':{str(n):v for n,v in sorted(notes_by_number.items())},
+        'answer_cell_coverage_with_special_notes':len(set(map(int,existing)) | set(notes_by_number)) if not (mismatches or count_issue) else 0,
+        'complete_numbering_candidate':complete,
+        'state':'complete_unverified_candidate_table_WITH_SPECIAL_REVIEW' if complete and special else
+                'complete_unverified_candidate_table' if complete else 'partial_or_ambiguous_answer_table',
+        'text_extraction_candidate_count':text_preview['unique_paired_numbers'],
+        'text_position_conflicts':mismatches,
+        'declared_single_choice_count':declared,
+        'declared_count_mismatch':count_issue,
+        'unresolved_change_markers':unresolved,
+        'special_credit_without_change_marker':unanchored,
+        'conflicting_special_notes':sorted(duplicate_note),
+        'final_answers_verified':False,'publication_allowed':False,'scoring_enabled':False}
+    # Never turn a multi-credit note into a single automatically scored key.
     return {'state':'official_answer_PDF_candidate_requires_manual_QSM_review',
             'answer_document_role':role,'answer_document_sha256':_sha(raw_pdf),
             'table_candidate':preview,'special_credit_candidate':special,
@@ -348,6 +546,23 @@ def build_overlay(report:dict, raw_text:str, *, report_bytes:bytes, answer_pdf:b
         if answer_pdf is not None and answer_role:
             answer=inspect_corrected_pdf(answer_pdf,declared_url=source['answer_url'],role=answer_role,
                                          report=report,expected_count=len(questions))
+            table=answer['table_candidate']
+            old={str(q['number']):q['published_standard_candidate']
+                 for q in questions if isinstance(q,dict)
+                 and isinstance(q.get('number'),int)
+                 and q.get('published_standard_candidate') in ('A','B','C','D')}
+            new=table.get('candidates',{})
+            overlaps=sorted(set(old)&set(new), key=int)
+            discrepancies=[int(n) for n in overlaps if old[n]!=new[n]]
+            table['original_candidate_overlap_count']=len(overlaps)
+            table['original_candidate_conflict_numbers']=discrepancies
+            table['original_candidate_comparison_is_not_answer_validation']=True
+            if discrepancies:
+                table['state']='source_and_positioned_answers_disagree_requires_review'
+                table['complete_numbering_candidate']=False
+                table['candidates']={}
+                table['unique_paired_numbers']=0
+                table['answer_cell_coverage_with_special_notes']=0
     effective_sha=_sha(answer_pdf) if answer_pdf is not None else 'not_cached'
     return {'schema':SCHEMA,'paper_id':source['paper_id'],
             'official_metadata_unchanged':copy.deepcopy(source),
