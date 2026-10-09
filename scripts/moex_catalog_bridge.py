@@ -608,7 +608,8 @@ def cached_fetch_for_review(cache_root:Path, *, offline_only=False):
 
 
 def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
-             start_at=1, offline_only=False, include_essay=True)->dict:
+             start_at=1, offline_only=False, include_essay=True,
+             shared_cache_root:Path|None=None)->dict:
     if plan.get('schema')!=SCHEMA or plan.get('publication_allowed') is not False or plan.get('scoring_enabled') is not False:
         raise UnsafeSource('untrusted plan or forged scoring status')
     if not 1<=max_papers<=MAX_BATCH or not 1<=max_docs<=MAX_DOCS or not 1<=start_at<=MAX_BATCH:
@@ -618,7 +619,10 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
         raise UnsafeSource('plan exceeds maximum allowed papers')
     from moex_batch_engine import process_batch, inspect_pdf_source
     out_dir.mkdir(parents=True,exist_ok=True)
-    fetch,attempts=cached_fetch_for_review(out_dir/'official_pdf_cache',offline_only=offline_only)
+    # New catalog snapshots keep independent reports, while immutable official
+    # URL+SHA-checked PDF bytes may be reused across those report snapshots.
+    cache_root=shared_cache_root if shared_cache_root is not None else out_dir/'official_pdf_cache'
+    fetch,attempts=cached_fetch_for_review(cache_root,offline_only=offline_only)
     reviewed=[]; count_docs=0
     for p in papers[start_at-1:start_at-1+max_papers]:
         # This flow is conservative: existing batches never overwritten.
