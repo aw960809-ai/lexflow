@@ -27,6 +27,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_catalog_bridge.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
         run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs
       - name: Check JavaScript syntax
@@ -73,6 +74,9 @@ jobs:
         run: |
           python3 -m venv "$RUNNER_TEMP/lexflow-pdf-venv"
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Verify new quality overlay with pinned PDF parser (never publish)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
       - name: Check bounded official Q/S/M/A PDF sample and enforce non-publication
         run: |
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" scripts/moex_document_qa.py --live \

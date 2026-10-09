@@ -392,7 +392,18 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
             prev=json.loads(item_path.read_text('utf-8'))
             if prev.get('catalog_sha256')!=plan['catalog_sha256'] or prev.get('official_source',{}).get('question_url')!=p.get('question_url'):
                 reviewed.append({'paper_id':pid,'state':'source_changed_requires_new_run_directory'});continue
-            reviewed.append({'paper_id':pid,'state':'existing_report_preserved'});continue
+            # Append-only, separate quality preview for already downloaded whole papers.
+            # Re-running must not rewrite original reports, raw text or PDF cache.
+            quality_info={}
+            try:
+                from moex_quality_overlay import make_overlay_from_disk
+                quality_path,_=make_overlay_from_disk(out_dir,item_path)
+                quality_info={'quality_preview_state':'unverified_overlay_available',
+                              'quality_preview_path':str(quality_path.relative_to(out_dir))}
+            except (OSError,ValueError,TypeError,KeyError,ImportError) as exc:
+                quality_info={'quality_preview_state':'isolated_overlay_failure',
+                              'quality_preview_reason':type(exc).__name__}
+            reviewed.append({'paper_id':pid,'state':'existing_report_preserved',**quality_info});continue
         if p.get('state')!='planned_review_not_downloaded':
             reviewed.append({'paper_id':pid,'state':'isolated_invalid_metadata'});continue
         count_docs=attempts['remote']+attempts['cache']
@@ -447,9 +458,19 @@ def run_plan(plan:dict, out_dir:Path, *, max_papers=3, max_docs=9,
                   'sha256':digest(fulltext.encode('utf-8')),'chars':len(fulltext),
                   'unverified':True,'truncated':len(fulltext)>=MAX_TEXT_CHARS}
             save_json(item_path,result)
+            # Post-processing only; no second downloader and NEVER rewrite the source.
+            quality_info={}
+            try:
+                from moex_quality_overlay import make_overlay_from_disk
+                quality_path,_=make_overlay_from_disk(out_dir,item_path)
+                quality_info={'quality_preview_state':'unverified_overlay_available',
+                              'quality_preview_path':str(quality_path.relative_to(out_dir))}
+            except (OSError,ValueError,TypeError,KeyError,ImportError) as exc:
+                quality_info={'quality_preview_state':'isolated_overlay_failure',
+                              'quality_preview_reason':type(exc).__name__}
             reviewed.append({'paper_id':pid,'state':result['state'],
                              'documents':report['summary']['document_fetch_attempts'],
-                             'isolated':report['summary']['isolated_papers']})
+                             'isolated':report['summary']['isolated_papers'],**quality_info})
             count_docs=attempts['remote']+attempts['cache']
         except (UnsafeSource, OSError, ValueError, RuntimeError, ImportError) as exc:
             reviewed.append({'paper_id':pid,'state':'isolated_failed_not_published',
