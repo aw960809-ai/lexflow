@@ -28,6 +28,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_catalog_bridge.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_review_series.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_coverage_campaign.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_shared_cache_audit.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
