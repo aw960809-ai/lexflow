@@ -1,7 +1,7 @@
-const CACHE = 'lexflow-pages-v03-safe-review-feed-20261009';
+const CACHE = 'lexflow-pages-v03-safe-official-preview-20261010';
 // CacheStorage is origin-wide: never remove caches belonging to other apps.
 const OWNED_CACHE_PREFIX = 'lexflow-pages-';
-const SHELL = ['./','./index.html','./styles.css','./app.js','./data.js','./quiz.js','./practice-lab.html','./practice-lab.js','./practice-lab.css','./practice-core.mjs','./catalog-core.mjs','./candidate-feed.mjs','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const SHELL = ['./','./index.html','./styles.css','./app.js','./data.js','./quiz.js','./practice-lab.html','./practice-lab.js','./practice-lab.css','./practice-core.mjs','./catalog-core.mjs','./candidate-feed.mjs','./official-scoring-core.mjs','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith(OWNED_CACHE_PREFIX) && k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{
