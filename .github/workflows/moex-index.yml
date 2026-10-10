@@ -1,0 +1,258 @@
+name: MOEX official-index candidate (manual review required)
+
+on:
+  pull_request:
+  push:
+    branches: ['feat/**', 'bot/moex-index-review']
+  workflow_dispatch:
+  schedule:
+    - cron: '23 23 * * *' # daily UTC, best effort; runs only after workflow is merged to main
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Offline regression tests (no fabricated official answers)
+        run: |
+          python3 -m unittest discover -s tests -p 'test_moex_index.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_fallback.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_document_qa.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_civil_mcq.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_batch_engine.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_question_pipeline.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_quality_upgrade.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_candidate_feed.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_catalog_bridge.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_review_series.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_coverage_campaign.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_shared_cache_audit.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
+          python3 -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
+      - name: Verify V0.3 local-only practice model and safety flags
+        run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs tests/official-scoring-core.test.mjs tests/official-preview-integration.test.mjs
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check official-index.js
+          node --check quiz.js
+          node --check data.js
+          node --check practice-lab.js
+          node --check practice-core.mjs
+          node --check official-scoring-core.mjs
+          node --check catalog-core.mjs
+          node --check candidate-feed.mjs
+
+  # This deliberately exposes true HTTP/HTML failures instead of claiming
+  # a successful CI test proves the official live source worked.
+  official-page-smoke:
+    if: github.event_name == 'pull_request'
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and parse one approved MOEX exam page (real network)
+        run: |
+          python3 scripts/moex_page_fallback.py --fetch --exam-code 114120 --min-items 3 \
+            --output "$RUNNER_TEMP/lexflow-official-page-smoke.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-page-smoke-unverified-links
+          path: ${{ runner.temp }}/lexflow-official-page-smoke.json
+          retention-days: 7
+
+  official-pdf-document-smoke:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-page-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF parser in isolated virtual environment
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-pdf-venv"
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Verify new quality overlay with pinned PDF parser (never publish)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
+      - name: Verify positioned answer PDF grids (synthetic, never scored)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
+      - name: Test shared public PDF cache and preview provenance (synthetic only)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_shared_cache_audit.py' -v
+      - name: Check bounded official Q/S/M/A PDF sample and enforce non-publication
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" scripts/moex_document_qa.py --live \
+            --output "$RUNNER_TEMP/lexflow-document-qa.json"
+      - name: Upload PDF QA report (only if check succeeded)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-pdf-document-qa-not-scored
+          path: ${{ runner.temp }}/lexflow-document-qa.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # Separate *non-publishing* 25-key verification from PDF readability check.
+  # It can fail if MOEX legitimately revises either source; this is intentional.
+  civil-published-answer-candidate:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-pdf-document-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up locked PDF library in temporary venv
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-civil-venv"
+          "$RUNNER_TEMP/lexflow-civil-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Verify exact published MOEX 2201 question and answer PDF snapshots
+        run: |
+          "$RUNNER_TEMP/lexflow-civil-venv/bin/python" scripts/moex_civil_mcq.py --live \
+            --output "$RUNNER_TEMP/lexflow-civil-25-UNVERIFIED-questions.json"
+      - name: Upload source-linked candidate for review (never automatically publish)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-114120-civil-25-answer-keys-CANDIDATE-NOT-SCORED
+          path: ${{ runner.temp }}/lexflow-civil-25-UNVERIFIED-questions.json
+          if-no-files-found: ignore
+          retention-days: 14
+
+
+  # Reusable across subjects and years: bounded documents, isolated failures,
+  # official Q/S/M source identity and no automatic scoring/publication.
+  universal-batch-smoke:
+    if: github.event_name == 'pull_request'
+    needs: [tests, official-page-smoke]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned PDF parser (isolated environment)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-batch-venv"
+          "$RUNNER_TEMP/lexflow-batch-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Run bounded cross-field official PDF review (never score)
+        run: |
+          "$RUNNER_TEMP/lexflow-batch-venv/bin/python" scripts/moex_batch_engine.py \
+            --live-exam 114120 --max-papers 3 --max-documents 9 \
+            --download-documents --require-all \
+            --extract-questions --min-choice-candidates-per-paper 3 \
+            --output "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json"
+      - name: Audit release gates against original downloaded candidate (still never score)
+        run: |
+          python3 scripts/moex_release_gate.py \
+            --input "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json" \
+            --output "$RUNNER_TEMP/lexflow-release-readiness-UNVERIFIED.json"
+      - name: Generate review-only browser feed (never scored, never deployed by CI)
+        run: |
+          python3 scripts/moex_candidate_feed.py \
+            --input "$RUNNER_TEMP/lexflow-universal-batch-UNVERIFIED.json" \
+            --readiness "$RUNNER_TEMP/lexflow-release-readiness-UNVERIFIED.json" \
+            --output "$RUNNER_TEMP/moex_review_candidate.json"
+      - name: Upload isolated review data (no quiz answers published)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: moex-cross-field-UNVERIFIED-batch-review
+          path: |
+            ${{ runner.temp }}/lexflow-universal-batch-UNVERIFIED.json
+            ${{ runner.temp }}/lexflow-release-readiness-UNVERIFIED.json
+            ${{ runner.temp }}/moex_review_candidate.json
+          if-no-files-found: ignore
+          retention-days: 7
+
+  candidates:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try CSV first, individual official exam page second
+        run: |
+          set -euo pipefail
+          python3 scripts/moex_sync.py --primary data/moex_official_index.json --fallback data/moex_official_fallback.json \
+            | tee "$RUNNER_TEMP/lexflow-sync-result.json"
+      - name: Install bounded official PDF parser for candidate feed staging
+        run: |
+          python3 -m venv "$RUNNER_TEMP/lexflow-nightly-venv"
+          "$RUNNER_TEMP/lexflow-nightly-venv/bin/python" -m pip install --disable-pip-version-check pypdf==5.9.0
+      - name: Stage candidate feed only when full source checks pass
+        run: |
+          set -euo pipefail
+          MODE=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['mode'])" "$RUNNER_TEMP/lexflow-sync-result.json")
+          if [ "$MODE" = primary_csv ]; then
+            INDEX=data/moex_official_index.json
+          elif [ "$MODE" = separate_individual_exam_fallback ]; then
+            INDEX=data/moex_official_fallback.json
+          else
+            echo "::warning::Unknown sync mode; no feed staged"
+            exit 0
+          fi
+          # A failing source/answer check may NOT replace an earlier candidate feed.
+          if "$RUNNER_TEMP/lexflow-nightly-venv/bin/python" scripts/moex_batch_engine.py \
+              --input-index "$INDEX" --max-papers 3 --max-documents 9 \
+              --download-documents --require-all \
+              --extract-questions --min-choice-candidates-per-paper 3 \
+              --output "$RUNNER_TEMP/nightly-unverified-batch.json" && \
+             python3 scripts/moex_release_gate.py \
+              --input "$RUNNER_TEMP/nightly-unverified-batch.json" \
+              --output "$RUNNER_TEMP/nightly-readiness.json" && \
+             python3 scripts/moex_candidate_feed.py \
+              --input "$RUNNER_TEMP/nightly-unverified-batch.json" \
+              --readiness "$RUNNER_TEMP/nightly-readiness.json" \
+              --output "$RUNNER_TEMP/moex_review_candidate.json"; then
+            cp "$RUNNER_TEMP/moex_review_candidate.json" data/moex_review_candidate.json
+            echo 'Candidate feed staged for manual review; no automatic Pages publication.'
+          else
+            echo '::warning::Candidate PDF QA blocked; no feed was overwritten. Official index still available for review.'
+          fi
+
+      - name: Upload candidate snapshots (not scored questions)
+        uses: actions/upload-artifact@v4
+        with:
+          name: official-moex-index-candidate
+          path: |
+            data/moex_official_index.json
+            data/moex_official_fallback.json
+            data/moex_review_candidate.json
+          retention-days: 14
+      - name: Stage review PR without overwriting an existing review branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/moex_official_index.json data/moex_official_fallback.json
+          if test -f data/moex_review_candidate.json; then git add data/moex_review_candidate.json; fi
+          if git diff --cached --quiet; then
+            echo 'No official index changes detected; no PR needed.'
+            exit 0
+          fi
+          if git ls-remote --exit-code --heads origin bot/moex-index-review >/dev/null 2>&1; then
+            echo 'Existing review branch left unchanged. Updated candidate is available as workflow artifact.'
+            exit 0
+          fi
+          git switch -c bot/moex-index-review
+          git commit -m 'data: stage MOEX public exam document links for review'
+          git push -u origin bot/moex-index-review
+          gh pr create --draft --title 'Data review: MOEX unverified public exam link index' \
+            --base main --head bot/moex-index-review \
+            --body 'Unverified official DOCUMENT LINKS only. MOEX PDF content, corrected final answers and explanations have NOT been verified. Do not merge without source review. Main is unchanged until approved.'

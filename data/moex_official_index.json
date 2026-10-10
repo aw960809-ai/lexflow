@@ -1,0 +1,16 @@
+{
+  "schema": "lexflow.moex.index.v1",
+  "status": "awaiting_first_verified_sync",
+  "source": {
+    "agency": "考選部",
+    "dataset_url": "https://data.gov.tw/dataset/170565",
+    "csv_url": "https://wwwc.moex.gov.tw/main/Exam/wHandExamQandA_CSV.ashx"
+  },
+  "summary": {
+    "index_papers": 0,
+    "subject_papers": {"民法": 0, "刑法": 0, "憲法": 0},
+    "needs_classification": 0
+  },
+  "disclaimer": "官方試卷及答案連結索引尚未完成首次實際擷取與驗證；這不是國考歷屆逐題題庫。",
+  "items": []
+}
