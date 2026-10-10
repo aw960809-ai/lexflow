@@ -33,7 +33,7 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_quality_overlay.py' -v
           python3 -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
-        run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs
+        run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs tests/official-scoring-core.test.mjs tests/official-preview-integration.test.mjs
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -42,6 +42,7 @@ jobs:
           node --check data.js
           node --check practice-lab.js
           node --check practice-core.mjs
+          node --check official-scoring-core.mjs
           node --check catalog-core.mjs
           node --check candidate-feed.mjs
 

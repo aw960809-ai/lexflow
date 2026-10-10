@@ -1,7 +1,10 @@
 /** LexFlow V0.3 local-only practice core. No fetch, no storage or UI side effects. */
 export const LAB_SCHEMA = 'lexflow.practice.local.v1';
 export const LAB_STORAGE_KEY = 'lexflow-v03-practice-lab-v1';
+import {canonicalPreviewResponse,countPreviewAnswered} from './official-scoring-core.mjs';
 const ABCD = ['A','B','C','D'];
+const ABCDE = [...ABCD,'E'];
+function safePreviewKey(value,q){if(value===null)return true;try{return canonicalPreviewResponse(value,q)===value;}catch{return false;}}
 
 export function officialUrl(value) {
   if (typeof value !== 'string' || value.length > 2048) return '';
@@ -45,16 +48,27 @@ function readOfficialPaper(paper, paperIndex) {
     check(Number.isInteger(number) && number >= 1 && number <= 100 && !seen.has(number), '存在重複或非法題號');
     seen.add(number);
     const opts = q.options_unverified;
-    const good = q.candidate_status === 'four_options_extracted_NEEDS_VISUAL_REVIEW' &&
+    const five = !!opts && typeof opts === 'object' && !Array.isArray(opts) &&
+      Object.prototype.hasOwnProperty.call(opts,'E');
+    const labels = five ? ABCDE : ABCD;
+    const extractionKind = five ? 'five_options_extracted_NEEDS_VISUAL_REVIEW' : 'four_options_extracted_NEEDS_VISUAL_REVIEW';
+    const good = q.candidate_status === extractionKind &&
       Array.isArray(q.review_reasons) && q.review_reasons.length === 0 &&
       typeof q.stem_unverified === 'string' && q.stem_unverified.trim().length >= 4 && q.stem_unverified.length <= 2500 &&
       opts && typeof opts === 'object' && !Array.isArray(opts) &&
-      ABCD.every(k => typeof opts[k] === 'string' && opts[k].trim().length > 0 && opts[k].length <= 2000) &&
-      Object.keys(opts).length === 4;
+      labels.every(k => typeof opts[k] === 'string' && opts[k].trim().length > 0 && opts[k].length <= 2000) &&
+      Object.keys(opts).length === labels.length;
     if (!good) { excluded += 1; continue; }
-    const candidate = paper.source_link_identity_confirmed === true && standardUrl && ABCD.includes(q.published_standard_candidate)
-      ? q.published_standard_candidate : null;
-    questions.push({number,stem:q.stem_unverified,options:ABCD.map(k=>opts[k]),publishedCandidate:candidate,
+    const answerInputMode = (five || q.choice_input_candidate === 'multiple_mark_candidate') ? 'multiple' : 'single';
+    let candidate = null;
+    try {
+      const raw = q.published_standard_candidate;
+      const renderCandidate = {options:labels.map(k=>opts[k]),answerInputMode};
+      if(paper.source_link_identity_confirmed === true && standardUrl &&
+         typeof raw === 'string' && raw.length && canonicalPreviewResponse(raw,renderCandidate) === raw)
+        candidate = raw;
+    } catch { /* unreliable answer stays hidden, never scored */ }
+    questions.push({number,stem:q.stem_unverified,options:labels.map(k=>opts[k]),answerInputMode,publishedCandidate:candidate,
       flags:{correctionDocumentPresent:!!correctionUrl || correction.detected === true,
         correctionMentioned:!!q.correction_notice_mentions_question,sourceTextUnverified:true}});
   }
@@ -98,7 +112,9 @@ export function demoSet(mcqItems) {
 export function scoreSession(session, questions) {
   check(session && typeof session==='object' && Array.isArray(questions),'練習資料格式不符');
   const responses=session.answers||{};
-  const total=questions.length,answered=questions.filter(q=>ABCD.includes(responses[String(q.number)])).length;
+  const total=questions.length,answered=session.mode==='demo'
+    ? questions.filter(q=>ABCD.includes(responses[String(q.number)])).length
+    : countPreviewAnswered(responses,questions);
   if(session.mode !== 'demo') return {total,answered,unanswered:total-answered,correct:null,percentage:null,officialScore:null};
   const correct=questions.filter(q=>q.answer===responses[String(q.number)]).length;
   return {total,answered,unanswered:total-answered,correct,percentage:total?Math.round(correct*100/total):0,officialScore:null};
@@ -121,9 +137,11 @@ export function safeStoredRemotePaper(p) {
   for (const q of p.questions) {
     if (!q || !Number.isInteger(q.number) || q.number < 1 || q.number > 100 || seen.has(q.number) ||
         typeof q.stem !== 'string' || q.stem.trim().length < 4 || q.stem.length > 2500 ||
-        !Array.isArray(q.options) || q.options.length !== 4 ||
+        !Array.isArray(q.options) || ![4,5].includes(q.options.length) ||
         q.options.some(v => typeof v !== 'string' || !v.trim() || v.length > 2000) ||
-        (q.publishedCandidate !== null && !ABCD.includes(q.publishedCandidate)) ||
+        !['single','multiple',undefined].includes(q.answerInputMode) ||
+        (q.options.length===5 && q.answerInputMode!=='multiple') ||
+        !safePreviewKey(q.publishedCandidate,q) ||
         q.eligible_for_scoring === true || q.final_answer_verified === true ||
         q.question_text_verified === true || q.options_verified === true) return false;
     seen.add(q.number);
@@ -145,9 +163,11 @@ export function checkStored(v){
       (!p.correctionUrl || officialUrl(p.correctionUrl)) && Array.isArray(p.questions) && p.questions.length<=100,
       '本機候審試卷來源或格式不安全');
     for(const q of p.questions) check(q && Number.isInteger(q.number) && q.number>0 && q.number<=100 &&
-      typeof q.stem==='string' && q.stem.length<=2500 && Array.isArray(q.options) && q.options.length===4 &&
+      typeof q.stem==='string' && q.stem.length<=2500 && Array.isArray(q.options) && [4,5].includes(q.options.length) &&
       q.options.every(option=>typeof option==='string'&&option.length<=2000) &&
-      (q.publishedCandidate===null || ABCD.includes(q.publishedCandidate)), '本機候審題目資料損壞');
+      ['single','multiple',undefined].includes(q.answerInputMode) &&
+      (q.options.length===4 || q.answerInputMode==='multiple') &&
+      safePreviewKey(q.publishedCandidate,q), '本機候審題目資料損壞');
   }
   return v;
 }
