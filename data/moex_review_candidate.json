@@ -1,0 +1,3448 @@
+{
+  "all_answers_verified": false,
+  "all_question_text_verified": false,
+  "correction_and_special_scoring_applied": false,
+  "disclaimer": "跨科目批次來源檢查與候審預覽；即使 PDF 可讀，也未核對完整題幹選項、答案更正或法律詳解，不能作為計分題庫。",
+  "manual_review_queue": [
+    {
+      "id": "moex-page-67a2c78b3516a7e4bbfb6d",
+      "reasons": [
+        "question_text_options_and_final_answer_not_verified"
+      ],
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED"
+    },
+    {
+      "id": "moex-page-85f6432c4baf0c2d421160",
+      "reasons": [
+        "question_text_options_and_final_answer_not_verified"
+      ],
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED"
+    },
+    {
+      "id": "moex-page-0ae2c2be32ae05f26858a0",
+      "reasons": [
+        "question_text_options_and_final_answer_not_verified",
+        "mixed_or_unclassified_paper_not_entirely_one_legal_field",
+        "official_correction_present_requires_manual_application",
+        "Q_subject_label_requires_manual_review"
+      ],
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED"
+    }
+  ],
+  "publication_allowed": false,
+  "readiness": {
+    "publication_allowed": false,
+    "scoring_enabled": false,
+    "status": "human_quality_gate_NOT_SATISFIED",
+    "summary": {
+      "pending_or_isolated_papers": 1,
+      "sampled_papers": 3,
+      "structure_complete_not_content_verified": 2
+    }
+  },
+  "reviewed_items": [
+    {
+      "answer_verified_final": false,
+      "classification": "subject_named",
+      "documents": [
+        {
+          "bytes": 291518,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 4,
+          "pdf_structure_readable": true,
+          "question_preview": {
+            "count": 25,
+            "samples": [
+              {
+                "number": 1,
+                "raw_excerpt_unreviewed": "1 法人若有數名監察人，關於監察權之行使，應依下列何種方式為之？\n除章程另有規定外，各監察人均得單獨行使\n除章程另有規定外，應由全體監察人過半數之同意行使\n各監察人單獨行使，章程不得另外限制\n全體監察人過半數之同意行使，章程不得另外限制"
+              },
+              {
+                "number": 2,
+                "raw_excerpt_unreviewed": "2 依民法規定設立之社團，關於其社員之退社或開除，下列敘述何者錯誤？\n得自由退社\n得隨時不具理由開除社員\n社員，對於其退社或開除以前應分擔之出資，仍負清償之義務\n開除社員，原則上經總會決議，以出席社員過半數決之"
+              },
+              {
+                "number": 3,
+                "raw_excerpt_unreviewed": "3 依實務見解，下列關於物之敘述，何者錯誤？\n凡繼續附著於土地之輕便軌道，均認為不動產\n定著物在未完成以前，應認為動產\n四壁及底面由水泥磚塊砌成之水池，應認其為土地之成分\n變電室及守衛室為工廠之從物"
+              },
+              {
+                "number": 4,
+                "raw_excerpt_unreviewed": "4 下列關於動產、不動產之敘述，何者錯誤？\n菜園上之蔬菜，與土地未分離前屬於獨立之不動產\n廟前之牌樓屬於不動產\n新屋建築雖已大致完成，但屋頂因材料短缺，尚有部分未完成，惟大部分樓層皆已可使用，即\n屬於不動產\n關渡大橋屬於地上定著物"
+              },
+              {
+                "number": 5,
+                "raw_excerpt_unreviewed": "5 甲擁有市價新臺幣(下同)500 萬元之超跑 A 車，乙極為喜歡，故向甲以 600 萬元高價購買，當場\n甲就將 A 車交付於乙，並為讓與合意，但甲、乙均因忙碌，故未至監理機關辦理過戶，乙也未給\n付價金 600 萬元。嗣甲缺錢，遂將 A 車再以 700 萬元高價出售於丙，丙當場交付價金 700 萬元，\n甲並至監理機關辦理 A 車過戶於丙。下列敘述何者正確？\n甲已將 A 車出售於乙後，不得再出售於丙\n丙為監理機關登記之 A 車車主，故丙取得 A 車之所有權\n乙向甲購買 A 車，但未交付價金，故乙未取得 A 車所有權\n乙取得 A 車所有權"
+              },
+              {
+                "number": 6,
+                "raw_excerpt_unreviewed": "6 下列何者組合非屬主物與從物之關係？\n電視機及其遙控器 筆記型電腦及其充電器\n汽車及其備胎 果園及其果樹"
+              },
+              {
+                "number": 7,
+                "raw_excerpt_unreviewed": "7 甲對乙有新臺幣 100 萬元之債權，甲將該債權讓與丙。下列敘述何者錯誤?\n附著於該債權之擔保，亦隨之移轉於丙\n甲、丙間之債權讓與契約，須乙之同意，始生效力\n丙將債權讓與通知乙時，債權讓與契約即可對乙生效\n乙受債權讓與通知時，原則上可對抗甲之事由，皆得以之對抗丙"
+              },
+              {
+                "number": 8,
+                "raw_excerpt_unreviewed": "8 甲向乙承租房屋一棟。依民法規定，下列敘述何者錯誤？\n若甲、乙間未為反對之約定，甲逕行將該屋中之一間房間轉租於丙，則乙得終止該租賃契約\n若雙方約定租期為 3 年，但未以字據訂立，則甲、乙間之租賃契約未定期限\n若甲向乙所承租之房屋為海砂屋，則甲得主張終止該租賃契約\n若甲與乙間之租賃契約約定之租期為 1 年，則乙不得隨時終止該租賃契約\n代號：20120\n20320\n20420\n頁次：4－3"
+              },
+              {
+                "number": 9,
+                "raw_excerpt_unreviewed": "9 就甲、乙、丙三人對丁負有新臺幣（下同）90 萬元連帶債務之情形，下列敘述何者正確？\n甲向丁清償其應分擔部分 30 萬元之債務後，丁即不得再向甲請求尚未清償之 60 萬元\n丁向乙請求清償全部債務時，乙得以甲對丁之 90 萬元債權，向丁主張抵銷\n丙提起請求確認對丁所負連帶債務不存在訴訟，丙敗訴之確定判決之效力不及於甲、乙\n丁得請求甲為清償之權利之消滅時效完成時，其仍得對乙、丙請求清償90 萬元，乙、丙不得拒絕"
+              },
+              {
+                "number": 10,
+                "raw_excerpt_unreviewed": "10 下列關於旅遊契約之敘述，何者正確？\n旅客提供資料供旅行社申辦旅遊相關手續，係旅客之協力義務\n旅客於飯店及景點未準時集合，係未盡協力義務，旅行社逕得終止與旅客之旅遊契約\n團員因口角糾紛致影響旅遊興致，旅行社即得將引起糾紛之旅客送回原出發地\n無論有無終止契約，旅行社均應負擔將旅客送回原出發地之費用"
+              },
+              {
+                "number": 11,
+                "raw_excerpt_unreviewed": "11 下列關於承攬人法定抵押權之敘述，何者正確？\n承攬之工作物，不限於建築物或其他土地上之工作物\n承攬人須於工作完成後，始得請求為抵押權之登記\n承攬契約已經公證者，承攬人得單獨申請抵押權之登記\n就承攬人之全部工作報酬額，承攬人之法定抵押權優先於成立在先之意定抵押權"
+              },
+              {
+                "number": 12,
+                "raw_excerpt_unreviewed": "12 甲向乙發出「請於收到通知後，儘速回覆是否願以新臺幣（下同）50 萬元購買 A 重型機車」之通\n知，收到該通知之乙回覆「願以 40 萬元購買 A」。但甲於收到乙回覆前，卻與丙達成合意訂立 A\n之買賣契約。下列敘述何者正確？\n甲對乙應負損害賠償責任 甲、丙之買賣契約成立\n乙得撤銷甲、丙之買賣契約 乙不受其所回覆內容之拘束"
+              },
+              {
+                "number": 13,
+                "raw_excerpt_unreviewed": "13 下列何種贈與契約，不得任意撤銷之？\n未經公證之贈與 立有字據之贈與\n非履行道德上義務之贈與 贈與物之權利已經移轉之贈與"
+              },
+              {
+                "number": 14,
+                "raw_excerpt_unreviewed": "14 甲因愛貓自家中逃脫，遂於住處之公布欄張貼廣告，聲明如有尋獲其愛貓並通知甲帶回者，將提\n供新臺幣(下同)1 萬元以表酬謝。下列關於懸賞廣告之敘述，何者錯誤？\n若乙、丙共同尋獲該貓並通知甲帶回，則由乙、丙兩人共同取得報酬請求權\n若乙不知有廣告，而在無意間尋獲該貓並通知甲帶回，則甲對乙仍有給付報酬之義務\n若甲之廣告定有完成行為之期間，則推定甲拋棄其撤回權\n若甲搜尋數日未果，遂撤回廣告，不料該貓已自行返回甲家，則甲對於乙為尋找該貓善意所受\n之損害，應負最高 1 萬元之賠償責任"
+              },
+              {
+                "number": 15,
+                "raw_excerpt_unreviewed": "15 下列何者非民法第 767 條規定之物上請求權類型？\n所有物返還請求權 所有物賠償請求權\n所有權妨害排除請求權 所有權妨害預防請求權"
+              },
+              {
+                "number": 16,
+                "raw_excerpt_unreviewed": "16 甲為 A 地之所有人，乙為 B 地之所有人，A 地與 B 地均為私用土地。甲在 A 地種植蘋果樹，蘋\n果成熟後自落於 B 地。關於該自落於 B 地之蘋果所有權之歸屬，下列敘述何者正確?\n推定屬於乙所有 視為屬於乙所有\n屬於甲單獨所有 屬於甲與乙共有"
+              },
+              {
+                "number": 17,
+                "raw_excerpt_unreviewed": "17 抵押人得就抵押物設定數個普通抵押權，而於抵押物賣得之價金，除法律另有規定外，按各抵押\n權成立之次序分配之。此次序亦係一種權利，一般稱之為次序權。下列何種次序權之處分，除抵\n押權人之意思或相對人之合意外，另須經其他利害關係人同意後，始得為之？\n為特定抵押權人之利益，讓與其抵押權之次序\n為特定後次序抵押權人之利益，拋棄其抵押權之次序\n為全體後次序抵押權人之利益，拋棄其抵押權之次序\n同一抵押物上之數抵押權人，就其抵押權之次序互換\n代號：20120\n20320\n20420\n頁次：4－4"
+              },
+              {
+                "number": 18,
+                "raw_excerpt_unreviewed": "18 甲以其所有之 A 地設定普通抵押權於乙，用以擔保其對乙所負借款債務之履行。關於甲於 A 地\n設定抵押權後之權利，下列敘述何者錯誤？\n甲得移轉 A 地所有權於第三人\n甲得以 A 地設定後次序之抵押權於第三人\n甲得將 A 地出租於第三人\n甲得聲請法院拍賣抵押之 A 地"
+              },
+              {
+                "number": 19,
+                "raw_excerpt_unreviewed": "19 甲有經登記之 A 地，遭好友乙惡意占有並建 B 屋居住達 18 年，經甲發現後向法院訴請拆屋還地，\n經乙求情後，甲撤回起訴，乙卻繼續占有 A 地經 3 年不願返還，甲無奈再次向法院訴請拆屋還\n地。下列敘述何者正確？\n乙公然和平繼續占有 A 地期間，受占有保護規定而成為有權占有\n乙得請求登記為 A 地所有人\n乙得請求登記為 A 地地上權人\n乙得請求登記為 A 地不動產役權人"
+              },
+              {
+                "number": 20,
+                "raw_excerpt_unreviewed": "20 下列何者無過失時，亦應負損害賠償責任？\n判決離婚時無過失之一方 婚姻撤銷時無過失之一方\n善意且無過失之重婚者 婚約解除時無過失之一方"
+              },
+              {
+                "number": 21,
+                "raw_excerpt_unreviewed": "21 甲、乙為兄弟，均已喪妻。甲有丙、丁二子，均尚未成年，乙有一女戊。乙擬收養 5 歲之丁。甲\n代理丁與乙於民國 111 年 2 月 1 日合意丁被乙收養，於同年 3 月 1 日在公證人處完成書面契約，\n同年 4 月 1 日向地方法院提出聲請，法院認可收養之裁定於同年 10 月 1 日確定。依民法規定，\n乙、丁之收養契約何時生效？\n民國 111 年 2 月 1 日 民國 111 年 3 月 1 日\n民國 111 年 4 月 1 日 民國 111 年 10 月 1 日"
+              },
+              {
+                "number": 22,
+                "raw_excerpt_unreviewed": "22 甲、乙為夫妻，有一成年之子丙，丁為甲之父。乙、丙、丁均不能維持生活又無謀生能力，甲有\n扶養能力。何人得優先受甲扶養？\n乙丙 乙丁 丙丁 乙丙丁"
+              },
+              {
+                "number": 23,
+                "raw_excerpt_unreviewed": "23 下列關於遺產繼承人之敘述，何者正確？\n甲、乙為夫妻，同時遇難死亡，若無第一順位繼承人，則甲之父母僅得繼承甲之遺產，乙之父\n母僅得繼承乙之遺產\n父母離婚，父與他人再婚，喪失對於其原生子女遺產之繼承權\n本生父母對於已出養子女之遺產，因仍具血緣關係，享有繼承權\n繼父對於妻之前夫所生之子女，因已共居日久，所以具備法律上之親子關係，對該子女之遺產\n有繼承權"
+              },
+              {
+                "number": 24,
+                "raw_excerpt_unreviewed": "24 得知離家數年之庚死亡時，庚配偶戊以為自己是唯一繼承人。未料，竟有丁出面主張庚其實已與\n他多年如同夫妻般共同生活。關於庚之遺產，下列敘述何者正確？\n喪葬費用應由法定繼承人支出，以免影響到庚遺產之正確數額\n如庚生前繼續扶養丁，丁得經程序主張受酌給遺產\n戊得主張遺產酌給請求權\n丁有事實上配偶之地位，與戊各得分配二分之一"
+              },
+              {
+                "number": 25,
+                "raw_excerpt_unreviewed": "25 甲有子女乙、丙、丁。甲於遺囑中委託好友戊指定甲之遺囑執行人。甲死亡後，下列敘述何者正確？\n戊若已死亡，丁得逕向法院聲請指定遺囑執行人\n戊得指定自己 16 歲之兒子庚為遺囑執行人\n戊得指定丙 26 歲之兒子癸為遺囑執行人\n戊得指定自己 76 歲但受輔助宣告之媽媽辛為遺囑執行人"
+              }
+            ],
+            "status": "numbered_text_fragments_REQUIRE_REVIEW"
+          },
+          "question_text_verified": false,
+          "role": "Q",
+          "sha256": "f57cbcd55d4dc1e7fa9c0b0c8e6bc0ef264e17d7573531aa513eb093fe41fc89",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114120&c=201&s=0405&q=1"
+        },
+        {
+          "answer_preview_status": "official_document_requires_answer_and_correction_review",
+          "bytes": 43131,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 1,
+          "pdf_structure_readable": true,
+          "question_text_verified": false,
+          "role": "S",
+          "sha256": "18e2b4e83dece0763568b5daa59000fb78a14e8def9eb7558672416b5f923ce7",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=S&code=114120&c=201&s=0405&q=1"
+        }
+      ],
+      "eligible_for_scoring": false,
+      "exam": "114年司法人員、法務部調查局調查人員等考試（考試代碼114120）",
+      "focus_subjects": [
+        "民法"
+      ],
+      "groups_unverified": [
+        "司法四等考試_法院書記官類科"
+      ],
+      "id": "moex-page-67a2c78b3516a7e4bbfb6d",
+      "legal_explanation_verified": false,
+      "options_verified": false,
+      "original_index_id": "moex-page-67a2c78b3516a7e4bbfb6d",
+      "question_answer_candidates": {
+        "all_subject_names_exactly_confirmed": true,
+        "candidate_answer_pair_count": 25,
+        "candidate_question_count": 25,
+        "final_answer_verified": false,
+        "official_correction": {
+          "correction_applied": false,
+          "detected": false,
+          "review_required_to_confirm_no_later_changes": true,
+          "special_scoring_mentioned": false,
+          "status": "corrections_not_proven_absent"
+        },
+        "publication_allowed": false,
+        "published_question_extraction": {
+          "count_matches_declared": true,
+          "expected_question_count": 25,
+          "four_option_candidates": 25,
+          "observed_sequential_numbers": 25,
+          "question_text_and_options_verified": false,
+          "requires_review_count": 0,
+          "status": "question_fragments_unverified",
+          "warnings": []
+        },
+        "published_standard_answer_extraction": {
+          "evidence_method": "positioned_pdf_cell_alignment_WITH_VISUAL_REVIEW_REQUIRED",
+          "final_answer_verified": false,
+          "published_candidates": [
+            {
+              "number": 1,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 2,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 3,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 4,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 5,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 6,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 7,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 8,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 9,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 10,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 11,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 12,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 13,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 14,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 15,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 16,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 17,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 18,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 19,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 20,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 21,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 22,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 23,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 24,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 25,
+              "published_standard_candidate": "C"
+            }
+          ],
+          "review_reasons": [
+            "final_corrections_and_special_credit_not_verified"
+          ],
+          "special_scoring_mentioned": false,
+          "status": "published_standard_letter_candidates_NOT_FINAL"
+        },
+        "question_text_and_options_verified": false,
+        "questions": [
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 1,
+            "options_unverified": {
+              "A": "除章程另有規定外，各監察人均得單獨行使",
+              "B": "除章程另有規定外，應由全體監察人過半數之同意行使",
+              "C": "各監察人單獨行使，章程不得另外限制",
+              "D": "全體監察人過半數之同意行使，章程不得另外限制"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "1 法人若有數名監察人，關於監察權之行使，應依下列何種方式為之？\n除章程另有規定外，各監察人均得單獨行使\n除章程另有規定外，應由全體監察人過半數之同意行使\n各監察人單獨行使，章程不得另外限制\n全體監察人過半數之同意行使，章程不得另外限制",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "法人若有數名監察人，關於監察權之行使，應依下列何種方式為之？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 2,
+            "options_unverified": {
+              "A": "得自由退社",
+              "B": "得隨時不具理由開除社員",
+              "C": "社員，對於其退社或開除以前應分擔之出資，仍負清償之義務",
+              "D": "開除社員，原則上經總會決議，以出席社員過半數決之"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "2 依民法規定設立之社團，關於其社員之退社或開除，下列敘述何者錯誤？\n得自由退社\n得隨時不具理由開除社員\n社員，對於其退社或開除以前應分擔之出資，仍負清償之義務\n開除社員，原則上經總會決議，以出席社員過半數決之",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依民法規定設立之社團，關於其社員之退社或開除，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 3,
+            "options_unverified": {
+              "A": "凡繼續附著於土地之輕便軌道，均認為不動產",
+              "B": "定著物在未完成以前，應認為動產",
+              "C": "四壁及底面由水泥磚塊砌成之水池，應認其為土地之成分",
+              "D": "變電室及守衛室為工廠之從物"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "3 依實務見解，下列關於物之敘述，何者錯誤？\n凡繼續附著於土地之輕便軌道，均認為不動產\n定著物在未完成以前，應認為動產\n四壁及底面由水泥磚塊砌成之水池，應認其為土地之成分\n變電室及守衛室為工廠之從物",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依實務見解，下列關於物之敘述，何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 4,
+            "options_unverified": {
+              "A": "菜園上之蔬菜，與土地未分離前屬於獨立之不動產",
+              "B": "廟前之牌樓屬於不動產",
+              "C": "新屋建築雖已大致完成，但屋頂因材料短缺，尚有部分未完成，惟大部分樓層皆已可使用，即\n屬於不動產",
+              "D": "關渡大橋屬於地上定著物"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "4 下列關於動產、不動產之敘述，何者錯誤？\n菜園上之蔬菜，與土地未分離前屬於獨立之不動產\n廟前之牌樓屬於不動產\n新屋建築雖已大致完成，但屋頂因材料短缺，尚有部分未完成，惟大部分樓層皆已可使用，即\n屬於不動產\n關渡大橋屬於地上定著物",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列關於動產、不動產之敘述，何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 5,
+            "options_unverified": {
+              "A": "甲已將 A 車出售於乙後，不得再出售於丙",
+              "B": "丙為監理機關登記之 A 車車主，故丙取得 A 車之所有權",
+              "C": "乙向甲購買 A 車，但未交付價金，故乙未取得 A 車所有權",
+              "D": "乙取得 A 車所有權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "5 甲擁有市價新臺幣(下同)500 萬元之超跑 A 車，乙極為喜歡，故向甲以 600 萬元高價購買，當場\n甲就將 A 車交付於乙，並為讓與合意，但甲、乙均因忙碌，故未至監理機關辦理過戶，乙也未給\n付價金 600 萬元。嗣甲缺錢，遂將 A 車再以 700 萬元高價出售於丙，丙當場交付價金 700 萬元，\n甲並至監理機關辦理 A 車過戶於丙。下列敘述何者正確？\n甲已將 A 車出售於乙後，不得再出售於丙\n丙為監理機關登記之 A 車車主，故丙取得 A 車之所有權\n乙向甲購買 A 車，但未交付價金，故乙未取得 A 車所有權\n乙取得 A 車所有權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲擁有市價新臺幣(下同)500 萬元之超跑 A 車，乙極為喜歡，故向甲以 600 萬元高價購買，當場\n甲就將 A 車交付於乙，並為讓與合意，但甲、乙均因忙碌，故未至監理機關辦理過戶，乙也未給\n付價金 600 萬元。嗣甲缺錢，遂將 A 車再以 700 萬元高價出售於丙，丙當場交付價金 700 萬元，\n甲並至監理機關辦理 A 車過戶於丙。下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 6,
+            "options_unverified": {
+              "A": "電視機及其遙控器",
+              "B": "筆記型電腦及其充電器",
+              "C": "汽車及其備胎",
+              "D": "果園及其果樹"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "6 下列何者組合非屬主物與從物之關係？\n電視機及其遙控器 筆記型電腦及其充電器\n汽車及其備胎 果園及其果樹",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者組合非屬主物與從物之關係？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 7,
+            "options_unverified": {
+              "A": "附著於該債權之擔保，亦隨之移轉於丙",
+              "B": "甲、丙間之債權讓與契約，須乙之同意，始生效力",
+              "C": "丙將債權讓與通知乙時，債權讓與契約即可對乙生效",
+              "D": "乙受債權讓與通知時，原則上可對抗甲之事由，皆得以之對抗丙"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "7 甲對乙有新臺幣 100 萬元之債權，甲將該債權讓與丙。下列敘述何者錯誤?\n附著於該債權之擔保，亦隨之移轉於丙\n甲、丙間之債權讓與契約，須乙之同意，始生效力\n丙將債權讓與通知乙時，債權讓與契約即可對乙生效\n乙受債權讓與通知時，原則上可對抗甲之事由，皆得以之對抗丙",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲對乙有新臺幣 100 萬元之債權，甲將該債權讓與丙。下列敘述何者錯誤?"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 8,
+            "options_unverified": {
+              "A": "若甲、乙間未為反對之約定，甲逕行將該屋中之一間房間轉租於丙，則乙得終止該租賃契約",
+              "B": "若雙方約定租期為 3 年，但未以字據訂立，則甲、乙間之租賃契約未定期限",
+              "C": "若甲向乙所承租之房屋為海砂屋，則甲得主張終止該租賃契約",
+              "D": "若甲與乙間之租賃契約約定之租期為 1 年，則乙不得隨時終止該租賃契約"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "8 甲向乙承租房屋一棟。依民法規定，下列敘述何者錯誤？\n若甲、乙間未為反對之約定，甲逕行將該屋中之一間房間轉租於丙，則乙得終止該租賃契約\n若雙方約定租期為 3 年，但未以字據訂立，則甲、乙間之租賃契約未定期限\n若甲向乙所承租之房屋為海砂屋，則甲得主張終止該租賃契約\n若甲與乙間之租賃契約約定之租期為 1 年，則乙不得隨時終止該租賃契約\n代號：20120\n20320\n20420\n頁次：4－3",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "甲向乙承租房屋一棟。依民法規定，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 9,
+            "options_unverified": {
+              "A": "甲向丁清償其應分擔部分 30 萬元之債務後，丁即不得再向甲請求尚未清償之 60 萬元",
+              "B": "丁向乙請求清償全部債務時，乙得以甲對丁之 90 萬元債權，向丁主張抵銷",
+              "C": "丙提起請求確認對丁所負連帶債務不存在訴訟，丙敗訴之確定判決之效力不及於甲、乙",
+              "D": "丁得請求甲為清償之權利之消滅時效完成時，其仍得對乙、丙請求清償90 萬元，乙、丙不得拒絕"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "9 就甲、乙、丙三人對丁負有新臺幣（下同）90 萬元連帶債務之情形，下列敘述何者正確？\n甲向丁清償其應分擔部分 30 萬元之債務後，丁即不得再向甲請求尚未清償之 60 萬元\n丁向乙請求清償全部債務時，乙得以甲對丁之 90 萬元債權，向丁主張抵銷\n丙提起請求確認對丁所負連帶債務不存在訴訟，丙敗訴之確定判決之效力不及於甲、乙\n丁得請求甲為清償之權利之消滅時效完成時，其仍得對乙、丙請求清償90 萬元，乙、丙不得拒絕",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "就甲、乙、丙三人對丁負有新臺幣（下同）90 萬元連帶債務之情形，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 10,
+            "options_unverified": {
+              "A": "旅客提供資料供旅行社申辦旅遊相關手續，係旅客之協力義務",
+              "B": "旅客於飯店及景點未準時集合，係未盡協力義務，旅行社逕得終止與旅客之旅遊契約",
+              "C": "團員因口角糾紛致影響旅遊興致，旅行社即得將引起糾紛之旅客送回原出發地",
+              "D": "無論有無終止契約，旅行社均應負擔將旅客送回原出發地之費用"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "10 下列關於旅遊契約之敘述，何者正確？\n旅客提供資料供旅行社申辦旅遊相關手續，係旅客之協力義務\n旅客於飯店及景點未準時集合，係未盡協力義務，旅行社逕得終止與旅客之旅遊契約\n團員因口角糾紛致影響旅遊興致，旅行社即得將引起糾紛之旅客送回原出發地\n無論有無終止契約，旅行社均應負擔將旅客送回原出發地之費用",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列關於旅遊契約之敘述，何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 11,
+            "options_unverified": {
+              "A": "承攬之工作物，不限於建築物或其他土地上之工作物",
+              "B": "承攬人須於工作完成後，始得請求為抵押權之登記",
+              "C": "承攬契約已經公證者，承攬人得單獨申請抵押權之登記",
+              "D": "就承攬人之全部工作報酬額，承攬人之法定抵押權優先於成立在先之意定抵押權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "11 下列關於承攬人法定抵押權之敘述，何者正確？\n承攬之工作物，不限於建築物或其他土地上之工作物\n承攬人須於工作完成後，始得請求為抵押權之登記\n承攬契約已經公證者，承攬人得單獨申請抵押權之登記\n就承攬人之全部工作報酬額，承攬人之法定抵押權優先於成立在先之意定抵押權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列關於承攬人法定抵押權之敘述，何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 12,
+            "options_unverified": {
+              "A": "甲對乙應負損害賠償責任",
+              "B": "甲、丙之買賣契約成立",
+              "C": "乙得撤銷甲、丙之買賣契約",
+              "D": "乙不受其所回覆內容之拘束"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "12 甲向乙發出「請於收到通知後，儘速回覆是否願以新臺幣（下同）50 萬元購買 A 重型機車」之通\n知，收到該通知之乙回覆「願以 40 萬元購買 A」。但甲於收到乙回覆前，卻與丙達成合意訂立 A\n之買賣契約。下列敘述何者正確？\n甲對乙應負損害賠償責任 甲、丙之買賣契約成立\n乙得撤銷甲、丙之買賣契約 乙不受其所回覆內容之拘束",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲向乙發出「請於收到通知後，儘速回覆是否願以新臺幣（下同）50 萬元購買 A 重型機車」之通\n知，收到該通知之乙回覆「願以 40 萬元購買 A」。但甲於收到乙回覆前，卻與丙達成合意訂立 A\n之買賣契約。下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 13,
+            "options_unverified": {
+              "A": "未經公證之贈與",
+              "B": "立有字據之贈與",
+              "C": "非履行道德上義務之贈與",
+              "D": "贈與物之權利已經移轉之贈與"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "13 下列何種贈與契約，不得任意撤銷之？\n未經公證之贈與 立有字據之贈與\n非履行道德上義務之贈與 贈與物之權利已經移轉之贈與",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何種贈與契約，不得任意撤銷之？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 14,
+            "options_unverified": {
+              "A": "若乙、丙共同尋獲該貓並通知甲帶回，則由乙、丙兩人共同取得報酬請求權",
+              "B": "若乙不知有廣告，而在無意間尋獲該貓並通知甲帶回，則甲對乙仍有給付報酬之義務",
+              "C": "若甲之廣告定有完成行為之期間，則推定甲拋棄其撤回權",
+              "D": "若甲搜尋數日未果，遂撤回廣告，不料該貓已自行返回甲家，則甲對於乙為尋找該貓善意所受\n之損害，應負最高 1 萬元之賠償責任"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "14 甲因愛貓自家中逃脫，遂於住處之公布欄張貼廣告，聲明如有尋獲其愛貓並通知甲帶回者，將提\n供新臺幣(下同)1 萬元以表酬謝。下列關於懸賞廣告之敘述，何者錯誤？\n若乙、丙共同尋獲該貓並通知甲帶回，則由乙、丙兩人共同取得報酬請求權\n若乙不知有廣告，而在無意間尋獲該貓並通知甲帶回，則甲對乙仍有給付報酬之義務\n若甲之廣告定有完成行為之期間，則推定甲拋棄其撤回權\n若甲搜尋數日未果，遂撤回廣告，不料該貓已自行返回甲家，則甲對於乙為尋找該貓善意所受\n之損害，應負最高 1 萬元之賠償責任",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲因愛貓自家中逃脫，遂於住處之公布欄張貼廣告，聲明如有尋獲其愛貓並通知甲帶回者，將提\n供新臺幣(下同)1 萬元以表酬謝。下列關於懸賞廣告之敘述，何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 15,
+            "options_unverified": {
+              "A": "所有物返還請求權",
+              "B": "所有物賠償請求權",
+              "C": "所有權妨害排除請求權",
+              "D": "所有權妨害預防請求權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "15 下列何者非民法第 767 條規定之物上請求權類型？\n所有物返還請求權 所有物賠償請求權\n所有權妨害排除請求權 所有權妨害預防請求權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者非民法第 767 條規定之物上請求權類型？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 16,
+            "options_unverified": {
+              "A": "推定屬於乙所有",
+              "B": "視為屬於乙所有",
+              "C": "屬於甲單獨所有",
+              "D": "屬於甲與乙共有"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "16 甲為 A 地之所有人，乙為 B 地之所有人，A 地與 B 地均為私用土地。甲在 A 地種植蘋果樹，蘋\n果成熟後自落於 B 地。關於該自落於 B 地之蘋果所有權之歸屬，下列敘述何者正確?\n推定屬於乙所有 視為屬於乙所有\n屬於甲單獨所有 屬於甲與乙共有",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲為 A 地之所有人，乙為 B 地之所有人，A 地與 B 地均為私用土地。甲在 A 地種植蘋果樹，蘋\n果成熟後自落於 B 地。關於該自落於 B 地之蘋果所有權之歸屬，下列敘述何者正確?"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 17,
+            "options_unverified": {
+              "A": "為特定抵押權人之利益，讓與其抵押權之次序",
+              "B": "為特定後次序抵押權人之利益，拋棄其抵押權之次序",
+              "C": "為全體後次序抵押權人之利益，拋棄其抵押權之次序",
+              "D": "同一抵押物上之數抵押權人，就其抵押權之次序互換"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "17 抵押人得就抵押物設定數個普通抵押權，而於抵押物賣得之價金，除法律另有規定外，按各抵押\n權成立之次序分配之。此次序亦係一種權利，一般稱之為次序權。下列何種次序權之處分，除抵\n押權人之意思或相對人之合意外，另須經其他利害關係人同意後，始得為之？\n為特定抵押權人之利益，讓與其抵押權之次序\n為特定後次序抵押權人之利益，拋棄其抵押權之次序\n為全體後次序抵押權人之利益，拋棄其抵押權之次序\n同一抵押物上之數抵押權人，就其抵押權之次序互換\n代號：20120\n20320\n20420\n頁次：4－4",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "抵押人得就抵押物設定數個普通抵押權，而於抵押物賣得之價金，除法律另有規定外，按各抵押\n權成立之次序分配之。此次序亦係一種權利，一般稱之為次序權。下列何種次序權之處分，除抵\n押權人之意思或相對人之合意外，另須經其他利害關係人同意後，始得為之？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 18,
+            "options_unverified": {
+              "A": "甲得移轉 A 地所有權於第三人",
+              "B": "甲得以 A 地設定後次序之抵押權於第三人",
+              "C": "甲得將 A 地出租於第三人",
+              "D": "甲得聲請法院拍賣抵押之 A 地"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "18 甲以其所有之 A 地設定普通抵押權於乙，用以擔保其對乙所負借款債務之履行。關於甲於 A 地\n設定抵押權後之權利，下列敘述何者錯誤？\n甲得移轉 A 地所有權於第三人\n甲得以 A 地設定後次序之抵押權於第三人\n甲得將 A 地出租於第三人\n甲得聲請法院拍賣抵押之 A 地",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲以其所有之 A 地設定普通抵押權於乙，用以擔保其對乙所負借款債務之履行。關於甲於 A 地\n設定抵押權後之權利，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 19,
+            "options_unverified": {
+              "A": "乙公然和平繼續占有 A 地期間，受占有保護規定而成為有權占有",
+              "B": "乙得請求登記為 A 地所有人",
+              "C": "乙得請求登記為 A 地地上權人",
+              "D": "乙得請求登記為 A 地不動產役權人"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "19 甲有經登記之 A 地，遭好友乙惡意占有並建 B 屋居住達 18 年，經甲發現後向法院訴請拆屋還地，\n經乙求情後，甲撤回起訴，乙卻繼續占有 A 地經 3 年不願返還，甲無奈再次向法院訴請拆屋還\n地。下列敘述何者正確？\n乙公然和平繼續占有 A 地期間，受占有保護規定而成為有權占有\n乙得請求登記為 A 地所有人\n乙得請求登記為 A 地地上權人\n乙得請求登記為 A 地不動產役權人",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲有經登記之 A 地，遭好友乙惡意占有並建 B 屋居住達 18 年，經甲發現後向法院訴請拆屋還地，\n經乙求情後，甲撤回起訴，乙卻繼續占有 A 地經 3 年不願返還，甲無奈再次向法院訴請拆屋還\n地。下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 20,
+            "options_unverified": {
+              "A": "判決離婚時無過失之一方",
+              "B": "婚姻撤銷時無過失之一方",
+              "C": "善意且無過失之重婚者",
+              "D": "婚約解除時無過失之一方"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "20 下列何者無過失時，亦應負損害賠償責任？\n判決離婚時無過失之一方 婚姻撤銷時無過失之一方\n善意且無過失之重婚者 婚約解除時無過失之一方",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者無過失時，亦應負損害賠償責任？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 21,
+            "options_unverified": {
+              "A": "民國 111 年 2 月 1 日",
+              "B": "民國 111 年 3 月 1 日",
+              "C": "民國 111 年 4 月 1 日",
+              "D": "民國 111 年 10 月 1 日"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "21 甲、乙為兄弟，均已喪妻。甲有丙、丁二子，均尚未成年，乙有一女戊。乙擬收養 5 歲之丁。甲\n代理丁與乙於民國 111 年 2 月 1 日合意丁被乙收養，於同年 3 月 1 日在公證人處完成書面契約，\n同年 4 月 1 日向地方法院提出聲請，法院認可收養之裁定於同年 10 月 1 日確定。依民法規定，\n乙、丁之收養契約何時生效？\n民國 111 年 2 月 1 日 民國 111 年 3 月 1 日\n民國 111 年 4 月 1 日 民國 111 年 10 月 1 日",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲、乙為兄弟，均已喪妻。甲有丙、丁二子，均尚未成年，乙有一女戊。乙擬收養 5 歲之丁。甲\n代理丁與乙於民國 111 年 2 月 1 日合意丁被乙收養，於同年 3 月 1 日在公證人處完成書面契約，\n同年 4 月 1 日向地方法院提出聲請，法院認可收養之裁定於同年 10 月 1 日確定。依民法規定，\n乙、丁之收養契約何時生效？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 22,
+            "options_unverified": {
+              "A": "乙丙",
+              "B": "乙丁",
+              "C": "丙丁",
+              "D": "乙丙丁"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "22 甲、乙為夫妻，有一成年之子丙，丁為甲之父。乙、丙、丁均不能維持生活又無謀生能力，甲有\n扶養能力。何人得優先受甲扶養？\n乙丙 乙丁 丙丁 乙丙丁",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲、乙為夫妻，有一成年之子丙，丁為甲之父。乙、丙、丁均不能維持生活又無謀生能力，甲有\n扶養能力。何人得優先受甲扶養？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 23,
+            "options_unverified": {
+              "A": "甲、乙為夫妻，同時遇難死亡，若無第一順位繼承人，則甲之父母僅得繼承甲之遺產，乙之父\n母僅得繼承乙之遺產",
+              "B": "父母離婚，父與他人再婚，喪失對於其原生子女遺產之繼承權",
+              "C": "本生父母對於已出養子女之遺產，因仍具血緣關係，享有繼承權",
+              "D": "繼父對於妻之前夫所生之子女，因已共居日久，所以具備法律上之親子關係，對該子女之遺產\n有繼承權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "23 下列關於遺產繼承人之敘述，何者正確？\n甲、乙為夫妻，同時遇難死亡，若無第一順位繼承人，則甲之父母僅得繼承甲之遺產，乙之父\n母僅得繼承乙之遺產\n父母離婚，父與他人再婚，喪失對於其原生子女遺產之繼承權\n本生父母對於已出養子女之遺產，因仍具血緣關係，享有繼承權\n繼父對於妻之前夫所生之子女，因已共居日久，所以具備法律上之親子關係，對該子女之遺產\n有繼承權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列關於遺產繼承人之敘述，何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 24,
+            "options_unverified": {
+              "A": "喪葬費用應由法定繼承人支出，以免影響到庚遺產之正確數額",
+              "B": "如庚生前繼續扶養丁，丁得經程序主張受酌給遺產",
+              "C": "戊得主張遺產酌給請求權",
+              "D": "丁有事實上配偶之地位，與戊各得分配二分之一"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "24 得知離家數年之庚死亡時，庚配偶戊以為自己是唯一繼承人。未料，竟有丁出面主張庚其實已與\n他多年如同夫妻般共同生活。關於庚之遺產，下列敘述何者正確？\n喪葬費用應由法定繼承人支出，以免影響到庚遺產之正確數額\n如庚生前繼續扶養丁，丁得經程序主張受酌給遺產\n戊得主張遺產酌給請求權\n丁有事實上配偶之地位，與戊各得分配二分之一",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "得知離家數年之庚死亡時，庚配偶戊以為自己是唯一繼承人。未料，竟有丁出面主張庚其實已與\n他多年如同夫妻般共同生活。關於庚之遺產，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 25,
+            "options_unverified": {
+              "A": "戊若已死亡，丁得逕向法院聲請指定遺囑執行人",
+              "B": "戊得指定自己 16 歲之兒子庚為遺囑執行人",
+              "C": "戊得指定丙 26 歲之兒子癸為遺囑執行人",
+              "D": "戊得指定自己 76 歲但受輔助宣告之媽媽辛為遺囑執行人"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "25 甲有子女乙、丙、丁。甲於遺囑中委託好友戊指定甲之遺囑執行人。甲死亡後，下列敘述何者正確？\n戊若已死亡，丁得逕向法院聲請指定遺囑執行人\n戊得指定自己 16 歲之兒子庚為遺囑執行人\n戊得指定丙 26 歲之兒子癸為遺囑執行人\n戊得指定自己 76 歲但受輔助宣告之媽媽辛為遺囑執行人",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲有子女乙、丙、丁。甲於遺囑中委託好友戊指定甲之遺囑執行人。甲死亡後，下列敘述何者正確？"
+          }
+        ],
+        "schema": "lexflow.moex.question.candidates.v1",
+        "scoring_enabled": false,
+        "source_subject_title_check": {
+          "published_standard_answer": "full_printed_subject_name_matched",
+          "question": "full_printed_subject_name_matched"
+        },
+        "special_scoring_applied": false,
+        "status": "candidate_question_and_published_answer_review_only"
+      },
+      "question_content_verified": false,
+      "question_type_label_unverified": "題型待原卷核對（可能包含申論及測驗）",
+      "source_link_identity_confirmed": true,
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED",
+      "subject": "民法概要",
+      "warnings": [],
+      "year_roc": "114"
+    },
+    {
+      "answer_verified_final": false,
+      "classification": "subject_named",
+      "documents": [
+        {
+          "bytes": 304769,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 3,
+          "pdf_structure_readable": true,
+          "question_preview": {
+            "count": 25,
+            "samples": [
+              {
+                "number": 1,
+                "raw_excerpt_unreviewed": "1 下列何種刑事制裁，可適用刑法第 1 條之罪刑法定原則？\n限制出境 褫奪公權 驅逐出境 罰鍰"
+              },
+              {
+                "number": 2,
+                "raw_excerpt_unreviewed": "2 中華民國公務員在中華民國領域外犯下列何罪，有刑法適用？\n刑法第 320 條第 2 項之竊佔罪 刑法第 213 條之公文書登載不實罪\n刑法第 336 條第 2 項之業務侵占罪 刑法第 165 條之湮滅證據罪"
+              },
+              {
+                "number": 3,
+                "raw_excerpt_unreviewed": "3 關於不作為犯之敘述，下列何者錯誤？\n刑法第 293 條第 1 項之遺棄罪為不作為犯\n不純正不作為犯之因果關係為假設的因果關係\n不純正不作為犯之成立，行為人需法律上有防止之義務，能防止而不防止\n因自己行為致有發生犯罪結果之危險者，負防止其發生之義務\n代號：20140\n頁次：3－2"
+              },
+              {
+                "number": 4,
+                "raw_excerpt_unreviewed": "4 有關阻卻違法事由，下列何者錯誤？\n依法令之行為，不罰 業務上正當之行為過當者，得減輕或免除其刑\n防衛行為過當者，得減輕或免除其刑 避難行為過當者，得減輕或免除其刑"
+              },
+              {
+                "number": 5,
+                "raw_excerpt_unreviewed": "5 下列何者非屬限制責任能力人？\n10 歲之兒童  15 歲之少年  90 歲之長者 瘖啞人"
+              },
+              {
+                "number": 6,
+                "raw_excerpt_unreviewed": "6 有關刑法第 26 條不能犯的敘述，下列何者正確？\n不能犯的法律效果是得減輕其刑\n幻覺犯屬不能犯類型之一\n不能犯必須是不能發生犯罪之結果，且行為又無危險者\n不能犯的法律效果是必減輕其刑"
+              },
+              {
+                "number": 7,
+                "raw_excerpt_unreviewed": "7 有關刑法第 28 條共同正犯的敘述，下列何者正確？\n共同犯意聯絡以數人之間直接聯絡為限\n甲強盜乙之財物既遂，兩天後丙協助將該贓物運往其他縣市，丙仍與甲成立強盜罪之共同正犯\n甲、乙共同謀議毆打丙，乙於行為時過於激動，突然拿起路旁的石塊朝丙的頭部砸去，丙當場\n死亡。甲、乙成立殺人罪之共同正犯\n甲、乙共同唆使丙傷害丁，甲、乙應各自成立教唆傷害罪"
+              },
+              {
+                "number": 8,
+                "raw_excerpt_unreviewed": "8 關於不同判決宣告刑之數罪併罰，下列何者錯誤？\n於裁判確定後，發覺未經裁判之餘罪者，僅就餘罪處斷\n得另行依刑法第 51 條之規定，定其應執行之刑\n如因各罪中有受赦免而僅餘一罪者，依其宣告之刑執行\n定執行刑後如發覺其他裁判確定前所犯之罪，不得再定應執行刑"
+              },
+              {
+                "number": 9,
+                "raw_excerpt_unreviewed": "9 關於刑法中的刑之加重與減輕適用原則，下列何者錯誤？\n死刑不得加重 無期徒刑得加重為死刑\n刑有加重及減輕者，先加後減 死刑減輕者為無期徒刑"
+              },
+              {
+                "number": 10,
+                "raw_excerpt_unreviewed": "10 關於假釋制度的敘述，下列何者錯誤？\n假釋是一種提早釋放改過遷善之受刑人出獄的制度\n初次犯罪而受有期徒刑宣告之人，有期徒刑執行逾刑期的 2 分之 1，得許假釋\n無期徒刑假釋後滿 20 年，假釋未經撤銷者，未執行之刑以已執行論\n有期徒刑執行未滿 6 個月，亦得假釋"
+              },
+              {
+                "number": 11,
+                "raw_excerpt_unreviewed": "11 有關刑法第 87 條監護處分，下列敘述何者錯誤？\n須以行為人有再犯或有危害公共安全之虞為限\n在第 19 條第 2 項及第 20 條之情形，原則上於刑之執行完畢或赦免後實施處分\n若執行中認無繼續執行之必要時，法院得免其處分繼續執行\n處分期間最長不得超過 5 年，亦不得延長"
+              },
+              {
+                "number": 12,
+                "raw_excerpt_unreviewed": "12 下列何項物品，並非屬刑法第 138 條所稱的「公務員職務上掌管文書物品」？\n國家考試監試人員的彌封袋 扣押物\n放置在公家機關的植物盆栽 警察持有之移動式雷達測速照相機"
+              },
+              {
+                "number": 13,
+                "raw_excerpt_unreviewed": "13 有關刑法第 135 條妨害公務罪之敘述，下列何者錯誤？\n本罪所稱之強暴脅迫，只要公務員在執行職務上受到影響即為已足，無須達到無法抗拒之程度\n本罪之成立，不以公務員執行之職務確實有受到妨害之結果為必要\n對於公務員非法執行職務行為加以反抗，不成立本罪\n於公務員依法執行職務時消極不予配合，亦成立本罪"
+              },
+              {
+                "number": 14,
+                "raw_excerpt_unreviewed": "14 甲持刀傷害 A 致死，聯絡同居人乙騎車到現場，知情的乙載甲前往乙租屋處藏匿。警方隨即展開\n調查，甲藏匿一個月後，仍遭警察查獲。有關甲、乙之刑責，下列敘述何者正確？\n乙成立傷害致死罪之幫助犯\n乙僅為同居人，其藏匿人犯行為不得減免其刑\n甲成立藏匿人犯罪之教唆犯\n藏匿人犯罪之所謂「犯人」，以起訴後之人為限，乙不成立藏匿人犯罪\n代號：20140\n頁次：3－3"
+              },
+              {
+                "number": 15,
+                "raw_excerpt_unreviewed": "15 刑法第 190 條之 1 規定，有關污染空氣、土壤或水體罪，下列敘述何者正確？\n本罪之處罰，以「致生公共危險」為要件\n本罪所處罰之行為人，包含實行污染行為之自然人與法人\n本罪侵害客體包括空氣、土壤、河川或其他水體\n本罪之處罰，以故意既遂犯為限，過失犯與未遂犯之情形並不處罰"
+              },
+              {
+                "number": 16,
+                "raw_excerpt_unreviewed": "16 關於刑法第 173 條放火罪客體之敘述，下列何者錯誤？\n現供人使用之住宅，於放火行為時，不以有人在內為必要\n現有人所在之建築物，指非供人居住生活，而屬住宅以外之建築物，如活動式檳榔攤\n有人所在之公車，屬放火罪之客體\n公寓大廈之住戶對自己居住的住宅放火，仍屬對現供人使用之住宅放火"
+              },
+              {
+                "number": 17,
+                "raw_excerpt_unreviewed": "17 甲以彩色影印方式印製美金紙鈔，非常擬真且混入真正美鈔，於存入銀行時被查獲，依實務見解，\n甲之行為構成下列何種犯罪？\n刑法第 195 條偽造貨幣罪 刑法第 202 條偽造郵票罪\n刑法第 196 條行使偽造貨幣罪 刑法第 201 條偽造有價證券罪"
+              },
+              {
+                "number": 18,
+                "raw_excerpt_unreviewed": "18 某甲為求脫產，遂與某乙締結土地買賣契約，以假的資金流向，辦理土地登記，順利將甲名下的\n土地過戶到乙名下，達到隱匿財產目的，甲與乙的刑責應如何論處？\n甲與乙合意締結內容不實在土地買賣契約，應構成刑法第 210 條偽造私文書罪\n甲與乙製作假的資金流向來辦理土地登記，應構成刑法第 211 條偽造公文書罪\n甲與乙以不實買賣契約辦理土地登記，應構成刑法第 214 條使公務員登載不實罪\n甲與乙持不實買賣契約辦理土地登記，應構成刑法第 216 條行使偽造私文書罪"
+              },
+              {
+                "number": 19,
+                "raw_excerpt_unreviewed": "19 下列何者不屬於刑法第 222 條加重強制性交罪？\n二人以上共同犯強制性交罪 侵入住宅犯強制性交罪\n以藥劑犯強制性交罪 冒用公務員名義犯強制性交罪"
+              },
+              {
+                "number": 20,
+                "raw_excerpt_unreviewed": "20 關於賭博罪之敘述，下列何者正確？\n以網際網路之方法賭博財物者，不構成刑法第 266 條賭博罪\n在公共場所以供人暫時娛樂之物為賭者，構成刑法第 266 條賭博罪\n在公眾得出入之場所賭博財物時，當場賭博之器具，須屬於犯罪行為人者，始得沒收\n以電子通訊方式賭博財物者，構成刑法第 266 條賭博罪"
+              },
+              {
+                "number": 21,
+                "raw_excerpt_unreviewed": "21 甲駕駛汽車在路上因超速不慎撞上前方懷胎 30 週之孕婦乙所駕駛之汽車，乙雖奇蹟式毫髮無傷\n但是因受撞擊刺激故其胎兒丙提早開始分娩，分娩結束後經醫師檢查始發現丙實際上已因撞擊在\n分娩前死於乙子宮內，成為死產。依刑法規定及通說見解，甲對丙應成立何種犯罪？\n無罪 刑法第 276 條之過失致死罪\n刑法第 271 條第 1 項之殺人罪 刑法第 291 條第 1 項之墮胎罪"
+              },
+              {
+                "number": 22,
+                "raw_excerpt_unreviewed": "22 甲受邀前往女友乙住處，未料在乙住處發生爭吵，乙命甲離開其住處，甲仍不願離開，有關刑法\n第306 條之犯罪，下列敘述何者正確？\n甲之行為符合無故侵入住宅之要件 甲之行為符合無故隱匿於住宅內之要件\n甲之行為符合受退去要求仍留滯之要件 甲之行為不成立犯罪"
+              },
+              {
+                "number": 23,
+                "raw_excerpt_unreviewed": "23 甲與乙係同事，素有糾紛，甲見乙高升職位，更加不滿，其明知為不實事項，卻以匿名方式發出\n數十封信函給公司同仁，其於匿名信函內稱：乙因與公司高層有婚外情，始得以高升等語。甲應\n如何論罪？\n刑法第 309 條第 1 項公然侮辱罪 刑法第 310 條第 1 項誹謗罪\n刑法第 310 條第 2 項加重誹謗罪 不構成犯罪"
+              },
+              {
+                "number": 24,
+                "raw_excerpt_unreviewed": "24 依實務見解，下列何種行為會構成刑法第 315 條之 1 之窺視竊聽竊錄罪？\n在捷運車廂內拿密錄器偷拍乘客大腿外側、膝蓋及小腿部位\n在咖啡廳裡用肉耳偷聽隔壁桌客人的對談\n在某人車上裝設 GPS 追蹤器，長時間蒐集駕駛使用車輛之移動軌跡\n拿望遠鏡在遠處偷看在公園裡開心玩耍的小女孩"
+              },
+              {
+                "number": 25,
+                "raw_excerpt_unreviewed": "25 甲因不認同乙所訴求集會遊行議題，持一桶紅色油漆於乙遊行地點立法院前，朝乙頭部由上往下\n潑灑，使乙之衣服沾染紅漆而不堪用。甲之刑事責任何者正確？\n甲成立刑法第 309 條第 2 項強暴侮辱罪及第 354 條毀損罪二罪，從一重處斷\n甲只成立刑法第 354 條毀損罪一罪\n甲只成立刑法第 304 條強制罪一罪\n甲只成立刑法第 309 條第 2 項強暴侮辱罪一罪"
+              }
+            ],
+            "status": "numbered_text_fragments_REQUIRE_REVIEW"
+          },
+          "question_text_verified": false,
+          "role": "Q",
+          "sha256": "372b7e5abb21ffafcfa49c0c0174c247a92fa3260775ff025a16ca406cda2688",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114120&c=201&s=0504&q=1"
+        },
+        {
+          "answer_preview_status": "official_document_requires_answer_and_correction_review",
+          "bytes": 42371,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 1,
+          "pdf_structure_readable": true,
+          "question_text_verified": false,
+          "role": "S",
+          "sha256": "5766731407620c3b358a4fb4fc31378d4e81a29a9e50291738a42068f3ee2803",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=S&code=114120&c=201&s=0504&q=1"
+        }
+      ],
+      "eligible_for_scoring": false,
+      "exam": "114年司法人員、法務部調查局調查人員等考試（考試代碼114120）",
+      "focus_subjects": [
+        "刑法"
+      ],
+      "groups_unverified": [
+        "司法四等考試_法院書記官類科"
+      ],
+      "id": "moex-page-85f6432c4baf0c2d421160",
+      "legal_explanation_verified": false,
+      "options_verified": false,
+      "original_index_id": "moex-page-85f6432c4baf0c2d421160",
+      "question_answer_candidates": {
+        "all_subject_names_exactly_confirmed": true,
+        "candidate_answer_pair_count": 25,
+        "candidate_question_count": 25,
+        "final_answer_verified": false,
+        "official_correction": {
+          "correction_applied": false,
+          "detected": false,
+          "review_required_to_confirm_no_later_changes": true,
+          "special_scoring_mentioned": false,
+          "status": "corrections_not_proven_absent"
+        },
+        "publication_allowed": false,
+        "published_question_extraction": {
+          "count_matches_declared": true,
+          "expected_question_count": 25,
+          "four_option_candidates": 25,
+          "observed_sequential_numbers": 25,
+          "question_text_and_options_verified": false,
+          "requires_review_count": 0,
+          "status": "question_fragments_unverified",
+          "warnings": []
+        },
+        "published_standard_answer_extraction": {
+          "evidence_method": "positioned_pdf_cell_alignment_WITH_VISUAL_REVIEW_REQUIRED",
+          "final_answer_verified": false,
+          "published_candidates": [
+            {
+              "number": 1,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 2,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 3,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 4,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 5,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 6,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 7,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 8,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 9,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 10,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 11,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 12,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 13,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 14,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 15,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 16,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 17,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 18,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 19,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 20,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 21,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 22,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 23,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 24,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 25,
+              "published_standard_candidate": "A"
+            }
+          ],
+          "review_reasons": [
+            "final_corrections_and_special_credit_not_verified"
+          ],
+          "special_scoring_mentioned": false,
+          "status": "published_standard_letter_candidates_NOT_FINAL"
+        },
+        "question_text_and_options_verified": false,
+        "questions": [
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 1,
+            "options_unverified": {
+              "A": "限制出境",
+              "B": "褫奪公權",
+              "C": "驅逐出境",
+              "D": "罰鍰"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "1 下列何種刑事制裁，可適用刑法第 1 條之罪刑法定原則？\n限制出境 褫奪公權 驅逐出境 罰鍰",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何種刑事制裁，可適用刑法第 1 條之罪刑法定原則？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 2,
+            "options_unverified": {
+              "A": "刑法第 320 條第 2 項之竊佔罪",
+              "B": "刑法第 213 條之公文書登載不實罪",
+              "C": "刑法第 336 條第 2 項之業務侵占罪",
+              "D": "刑法第 165 條之湮滅證據罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "2 中華民國公務員在中華民國領域外犯下列何罪，有刑法適用？\n刑法第 320 條第 2 項之竊佔罪 刑法第 213 條之公文書登載不實罪\n刑法第 336 條第 2 項之業務侵占罪 刑法第 165 條之湮滅證據罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "中華民國公務員在中華民國領域外犯下列何罪，有刑法適用？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 3,
+            "options_unverified": {
+              "A": "刑法第 293 條第 1 項之遺棄罪為不作為犯",
+              "B": "不純正不作為犯之因果關係為假設的因果關係",
+              "C": "不純正不作為犯之成立，行為人需法律上有防止之義務，能防止而不防止",
+              "D": "因自己行為致有發生犯罪結果之危險者，負防止其發生之義務"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "3 關於不作為犯之敘述，下列何者錯誤？\n刑法第 293 條第 1 項之遺棄罪為不作為犯\n不純正不作為犯之因果關係為假設的因果關係\n不純正不作為犯之成立，行為人需法律上有防止之義務，能防止而不防止\n因自己行為致有發生犯罪結果之危險者，負防止其發生之義務\n代號：20140\n頁次：3－2",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "關於不作為犯之敘述，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 4,
+            "options_unverified": {
+              "A": "依法令之行為，不罰",
+              "B": "業務上正當之行為過當者，得減輕或免除其刑",
+              "C": "防衛行為過當者，得減輕或免除其刑",
+              "D": "避難行為過當者，得減輕或免除其刑"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "4 有關阻卻違法事由，下列何者錯誤？\n依法令之行為，不罰 業務上正當之行為過當者，得減輕或免除其刑\n防衛行為過當者，得減輕或免除其刑 避難行為過當者，得減輕或免除其刑",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關阻卻違法事由，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 5,
+            "options_unverified": {
+              "A": "10 歲之兒童",
+              "B": "15 歲之少年",
+              "C": "90 歲之長者",
+              "D": "瘖啞人"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "5 下列何者非屬限制責任能力人？\n10 歲之兒童  15 歲之少年  90 歲之長者 瘖啞人",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者非屬限制責任能力人？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 6,
+            "options_unverified": {
+              "A": "不能犯的法律效果是得減輕其刑",
+              "B": "幻覺犯屬不能犯類型之一",
+              "C": "不能犯必須是不能發生犯罪之結果，且行為又無危險者",
+              "D": "不能犯的法律效果是必減輕其刑"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "6 有關刑法第 26 條不能犯的敘述，下列何者正確？\n不能犯的法律效果是得減輕其刑\n幻覺犯屬不能犯類型之一\n不能犯必須是不能發生犯罪之結果，且行為又無危險者\n不能犯的法律效果是必減輕其刑",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關刑法第 26 條不能犯的敘述，下列何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 7,
+            "options_unverified": {
+              "A": "共同犯意聯絡以數人之間直接聯絡為限",
+              "B": "甲強盜乙之財物既遂，兩天後丙協助將該贓物運往其他縣市，丙仍與甲成立強盜罪之共同正犯",
+              "C": "甲、乙共同謀議毆打丙，乙於行為時過於激動，突然拿起路旁的石塊朝丙的頭部砸去，丙當場\n死亡。甲、乙成立殺人罪之共同正犯",
+              "D": "甲、乙共同唆使丙傷害丁，甲、乙應各自成立教唆傷害罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "7 有關刑法第 28 條共同正犯的敘述，下列何者正確？\n共同犯意聯絡以數人之間直接聯絡為限\n甲強盜乙之財物既遂，兩天後丙協助將該贓物運往其他縣市，丙仍與甲成立強盜罪之共同正犯\n甲、乙共同謀議毆打丙，乙於行為時過於激動，突然拿起路旁的石塊朝丙的頭部砸去，丙當場\n死亡。甲、乙成立殺人罪之共同正犯\n甲、乙共同唆使丙傷害丁，甲、乙應各自成立教唆傷害罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關刑法第 28 條共同正犯的敘述，下列何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 8,
+            "options_unverified": {
+              "A": "於裁判確定後，發覺未經裁判之餘罪者，僅就餘罪處斷",
+              "B": "得另行依刑法第 51 條之規定，定其應執行之刑",
+              "C": "如因各罪中有受赦免而僅餘一罪者，依其宣告之刑執行",
+              "D": "定執行刑後如發覺其他裁判確定前所犯之罪，不得再定應執行刑"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "8 關於不同判決宣告刑之數罪併罰，下列何者錯誤？\n於裁判確定後，發覺未經裁判之餘罪者，僅就餘罪處斷\n得另行依刑法第 51 條之規定，定其應執行之刑\n如因各罪中有受赦免而僅餘一罪者，依其宣告之刑執行\n定執行刑後如發覺其他裁判確定前所犯之罪，不得再定應執行刑",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於不同判決宣告刑之數罪併罰，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 9,
+            "options_unverified": {
+              "A": "死刑不得加重",
+              "B": "無期徒刑得加重為死刑",
+              "C": "刑有加重及減輕者，先加後減",
+              "D": "死刑減輕者為無期徒刑"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "9 關於刑法中的刑之加重與減輕適用原則，下列何者錯誤？\n死刑不得加重 無期徒刑得加重為死刑\n刑有加重及減輕者，先加後減 死刑減輕者為無期徒刑",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於刑法中的刑之加重與減輕適用原則，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 10,
+            "options_unverified": {
+              "A": "假釋是一種提早釋放改過遷善之受刑人出獄的制度",
+              "B": "初次犯罪而受有期徒刑宣告之人，有期徒刑執行逾刑期的 2 分之 1，得許假釋",
+              "C": "無期徒刑假釋後滿 20 年，假釋未經撤銷者，未執行之刑以已執行論",
+              "D": "有期徒刑執行未滿 6 個月，亦得假釋"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "10 關於假釋制度的敘述，下列何者錯誤？\n假釋是一種提早釋放改過遷善之受刑人出獄的制度\n初次犯罪而受有期徒刑宣告之人，有期徒刑執行逾刑期的 2 分之 1，得許假釋\n無期徒刑假釋後滿 20 年，假釋未經撤銷者，未執行之刑以已執行論\n有期徒刑執行未滿 6 個月，亦得假釋",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於假釋制度的敘述，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 11,
+            "options_unverified": {
+              "A": "須以行為人有再犯或有危害公共安全之虞為限",
+              "B": "在第 19 條第 2 項及第 20 條之情形，原則上於刑之執行完畢或赦免後實施處分",
+              "C": "若執行中認無繼續執行之必要時，法院得免其處分繼續執行",
+              "D": "處分期間最長不得超過 5 年，亦不得延長"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "11 有關刑法第 87 條監護處分，下列敘述何者錯誤？\n須以行為人有再犯或有危害公共安全之虞為限\n在第 19 條第 2 項及第 20 條之情形，原則上於刑之執行完畢或赦免後實施處分\n若執行中認無繼續執行之必要時，法院得免其處分繼續執行\n處分期間最長不得超過 5 年，亦不得延長",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關刑法第 87 條監護處分，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 12,
+            "options_unverified": {
+              "A": "國家考試監試人員的彌封袋",
+              "B": "扣押物",
+              "C": "放置在公家機關的植物盆栽",
+              "D": "警察持有之移動式雷達測速照相機"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "12 下列何項物品，並非屬刑法第 138 條所稱的「公務員職務上掌管文書物品」？\n國家考試監試人員的彌封袋 扣押物\n放置在公家機關的植物盆栽 警察持有之移動式雷達測速照相機",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何項物品，並非屬刑法第 138 條所稱的「公務員職務上掌管文書物品」？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 13,
+            "options_unverified": {
+              "A": "本罪所稱之強暴脅迫，只要公務員在執行職務上受到影響即為已足，無須達到無法抗拒之程度",
+              "B": "本罪之成立，不以公務員執行之職務確實有受到妨害之結果為必要",
+              "C": "對於公務員非法執行職務行為加以反抗，不成立本罪",
+              "D": "於公務員依法執行職務時消極不予配合，亦成立本罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "13 有關刑法第 135 條妨害公務罪之敘述，下列何者錯誤？\n本罪所稱之強暴脅迫，只要公務員在執行職務上受到影響即為已足，無須達到無法抗拒之程度\n本罪之成立，不以公務員執行之職務確實有受到妨害之結果為必要\n對於公務員非法執行職務行為加以反抗，不成立本罪\n於公務員依法執行職務時消極不予配合，亦成立本罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關刑法第 135 條妨害公務罪之敘述，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 14,
+            "options_unverified": {
+              "A": "乙成立傷害致死罪之幫助犯",
+              "B": "乙僅為同居人，其藏匿人犯行為不得減免其刑",
+              "C": "甲成立藏匿人犯罪之教唆犯",
+              "D": "藏匿人犯罪之所謂「犯人」，以起訴後之人為限，乙不成立藏匿人犯罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "14 甲持刀傷害 A 致死，聯絡同居人乙騎車到現場，知情的乙載甲前往乙租屋處藏匿。警方隨即展開\n調查，甲藏匿一個月後，仍遭警察查獲。有關甲、乙之刑責，下列敘述何者正確？\n乙成立傷害致死罪之幫助犯\n乙僅為同居人，其藏匿人犯行為不得減免其刑\n甲成立藏匿人犯罪之教唆犯\n藏匿人犯罪之所謂「犯人」，以起訴後之人為限，乙不成立藏匿人犯罪\n代號：20140\n頁次：3－3",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "甲持刀傷害 A 致死，聯絡同居人乙騎車到現場，知情的乙載甲前往乙租屋處藏匿。警方隨即展開\n調查，甲藏匿一個月後，仍遭警察查獲。有關甲、乙之刑責，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 15,
+            "options_unverified": {
+              "A": "本罪之處罰，以「致生公共危險」為要件",
+              "B": "本罪所處罰之行為人，包含實行污染行為之自然人與法人",
+              "C": "本罪侵害客體包括空氣、土壤、河川或其他水體",
+              "D": "本罪之處罰，以故意既遂犯為限，過失犯與未遂犯之情形並不處罰"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "15 刑法第 190 條之 1 規定，有關污染空氣、土壤或水體罪，下列敘述何者正確？\n本罪之處罰，以「致生公共危險」為要件\n本罪所處罰之行為人，包含實行污染行為之自然人與法人\n本罪侵害客體包括空氣、土壤、河川或其他水體\n本罪之處罰，以故意既遂犯為限，過失犯與未遂犯之情形並不處罰",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "刑法第 190 條之 1 規定，有關污染空氣、土壤或水體罪，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 16,
+            "options_unverified": {
+              "A": "現供人使用之住宅，於放火行為時，不以有人在內為必要",
+              "B": "現有人所在之建築物，指非供人居住生活，而屬住宅以外之建築物，如活動式檳榔攤",
+              "C": "有人所在之公車，屬放火罪之客體",
+              "D": "公寓大廈之住戶對自己居住的住宅放火，仍屬對現供人使用之住宅放火"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "16 關於刑法第 173 條放火罪客體之敘述，下列何者錯誤？\n現供人使用之住宅，於放火行為時，不以有人在內為必要\n現有人所在之建築物，指非供人居住生活，而屬住宅以外之建築物，如活動式檳榔攤\n有人所在之公車，屬放火罪之客體\n公寓大廈之住戶對自己居住的住宅放火，仍屬對現供人使用之住宅放火",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於刑法第 173 條放火罪客體之敘述，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 17,
+            "options_unverified": {
+              "A": "刑法第 195 條偽造貨幣罪",
+              "B": "刑法第 202 條偽造郵票罪",
+              "C": "刑法第 196 條行使偽造貨幣罪",
+              "D": "刑法第 201 條偽造有價證券罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "17 甲以彩色影印方式印製美金紙鈔，非常擬真且混入真正美鈔，於存入銀行時被查獲，依實務見解，\n甲之行為構成下列何種犯罪？\n刑法第 195 條偽造貨幣罪 刑法第 202 條偽造郵票罪\n刑法第 196 條行使偽造貨幣罪 刑法第 201 條偽造有價證券罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲以彩色影印方式印製美金紙鈔，非常擬真且混入真正美鈔，於存入銀行時被查獲，依實務見解，\n甲之行為構成下列何種犯罪？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 18,
+            "options_unverified": {
+              "A": "甲與乙合意締結內容不實在土地買賣契約，應構成刑法第 210 條偽造私文書罪",
+              "B": "甲與乙製作假的資金流向來辦理土地登記，應構成刑法第 211 條偽造公文書罪",
+              "C": "甲與乙以不實買賣契約辦理土地登記，應構成刑法第 214 條使公務員登載不實罪",
+              "D": "甲與乙持不實買賣契約辦理土地登記，應構成刑法第 216 條行使偽造私文書罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "18 某甲為求脫產，遂與某乙締結土地買賣契約，以假的資金流向，辦理土地登記，順利將甲名下的\n土地過戶到乙名下，達到隱匿財產目的，甲與乙的刑責應如何論處？\n甲與乙合意締結內容不實在土地買賣契約，應構成刑法第 210 條偽造私文書罪\n甲與乙製作假的資金流向來辦理土地登記，應構成刑法第 211 條偽造公文書罪\n甲與乙以不實買賣契約辦理土地登記，應構成刑法第 214 條使公務員登載不實罪\n甲與乙持不實買賣契約辦理土地登記，應構成刑法第 216 條行使偽造私文書罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "某甲為求脫產，遂與某乙締結土地買賣契約，以假的資金流向，辦理土地登記，順利將甲名下的\n土地過戶到乙名下，達到隱匿財產目的，甲與乙的刑責應如何論處？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 19,
+            "options_unverified": {
+              "A": "二人以上共同犯強制性交罪",
+              "B": "侵入住宅犯強制性交罪",
+              "C": "以藥劑犯強制性交罪",
+              "D": "冒用公務員名義犯強制性交罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "19 下列何者不屬於刑法第 222 條加重強制性交罪？\n二人以上共同犯強制性交罪 侵入住宅犯強制性交罪\n以藥劑犯強制性交罪 冒用公務員名義犯強制性交罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者不屬於刑法第 222 條加重強制性交罪？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 20,
+            "options_unverified": {
+              "A": "以網際網路之方法賭博財物者，不構成刑法第 266 條賭博罪",
+              "B": "在公共場所以供人暫時娛樂之物為賭者，構成刑法第 266 條賭博罪",
+              "C": "在公眾得出入之場所賭博財物時，當場賭博之器具，須屬於犯罪行為人者，始得沒收",
+              "D": "以電子通訊方式賭博財物者，構成刑法第 266 條賭博罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "20 關於賭博罪之敘述，下列何者正確？\n以網際網路之方法賭博財物者，不構成刑法第 266 條賭博罪\n在公共場所以供人暫時娛樂之物為賭者，構成刑法第 266 條賭博罪\n在公眾得出入之場所賭博財物時，當場賭博之器具，須屬於犯罪行為人者，始得沒收\n以電子通訊方式賭博財物者，構成刑法第 266 條賭博罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於賭博罪之敘述，下列何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 21,
+            "options_unverified": {
+              "A": "無罪",
+              "B": "刑法第 276 條之過失致死罪",
+              "C": "刑法第 271 條第 1 項之殺人罪",
+              "D": "刑法第 291 條第 1 項之墮胎罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "21 甲駕駛汽車在路上因超速不慎撞上前方懷胎 30 週之孕婦乙所駕駛之汽車，乙雖奇蹟式毫髮無傷\n但是因受撞擊刺激故其胎兒丙提早開始分娩，分娩結束後經醫師檢查始發現丙實際上已因撞擊在\n分娩前死於乙子宮內，成為死產。依刑法規定及通說見解，甲對丙應成立何種犯罪？\n無罪 刑法第 276 條之過失致死罪\n刑法第 271 條第 1 項之殺人罪 刑法第 291 條第 1 項之墮胎罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲駕駛汽車在路上因超速不慎撞上前方懷胎 30 週之孕婦乙所駕駛之汽車，乙雖奇蹟式毫髮無傷\n但是因受撞擊刺激故其胎兒丙提早開始分娩，分娩結束後經醫師檢查始發現丙實際上已因撞擊在\n分娩前死於乙子宮內，成為死產。依刑法規定及通說見解，甲對丙應成立何種犯罪？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 22,
+            "options_unverified": {
+              "A": "甲之行為符合無故侵入住宅之要件",
+              "B": "甲之行為符合無故隱匿於住宅內之要件",
+              "C": "甲之行為符合受退去要求仍留滯之要件",
+              "D": "甲之行為不成立犯罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "22 甲受邀前往女友乙住處，未料在乙住處發生爭吵，乙命甲離開其住處，甲仍不願離開，有關刑法\n第306 條之犯罪，下列敘述何者正確？\n甲之行為符合無故侵入住宅之要件 甲之行為符合無故隱匿於住宅內之要件\n甲之行為符合受退去要求仍留滯之要件 甲之行為不成立犯罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲受邀前往女友乙住處，未料在乙住處發生爭吵，乙命甲離開其住處，甲仍不願離開，有關刑法\n第306 條之犯罪，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 23,
+            "options_unverified": {
+              "A": "刑法第 309 條第 1 項公然侮辱罪",
+              "B": "刑法第 310 條第 1 項誹謗罪",
+              "C": "刑法第 310 條第 2 項加重誹謗罪",
+              "D": "不構成犯罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "23 甲與乙係同事，素有糾紛，甲見乙高升職位，更加不滿，其明知為不實事項，卻以匿名方式發出\n數十封信函給公司同仁，其於匿名信函內稱：乙因與公司高層有婚外情，始得以高升等語。甲應\n如何論罪？\n刑法第 309 條第 1 項公然侮辱罪 刑法第 310 條第 1 項誹謗罪\n刑法第 310 條第 2 項加重誹謗罪 不構成犯罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲與乙係同事，素有糾紛，甲見乙高升職位，更加不滿，其明知為不實事項，卻以匿名方式發出\n數十封信函給公司同仁，其於匿名信函內稱：乙因與公司高層有婚外情，始得以高升等語。甲應\n如何論罪？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 24,
+            "options_unverified": {
+              "A": "在捷運車廂內拿密錄器偷拍乘客大腿外側、膝蓋及小腿部位",
+              "B": "在咖啡廳裡用肉耳偷聽隔壁桌客人的對談",
+              "C": "在某人車上裝設 GPS 追蹤器，長時間蒐集駕駛使用車輛之移動軌跡",
+              "D": "拿望遠鏡在遠處偷看在公園裡開心玩耍的小女孩"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "24 依實務見解，下列何種行為會構成刑法第 315 條之 1 之窺視竊聽竊錄罪？\n在捷運車廂內拿密錄器偷拍乘客大腿外側、膝蓋及小腿部位\n在咖啡廳裡用肉耳偷聽隔壁桌客人的對談\n在某人車上裝設 GPS 追蹤器，長時間蒐集駕駛使用車輛之移動軌跡\n拿望遠鏡在遠處偷看在公園裡開心玩耍的小女孩",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依實務見解，下列何種行為會構成刑法第 315 條之 1 之窺視竊聽竊錄罪？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 25,
+            "options_unverified": {
+              "A": "甲成立刑法第 309 條第 2 項強暴侮辱罪及第 354 條毀損罪二罪，從一重處斷",
+              "B": "甲只成立刑法第 354 條毀損罪一罪",
+              "C": "甲只成立刑法第 304 條強制罪一罪",
+              "D": "甲只成立刑法第 309 條第 2 項強暴侮辱罪一罪"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "25 甲因不認同乙所訴求集會遊行議題，持一桶紅色油漆於乙遊行地點立法院前，朝乙頭部由上往下\n潑灑，使乙之衣服沾染紅漆而不堪用。甲之刑事責任何者正確？\n甲成立刑法第 309 條第 2 項強暴侮辱罪及第 354 條毀損罪二罪，從一重處斷\n甲只成立刑法第 354 條毀損罪一罪\n甲只成立刑法第 304 條強制罪一罪\n甲只成立刑法第 309 條第 2 項強暴侮辱罪一罪",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲因不認同乙所訴求集會遊行議題，持一桶紅色油漆於乙遊行地點立法院前，朝乙頭部由上往下\n潑灑，使乙之衣服沾染紅漆而不堪用。甲之刑事責任何者正確？"
+          }
+        ],
+        "schema": "lexflow.moex.question.candidates.v1",
+        "scoring_enabled": false,
+        "source_subject_title_check": {
+          "published_standard_answer": "full_printed_subject_name_matched",
+          "question": "full_printed_subject_name_matched"
+        },
+        "special_scoring_applied": false,
+        "status": "candidate_question_and_published_answer_review_only"
+      },
+      "question_content_verified": false,
+      "question_type_label_unverified": "題型待原卷核對（可能包含申論及測驗）",
+      "source_link_identity_confirmed": true,
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED",
+      "subject": "刑法概要",
+      "warnings": [],
+      "year_roc": "114"
+    },
+    {
+      "answer_verified_final": false,
+      "classification": "subject_named",
+      "documents": [
+        {
+          "bytes": 398562,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": false,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 6,
+          "pdf_structure_readable": true,
+          "question_preview": {
+            "count": 50,
+            "samples": [
+              {
+                "number": 1,
+                "raw_excerpt_unreviewed": "1 有關修憲程序，下列敘述何者正確？\n修憲程序是否採記名投票，應由修憲機關依議事自律原則自行決定\n基於秘密投票原則，修憲程序應採無記名投票\n修憲程序應採記名投票，始符合正當修憲程序之要求\n僅在涉及基本國策之修改時，修憲程序始應採記名投票"
+              },
+              {
+                "number": 2,
+                "raw_excerpt_unreviewed": "2 依憲法法庭判決，對於大學教師評鑑規定之合憲性審查，應採何等審查標準？\n因涉及大學教師職業執行自由之限制，應採寬鬆之審查標準\n因涉及大學教師職業選擇自由之主觀條件限制，攸關大學教師人格發展 ，應採較為嚴格之審查標準\n雖涉及大學教師職業選擇自由之主觀條件限制，但基於對大學自治之尊重，應採寬鬆之審查標準\n因涉及大學教師職業選擇自由之客觀條件限制，對於大學教師權益有重大影響，應採最為嚴格之審\n查標準"
+              },
+              {
+                "number": 3,
+                "raw_excerpt_unreviewed": "3 下列何者非屬憲法集會自由保護之範圍？\n參與政見發表會之群眾 於夜市、鬧區街道逛街之人群\n參加社區管理委員會開會之區分所有權人 參加元旦升旗之人群"
+              },
+              {
+                "number": 4,
+                "raw_excerpt_unreviewed": "4 依憲法訴訟法第47 條規定得聲請憲法法庭判決者，下列敘述何者錯誤？\n總統雖為國家最高機關，但不得聲請憲法法庭判決\n地方自治團體辦理委辦事項時，得適用憲法訴訟法第 47 條第 2 項\n行政院、立法院、司法院均得聲請憲法法庭判決\n地方自治團體辦理自治事項時，不適用憲法訴訟法第 47 條第 2 項"
+              },
+              {
+                "number": 5,
+                "raw_excerpt_unreviewed": "5 依司法院大法官解釋意旨，關於軍事審判官身分保障，下列敘述何者正確？\n軍事審判官應為憲法上法官，其身分保障自以終身職為必要，有別於一般軍官\n經考試院特種考試及格志願入營服役之軍事審判官，應逕許其服現役至最大年限\n軍事審判官如有與受監護宣告相當程度之法定原因，經正當法律程序後，得予免職\n軍事審判官如有與受懲戒處分相當程度之法定原因，得由其所屬長官逕予免職"
+              },
+              {
+                "number": 6,
+                "raw_excerpt_unreviewed": "6 下列有關稅捐與特別公課的敘述，何者錯誤？\n空氣污染防制費係本於污染者付費之原則，對具有造成空氣污染共同特性之污染源，徵收一定之費\n用，屬於特別公課\n專對承購工業區土地、廠房及其他建築物興辦工業人課徵，用於挹注工業區開發及管理所需之工業\n區開發管理基金，性質上相當於對有共同利益群體者所課徵之稅捐\n第三人稅捐協力義務之分類及差別待遇，涉及國家財政收入之整體規劃及稽徵程序之效率，適合由\n代表民意之立法機關及擁有專業能力之相關行政機關決定\n公路主管機關，為公路養護、修建及安全管理所需經費而徵收之「汽車燃料使用費」，並非租稅，\n但國家課予人民此一繳納金錢之義務，仍應本於正當立法目的，在必要範圍內對適當之對象以合理\n之方式、額度予以課徵\n代號：3401\n頁次：6－2"
+              },
+              {
+                "number": 7,
+                "raw_excerpt_unreviewed": "7 關於憲法保障之隱私權，下列敘述何者正確？\n在公開場域活動，絕對不會受到隱私權的保護\n指紋為重要個人資訊，個人對指紋的控制受到資訊隱私權保障\n為維護交通安全，一般社區於街頭裝設之監視攝影器應提供警察機關取締交通違規之用\n個人於公開場域得主張有不受他人注視、接近之隱私權"
+              },
+              {
+                "number": 8,
+                "raw_excerpt_unreviewed": "8 依憲法增修條文規定，關於覆議制度，下列敘述何者錯誤？\n行政院得提起覆議之標的，限於立法院決議之法律案、預算案及條約案\n就立法院決議通過、總統公布之法律，行政院於執行時，如發現有窒礙難行之處，得經總統核可，\n提出覆議\n立法院對於行政院移請覆議案，原則上應於送達 15 日內作成決議\n覆議時，如經全體立法委員二分之一以上決議維持原案，行政院院長應即接受該決議"
+              },
+              {
+                "number": 9,
+                "raw_excerpt_unreviewed": "9 憲法有關監察院的設計，下列敘述何者正確？\n現行監察院具有民意代表機關的性質\n監察院應超越黨派，獨立行使職權，故擔任監察委員後，不得參與政黨活動\n現行制度，監察院設院長、副院長各一人，由監察委員互選之\n監察委員 19 人"
+              },
+              {
+                "number": 10,
+                "raw_excerpt_unreviewed": "10 依憲法、相關大法官解釋及憲法法庭裁判，有關地方自治敘述，下列敘述何者正確？\n直轄市、縣市及鄉鎮市自治均受憲法保障\n地方自治團體的地位，類似行政機關\n我國是單一國體制，即使是憲法保障之地方自治事項，仍受憲法及中央法律之拘束，且不得牴觸憲\n法及中央法律規定\n只要與居民有切身的事項，皆屬地方自治事項，地方自治團體得超越中央法規，自訂自治條例"
+              },
+              {
+                "number": 11,
+                "raw_excerpt_unreviewed": "11 A 股份有限公司（以下簡稱 A 公司）持有 B 股份有限公司（以下簡稱 B 公司）百分之百股份，關於\n二者之關係，下列敘述何者錯誤？\n B 公司不得購買 A 公司之股份\n A 公司之董事不得身兼 B 公司之董事\n B 公司如持有 A 公司之股份，不得於 A 公司股東會中行使表決權\n B 公司為一人股東之股份有限公司，所以 B 公司之股東會職權由董事會行使"
+              },
+              {
+                "number": 12,
+                "raw_excerpt_unreviewed": "12 依據性別平等工作法之規定，下列敘述何者正確？①女性受僱者每月得請生理假 1 日 ②受僱者於其\n家庭成員發生嚴重疾病需親自照顧時，得請家庭照顧假 ③為審議性別平等工作事項，主管機關應設\n性別平等工作會 ④受僱於僱用 30 人以上雇主之受僱者，為撫育 2 歲子女，得向雇主請求每天減少\n工作時間1 小時，減少之工作時間，並得請求報酬\n③④ ①③④ ①②③ ①②③④"
+              },
+              {
+                "number": 13,
+                "raw_excerpt_unreviewed": "13 依我國憲法及增修條文規定，下列關於監察院之敘述，何者錯誤？\n監察院為國家最高監察機關，行使同意、彈劾、糾舉及審計權\n監察院對於中央公務人員之彈劾，須經監察委員2 人以上之提議，9 人以上之審查及決定，始得提出\n監察院為行使監察權，得向行政院調閱各種有關文件\n監察委員須超出黨派以外，依據法律獨立行使職權"
+              },
+              {
+                "number": 14,
+                "raw_excerpt_unreviewed": "14 檢察官張三明知李四並未犯罪，仍予以起訴，以報私怨。下列敘述何者正確？\n張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有追訴犯罪職務之公務員\n張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有審判職務之公務員\n張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因檢察官係獨立行使職權\n張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因李四有罪與否，仍須由法官審判\n代號：3401\n頁次：6－3"
+              },
+              {
+                "number": 15,
+                "raw_excerpt_unreviewed": "15 我國民法第 774 條規定：「土地所有人經營事業或行使其所有權，應注意防免鄰地之損害。」關於上\n述規定的性質，下列何者錯誤？\n私法 成文法 實體法 程序法"
+              },
+              {
+                "number": 16,
+                "raw_excerpt_unreviewed": "16 雇主與勞工為離職後競業禁止之約定時，關於約定之期間，下列敘述何者正確？\n最長不得逾 5 年，逾5 年者，其約定無效 最長不得逾 4 年，逾4 年者，其約定無效\n最長不得逾 3 年，逾3 年者，縮短為 3 年 最長不得逾 2 年，逾2 年者，縮短為 2 年"
+              },
+              {
+                "number": 17,
+                "raw_excerpt_unreviewed": "17 關於憲法修改後政府體制變化的說明，下列何者正確？\n為強化對大法官審判獨立的保障，將大法官的任期由 8 年改為終身職\n廢除國民大會，由立法院行使提出罷免總統副總統以及修憲案的權限\n廢除總統對行政院院長的人事提名權，改由立法院行使此一人事提名權\n修憲後如提出覆議案，當立法院仍維持原決議，行政院院長應辭職負責"
+              },
+              {
+                "number": 18,
+                "raw_excerpt_unreviewed": "18 中央法規標準法第 13 條規定，法規明定自公布或發布日施行者，自公布或發布之日起算至第三日起\n發生效力。依據司法院釋字第 161 號解釋意旨，法規公布或發布之當日應否計入起算日？\n法規公布或發布之當日應計入起算日 起算日之認定屬立法院職權，應由立法院決定\n起算日之認定屬總統職權，應由總統決定 法規公布或發布之當日不應計入起算日"
+              },
+              {
+                "number": 19,
+                "raw_excerpt_unreviewed": "19 刑事訴訟法第 163 條第2 項但書所指法院應依職權調查之「公平正義之維護」事項，應以利益被告之\n事項為限，否則即與檢察官應負實質舉證責任之規定及無罪推定原則相牴觸，無異回復糾問制度，而\n悖離整體法律秩序理念。就此而言，主要是採取下列何種解釋方法？\n文義解釋 目的性限縮解釋 目的性擴張解釋 歷史解釋"
+              },
+              {
+                "number": 20,
+                "raw_excerpt_unreviewed": "20 甲向 A 公司租用 C 轎車半年，並僱用乙為員工兼司機，上班時間或有必要時，將 C 車交由乙駕駛及\n保管。下列敘述何者正確？\n在租用期間，A 公司非 C 車的占有人 上班時間，乙為 C 車的直接占有人\n在租用期間，甲為 C 車的直接占有人 上班期間，甲為 C 車的間接占有人"
+              },
+              {
+                "number": 21,
+                "raw_excerpt_unreviewed": "21 下列那一種臺灣地區人民在中國持有的證件，根據大陸委員會 114 年 4 月 16 日的解釋函令規定，依\n據臺灣地區與大陸地區人民關係條例第 9 條之 1，喪失臺灣地區人民身分及其在臺灣地區選舉、罷免、\n創制、複決、擔任軍職、公職及其他以在臺灣地區設有戶籍所衍生相關權利，並由戶政機關註銷其臺\n灣地區之戶籍登記？\n居住證 定居證 就業證 台胞證"
+              },
+              {
+                "number": 22,
+                "raw_excerpt_unreviewed": "22 下列那一項不是 2006 年中國通過的反分裂法第 8 條所規定國家得採取非和平方式及其他必要措施，\n捍衛國家主權和領土完整？\n臺獨分裂勢力以任何名義、任何方式造成臺灣從中國分裂出去的事實\n發生將會導致臺灣從中國分裂出去的重大事變\n臺灣舉行統一公投\n和平統一的可能性完全喪失"
+              },
+              {
+                "number": 23,
+                "raw_excerpt_unreviewed": "23 中國《海警法》第三章規定海警可對外國船隻進行登檢或驅離。根據《聯合國海洋法公約》（UNCLOS）\n第 17 條至第 19 條對「無害通過權」的規範，下列那一項說法最為正確？\n《海警法》完全符合聯合國海洋法公約，因為沿海國有權在領海內驅逐任何船隻，不論是否無害\n《海警法》可能違反聯合國海洋法公約，因其賦予海警過度的執法裁量，限制了外國船隻在不危害\n沿海國安全前提下的無害通過權\n聯合國海洋法公約並未規範「無害通過」，所以中國可依國內法自由處理進入領海的外國船隻\n中國是聯合國海洋法公約締約國，其國內法自動優先於國際法，因此無違反問題\n代號：3401\n頁次：6－4"
+              },
+              {
+                "number": 24,
+                "raw_excerpt_unreviewed": "24 根據臺灣地區與大陸地區人民關係條例第5 條之3，有關涉及政治議題之協議，下列那一項為正確？\n行政院得逕行開啟協商，事後報請立法院備查\n行政院應於協商開始90 日內，將協議計畫送交立法院審查\n行政院應於協商開始 90 日前，提出協議締結計畫及影響評估報告，並經立法院四分之一立法委員\n同意後，始得協商\n行政院應於協商開始 90 日前，提出協議締結計畫及評估報告，並經全體立法委員四分之三出席，\n及出席委員四分之三同意，始得開啟協商"
+              },
+              {
+                "number": 25,
+                "raw_excerpt_unreviewed": "25 根據臺灣地區與大陸地區人民關係條例第 18 條之規定，對於有「危害國家安全或社會安定之虞」之\n大陸地區人民，內政部移民署得採取何種措施？\n暫時限制其停留或居留資格，並進行相關調查\n內政部移民署得逕行強制出境，或限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署\n得強制出境\n內政部移民署只得限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署得強制出境\n內政部移民署只能約談和告誡"
+              }
+            ],
+            "status": "numbered_text_fragments_REQUIRE_REVIEW"
+          },
+          "question_text_verified": false,
+          "role": "Q",
+          "sha256": "55476ec3cfa2d9aebd562b2a26d801ab16d51c6adf833e5c19d663b0cb8e0114",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=Q&code=114120&c=401&s=0310&q=1"
+        },
+        {
+          "answer_preview_status": "official_document_requires_answer_and_correction_review",
+          "bytes": 50208,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 1,
+          "pdf_structure_readable": true,
+          "question_text_verified": false,
+          "role": "S",
+          "sha256": "fdab659bff68906dbf8a8b353b3c5af78d640e87b73c8ecc6e887caab58d7fab",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=S&code=114120&c=401&s=0310&q=1"
+        },
+        {
+          "answer_preview_status": "official_document_requires_answer_and_correction_review",
+          "bytes": 51894,
+          "content_and_options_verified": false,
+          "eligible_for_scoring": false,
+          "expected_subject_label_seen": true,
+          "final_answer_verified": false,
+          "legal_explanation_verified": false,
+          "pages": 1,
+          "pdf_structure_readable": true,
+          "question_text_verified": false,
+          "role": "M",
+          "sha256": "43457bc2d614f31b09e06bcc1a1034c78c498ea72451b089f28d31c0a5a11818",
+          "url": "https://wwwq.moex.gov.tw/exam/wHandExamQandA_File.ashx?t=M&code=114120&c=401&s=0310&q=1"
+        }
+      ],
+      "eligible_for_scoring": false,
+      "exam": "114年司法人員、法務部調查局調查人員等考試（考試代碼114120）",
+      "focus_subjects": [
+        "憲法"
+      ],
+      "groups_unverified": [
+        "調查三等考試_調查工作組(選試英文)"
+      ],
+      "id": "moex-page-0ae2c2be32ae05f26858a0",
+      "legal_explanation_verified": false,
+      "options_verified": false,
+      "original_index_id": "moex-page-0ae2c2be32ae05f26858a0",
+      "question_answer_candidates": {
+        "all_subject_names_exactly_confirmed": true,
+        "candidate_answer_pair_count": 50,
+        "candidate_question_count": 45,
+        "final_answer_verified": false,
+        "official_correction": {
+          "affected_question_numbers_NEEDS_VISUAL_CHECK": [
+            1
+          ],
+          "correction_applied": false,
+          "correction_marker_present": true,
+          "detected": true,
+          "final_answer_verified": false,
+          "notice_is_bounded_to_remarks": true,
+          "published_notice_excerpt_unverified": "第1題答B或C者均給分。",
+          "special_scoring_mentioned": true,
+          "status": "official_correction_notice_PRESENT_UNAPPLIED"
+        },
+        "publication_allowed": false,
+        "published_question_extraction": {
+          "count_matches_declared": true,
+          "expected_question_count": 50,
+          "four_option_candidates": 45,
+          "observed_sequential_numbers": 50,
+          "question_text_and_options_verified": false,
+          "requires_review_count": 5,
+          "status": "question_fragments_unverified",
+          "warnings": []
+        },
+        "published_standard_answer_extraction": {
+          "evidence_method": "positioned_pdf_cell_alignment_WITH_VISUAL_REVIEW_REQUIRED",
+          "final_answer_verified": false,
+          "published_candidates": [
+            {
+              "number": 1,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 2,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 3,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 4,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 5,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 6,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 7,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 8,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 9,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 10,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 11,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 12,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 13,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 14,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 15,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 16,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 17,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 18,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 19,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 20,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 21,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 22,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 23,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 24,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 25,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 26,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 27,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 28,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 29,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 30,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 31,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 32,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 33,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 34,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 35,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 36,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 37,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 38,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 39,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 40,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 41,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 42,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 43,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 44,
+              "published_standard_candidate": "A"
+            },
+            {
+              "number": 45,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 46,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 47,
+              "published_standard_candidate": "D"
+            },
+            {
+              "number": 48,
+              "published_standard_candidate": "B"
+            },
+            {
+              "number": 49,
+              "published_standard_candidate": "C"
+            },
+            {
+              "number": 50,
+              "published_standard_candidate": "A"
+            }
+          ],
+          "review_reasons": [
+            "final_corrections_and_special_credit_not_verified"
+          ],
+          "special_scoring_mentioned": false,
+          "status": "published_standard_letter_candidates_NOT_FINAL"
+        },
+        "question_text_and_options_verified": false,
+        "questions": [
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": true,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 1,
+            "options_unverified": {
+              "A": "修憲程序是否採記名投票，應由修憲機關依議事自律原則自行決定",
+              "B": "基於秘密投票原則，修憲程序應採無記名投票",
+              "C": "修憲程序應採記名投票，始符合正當修憲程序之要求",
+              "D": "僅在涉及基本國策之修改時，修憲程序始應採記名投票"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "1 有關修憲程序，下列敘述何者正確？\n修憲程序是否採記名投票，應由修憲機關依議事自律原則自行決定\n基於秘密投票原則，修憲程序應採無記名投票\n修憲程序應採記名投票，始符合正當修憲程序之要求\n僅在涉及基本國策之修改時，修憲程序始應採記名投票",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "有關修憲程序，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 2,
+            "options_unverified": {
+              "A": "因涉及大學教師職業執行自由之限制，應採寬鬆之審查標準",
+              "B": "因涉及大學教師職業選擇自由之主觀條件限制，攸關大學教師人格發展 ，應採較為嚴格之審查標準",
+              "C": "雖涉及大學教師職業選擇自由之主觀條件限制，但基於對大學自治之尊重，應採寬鬆之審查標準",
+              "D": "因涉及大學教師職業選擇自由之客觀條件限制，對於大學教師權益有重大影響，應採最為嚴格之審\n查標準"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "2 依憲法法庭判決，對於大學教師評鑑規定之合憲性審查，應採何等審查標準？\n因涉及大學教師職業執行自由之限制，應採寬鬆之審查標準\n因涉及大學教師職業選擇自由之主觀條件限制，攸關大學教師人格發展 ，應採較為嚴格之審查標準\n雖涉及大學教師職業選擇自由之主觀條件限制，但基於對大學自治之尊重，應採寬鬆之審查標準\n因涉及大學教師職業選擇自由之客觀條件限制，對於大學教師權益有重大影響，應採最為嚴格之審\n查標準",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依憲法法庭判決，對於大學教師評鑑規定之合憲性審查，應採何等審查標準？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 3,
+            "options_unverified": {
+              "A": "參與政見發表會之群眾",
+              "B": "於夜市、鬧區街道逛街之人群",
+              "C": "參加社區管理委員會開會之區分所有權人",
+              "D": "參加元旦升旗之人群"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "3 下列何者非屬憲法集會自由保護之範圍？\n參與政見發表會之群眾 於夜市、鬧區街道逛街之人群\n參加社區管理委員會開會之區分所有權人 參加元旦升旗之人群",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列何者非屬憲法集會自由保護之範圍？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 4,
+            "options_unverified": {
+              "A": "總統雖為國家最高機關，但不得聲請憲法法庭判決",
+              "B": "地方自治團體辦理委辦事項時，得適用憲法訴訟法第 47 條第 2 項",
+              "C": "行政院、立法院、司法院均得聲請憲法法庭判決",
+              "D": "地方自治團體辦理自治事項時，不適用憲法訴訟法第 47 條第 2 項"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "4 依憲法訴訟法第47 條規定得聲請憲法法庭判決者，下列敘述何者錯誤？\n總統雖為國家最高機關，但不得聲請憲法法庭判決\n地方自治團體辦理委辦事項時，得適用憲法訴訟法第 47 條第 2 項\n行政院、立法院、司法院均得聲請憲法法庭判決\n地方自治團體辦理自治事項時，不適用憲法訴訟法第 47 條第 2 項",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依憲法訴訟法第47 條規定得聲請憲法法庭判決者，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 5,
+            "options_unverified": {
+              "A": "軍事審判官應為憲法上法官，其身分保障自以終身職為必要，有別於一般軍官",
+              "B": "經考試院特種考試及格志願入營服役之軍事審判官，應逕許其服現役至最大年限",
+              "C": "軍事審判官如有與受監護宣告相當程度之法定原因，經正當法律程序後，得予免職",
+              "D": "軍事審判官如有與受懲戒處分相當程度之法定原因，得由其所屬長官逕予免職"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "5 依司法院大法官解釋意旨，關於軍事審判官身分保障，下列敘述何者正確？\n軍事審判官應為憲法上法官，其身分保障自以終身職為必要，有別於一般軍官\n經考試院特種考試及格志願入營服役之軍事審判官，應逕許其服現役至最大年限\n軍事審判官如有與受監護宣告相當程度之法定原因，經正當法律程序後，得予免職\n軍事審判官如有與受懲戒處分相當程度之法定原因，得由其所屬長官逕予免職",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依司法院大法官解釋意旨，關於軍事審判官身分保障，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 6,
+            "options_unverified": {
+              "A": "空氣污染防制費係本於污染者付費之原則，對具有造成空氣污染共同特性之污染源，徵收一定之費\n用，屬於特別公課",
+              "B": "專對承購工業區土地、廠房及其他建築物興辦工業人課徵，用於挹注工業區開發及管理所需之工業\n區開發管理基金，性質上相當於對有共同利益群體者所課徵之稅捐",
+              "C": "第三人稅捐協力義務之分類及差別待遇，涉及國家財政收入之整體規劃及稽徵程序之效率，適合由\n代表民意之立法機關及擁有專業能力之相關行政機關決定",
+              "D": "公路主管機關，為公路養護、修建及安全管理所需經費而徵收之「汽車燃料使用費」，並非租稅，\n但國家課予人民此一繳納金錢之義務，仍應本於正當立法目的，在必要範圍內對適當之對象以合理\n之方式、額度予以課徵"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "6 下列有關稅捐與特別公課的敘述，何者錯誤？\n空氣污染防制費係本於污染者付費之原則，對具有造成空氣污染共同特性之污染源，徵收一定之費\n用，屬於特別公課\n專對承購工業區土地、廠房及其他建築物興辦工業人課徵，用於挹注工業區開發及管理所需之工業\n區開發管理基金，性質上相當於對有共同利益群體者所課徵之稅捐\n第三人稅捐協力義務之分類及差別待遇，涉及國家財政收入之整體規劃及稽徵程序之效率，適合由\n代表民意之立法機關及擁有專業能力之相關行政機關決定\n公路主管機關，為公路養護、修建及安全管理所需經費而徵收之「汽車燃料使用費」，並非租稅，\n但國家課予人民此一繳納金錢之義務，仍應本於正當立法目的，在必要範圍內對適當之對象以合理\n之方式、額度予以課徵\n代號：3401\n頁次：6－2",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "下列有關稅捐與特別公課的敘述，何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 7,
+            "options_unverified": {
+              "A": "在公開場域活動，絕對不會受到隱私權的保護",
+              "B": "指紋為重要個人資訊，個人對指紋的控制受到資訊隱私權保障",
+              "C": "為維護交通安全，一般社區於街頭裝設之監視攝影器應提供警察機關取締交通違規之用",
+              "D": "個人於公開場域得主張有不受他人注視、接近之隱私權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "7 關於憲法保障之隱私權，下列敘述何者正確？\n在公開場域活動，絕對不會受到隱私權的保護\n指紋為重要個人資訊，個人對指紋的控制受到資訊隱私權保障\n為維護交通安全，一般社區於街頭裝設之監視攝影器應提供警察機關取締交通違規之用\n個人於公開場域得主張有不受他人注視、接近之隱私權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於憲法保障之隱私權，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 8,
+            "options_unverified": {
+              "A": "行政院得提起覆議之標的，限於立法院決議之法律案、預算案及條約案",
+              "B": "就立法院決議通過、總統公布之法律，行政院於執行時，如發現有窒礙難行之處，得經總統核可，\n提出覆議",
+              "C": "立法院對於行政院移請覆議案，原則上應於送達 15 日內作成決議",
+              "D": "覆議時，如經全體立法委員二分之一以上決議維持原案，行政院院長應即接受該決議"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "8 依憲法增修條文規定，關於覆議制度，下列敘述何者錯誤？\n行政院得提起覆議之標的，限於立法院決議之法律案、預算案及條約案\n就立法院決議通過、總統公布之法律，行政院於執行時，如發現有窒礙難行之處，得經總統核可，\n提出覆議\n立法院對於行政院移請覆議案，原則上應於送達 15 日內作成決議\n覆議時，如經全體立法委員二分之一以上決議維持原案，行政院院長應即接受該決議",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依憲法增修條文規定，關於覆議制度，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 9,
+            "options_unverified": {
+              "A": "現行監察院具有民意代表機關的性質",
+              "B": "監察院應超越黨派，獨立行使職權，故擔任監察委員後，不得參與政黨活動",
+              "C": "現行制度，監察院設院長、副院長各一人，由監察委員互選之",
+              "D": "監察委員 19 人"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "9 憲法有關監察院的設計，下列敘述何者正確？\n現行監察院具有民意代表機關的性質\n監察院應超越黨派，獨立行使職權，故擔任監察委員後，不得參與政黨活動\n現行制度，監察院設院長、副院長各一人，由監察委員互選之\n監察委員 19 人",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "憲法有關監察院的設計，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 10,
+            "options_unverified": {
+              "A": "直轄市、縣市及鄉鎮市自治均受憲法保障",
+              "B": "地方自治團體的地位，類似行政機關",
+              "C": "我國是單一國體制，即使是憲法保障之地方自治事項，仍受憲法及中央法律之拘束，且不得牴觸憲\n法及中央法律規定",
+              "D": "只要與居民有切身的事項，皆屬地方自治事項，地方自治團體得超越中央法規，自訂自治條例"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "10 依憲法、相關大法官解釋及憲法法庭裁判，有關地方自治敘述，下列敘述何者正確？\n直轄市、縣市及鄉鎮市自治均受憲法保障\n地方自治團體的地位，類似行政機關\n我國是單一國體制，即使是憲法保障之地方自治事項，仍受憲法及中央法律之拘束，且不得牴觸憲\n法及中央法律規定\n只要與居民有切身的事項，皆屬地方自治事項，地方自治團體得超越中央法規，自訂自治條例",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依憲法、相關大法官解釋及憲法法庭裁判，有關地方自治敘述，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 11,
+            "options_unverified": {
+              "A": "B 公司不得購買 A 公司之股份",
+              "B": "A 公司之董事不得身兼 B 公司之董事",
+              "C": "B 公司如持有 A 公司之股份，不得於 A 公司股東會中行使表決權",
+              "D": "B 公司為一人股東之股份有限公司，所以 B 公司之股東會職權由董事會行使"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "11 A 股份有限公司（以下簡稱 A 公司）持有 B 股份有限公司（以下簡稱 B 公司）百分之百股份，關於\n二者之關係，下列敘述何者錯誤？\n B 公司不得購買 A 公司之股份\n A 公司之董事不得身兼 B 公司之董事\n B 公司如持有 A 公司之股份，不得於 A 公司股東會中行使表決權\n B 公司為一人股東之股份有限公司，所以 B 公司之股東會職權由董事會行使",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "A 股份有限公司（以下簡稱 A 公司）持有 B 股份有限公司（以下簡稱 B 公司）百分之百股份，關於\n二者之關係，下列敘述何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 12,
+            "options_unverified": {
+              "A": "③④",
+              "B": "①③④",
+              "C": "①②③",
+              "D": "①②③④"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "12 依據性別平等工作法之規定，下列敘述何者正確？①女性受僱者每月得請生理假 1 日 ②受僱者於其\n家庭成員發生嚴重疾病需親自照顧時，得請家庭照顧假 ③為審議性別平等工作事項，主管機關應設\n性別平等工作會 ④受僱於僱用 30 人以上雇主之受僱者，為撫育 2 歲子女，得向雇主請求每天減少\n工作時間1 小時，減少之工作時間，並得請求報酬\n③④ ①③④ ①②③ ①②③④",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依據性別平等工作法之規定，下列敘述何者正確？①女性受僱者每月得請生理假 1 日 ②受僱者於其\n家庭成員發生嚴重疾病需親自照顧時，得請家庭照顧假 ③為審議性別平等工作事項，主管機關應設\n性別平等工作會 ④受僱於僱用 30 人以上雇主之受僱者，為撫育 2 歲子女，得向雇主請求每天減少\n工作時間1 小時，減少之工作時間，並得請求報酬"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 13,
+            "options_unverified": {
+              "A": "監察院為國家最高監察機關，行使同意、彈劾、糾舉及審計權",
+              "B": "監察院對於中央公務人員之彈劾，須經監察委員2 人以上之提議，9 人以上之審查及決定，始得提出",
+              "C": "監察院為行使監察權，得向行政院調閱各種有關文件",
+              "D": "監察委員須超出黨派以外，依據法律獨立行使職權"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "13 依我國憲法及增修條文規定，下列關於監察院之敘述，何者錯誤？\n監察院為國家最高監察機關，行使同意、彈劾、糾舉及審計權\n監察院對於中央公務人員之彈劾，須經監察委員2 人以上之提議，9 人以上之審查及決定，始得提出\n監察院為行使監察權，得向行政院調閱各種有關文件\n監察委員須超出黨派以外，依據法律獨立行使職權",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "依我國憲法及增修條文規定，下列關於監察院之敘述，何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 14,
+            "options_unverified": {
+              "A": "張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有追訴犯罪職務之公務員",
+              "B": "張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有審判職務之公務員",
+              "C": "張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因檢察官係獨立行使職權",
+              "D": "張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因李四有罪與否，仍須由法官審判"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "14 檢察官張三明知李四並未犯罪，仍予以起訴，以報私怨。下列敘述何者正確？\n張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有追訴犯罪職務之公務員\n張三的行為構成刑法第 125 條第 1 項的濫用職權追訴罪，因其係有審判職務之公務員\n張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因檢察官係獨立行使職權\n張三的行為不構成刑法第 125 條第 1 項的濫用職權追訴罪，因李四有罪與否，仍須由法官審判\n代號：3401\n頁次：6－3",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "檢察官張三明知李四並未犯罪，仍予以起訴，以報私怨。下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 15,
+            "options_unverified": {
+              "A": "私法",
+              "B": "成文法",
+              "C": "實體法",
+              "D": "程序法"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "15 我國民法第 774 條規定：「土地所有人經營事業或行使其所有權，應注意防免鄰地之損害。」關於上\n述規定的性質，下列何者錯誤？\n私法 成文法 實體法 程序法",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "我國民法第 774 條規定：「土地所有人經營事業或行使其所有權，應注意防免鄰地之損害。」關於上\n述規定的性質，下列何者錯誤？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 16,
+            "options_unverified": {
+              "A": "最長不得逾 5 年，逾5 年者，其約定無效",
+              "B": "最長不得逾 4 年，逾4 年者，其約定無效",
+              "C": "最長不得逾 3 年，逾3 年者，縮短為 3 年",
+              "D": "最長不得逾 2 年，逾2 年者，縮短為 2 年"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "16 雇主與勞工為離職後競業禁止之約定時，關於約定之期間，下列敘述何者正確？\n最長不得逾 5 年，逾5 年者，其約定無效 最長不得逾 4 年，逾4 年者，其約定無效\n最長不得逾 3 年，逾3 年者，縮短為 3 年 最長不得逾 2 年，逾2 年者，縮短為 2 年",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "雇主與勞工為離職後競業禁止之約定時，關於約定之期間，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 17,
+            "options_unverified": {
+              "A": "為強化對大法官審判獨立的保障，將大法官的任期由 8 年改為終身職",
+              "B": "廢除國民大會，由立法院行使提出罷免總統副總統以及修憲案的權限",
+              "C": "廢除總統對行政院院長的人事提名權，改由立法院行使此一人事提名權",
+              "D": "修憲後如提出覆議案，當立法院仍維持原決議，行政院院長應辭職負責"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "17 關於憲法修改後政府體制變化的說明，下列何者正確？\n為強化對大法官審判獨立的保障，將大法官的任期由 8 年改為終身職\n廢除國民大會，由立法院行使提出罷免總統副總統以及修憲案的權限\n廢除總統對行政院院長的人事提名權，改由立法院行使此一人事提名權\n修憲後如提出覆議案，當立法院仍維持原決議，行政院院長應辭職負責",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "關於憲法修改後政府體制變化的說明，下列何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 18,
+            "options_unverified": {
+              "A": "法規公布或發布之當日應計入起算日",
+              "B": "起算日之認定屬立法院職權，應由立法院決定",
+              "C": "起算日之認定屬總統職權，應由總統決定",
+              "D": "法規公布或發布之當日不應計入起算日"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "18 中央法規標準法第 13 條規定，法規明定自公布或發布日施行者，自公布或發布之日起算至第三日起\n發生效力。依據司法院釋字第 161 號解釋意旨，法規公布或發布之當日應否計入起算日？\n法規公布或發布之當日應計入起算日 起算日之認定屬立法院職權，應由立法院決定\n起算日之認定屬總統職權，應由總統決定 法規公布或發布之當日不應計入起算日",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "中央法規標準法第 13 條規定，法規明定自公布或發布日施行者，自公布或發布之日起算至第三日起\n發生效力。依據司法院釋字第 161 號解釋意旨，法規公布或發布之當日應否計入起算日？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 19,
+            "options_unverified": {
+              "A": "文義解釋",
+              "B": "目的性限縮解釋",
+              "C": "目的性擴張解釋",
+              "D": "歷史解釋"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "19 刑事訴訟法第 163 條第2 項但書所指法院應依職權調查之「公平正義之維護」事項，應以利益被告之\n事項為限，否則即與檢察官應負實質舉證責任之規定及無罪推定原則相牴觸，無異回復糾問制度，而\n悖離整體法律秩序理念。就此而言，主要是採取下列何種解釋方法？\n文義解釋 目的性限縮解釋 目的性擴張解釋 歷史解釋",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "刑事訴訟法第 163 條第2 項但書所指法院應依職權調查之「公平正義之維護」事項，應以利益被告之\n事項為限，否則即與檢察官應負實質舉證責任之規定及無罪推定原則相牴觸，無異回復糾問制度，而\n悖離整體法律秩序理念。就此而言，主要是採取下列何種解釋方法？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 20,
+            "options_unverified": {
+              "A": "在租用期間，A 公司非 C 車的占有人",
+              "B": "上班時間，乙為 C 車的直接占有人",
+              "C": "在租用期間，甲為 C 車的直接占有人",
+              "D": "上班期間，甲為 C 車的間接占有人"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "20 甲向 A 公司租用 C 轎車半年，並僱用乙為員工兼司機，上班時間或有必要時，將 C 車交由乙駕駛及\n保管。下列敘述何者正確？\n在租用期間，A 公司非 C 車的占有人 上班時間，乙為 C 車的直接占有人\n在租用期間，甲為 C 車的直接占有人 上班期間，甲為 C 車的間接占有人",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "甲向 A 公司租用 C 轎車半年，並僱用乙為員工兼司機，上班時間或有必要時，將 C 車交由乙駕駛及\n保管。下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 21,
+            "options_unverified": {
+              "A": "居住證",
+              "B": "定居證",
+              "C": "就業證",
+              "D": "台胞證"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "21 下列那一種臺灣地區人民在中國持有的證件，根據大陸委員會 114 年 4 月 16 日的解釋函令規定，依\n據臺灣地區與大陸地區人民關係條例第 9 條之 1，喪失臺灣地區人民身分及其在臺灣地區選舉、罷免、\n創制、複決、擔任軍職、公職及其他以在臺灣地區設有戶籍所衍生相關權利，並由戶政機關註銷其臺\n灣地區之戶籍登記？\n居住證 定居證 就業證 台胞證",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列那一種臺灣地區人民在中國持有的證件，根據大陸委員會 114 年 4 月 16 日的解釋函令規定，依\n據臺灣地區與大陸地區人民關係條例第 9 條之 1，喪失臺灣地區人民身分及其在臺灣地區選舉、罷免、\n創制、複決、擔任軍職、公職及其他以在臺灣地區設有戶籍所衍生相關權利，並由戶政機關註銷其臺\n灣地區之戶籍登記？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 22,
+            "options_unverified": {
+              "A": "臺獨分裂勢力以任何名義、任何方式造成臺灣從中國分裂出去的事實",
+              "B": "發生將會導致臺灣從中國分裂出去的重大事變",
+              "C": "臺灣舉行統一公投",
+              "D": "和平統一的可能性完全喪失"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "22 下列那一項不是 2006 年中國通過的反分裂法第 8 條所規定國家得採取非和平方式及其他必要措施，\n捍衛國家主權和領土完整？\n臺獨分裂勢力以任何名義、任何方式造成臺灣從中國分裂出去的事實\n發生將會導致臺灣從中國分裂出去的重大事變\n臺灣舉行統一公投\n和平統一的可能性完全喪失",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列那一項不是 2006 年中國通過的反分裂法第 8 條所規定國家得採取非和平方式及其他必要措施，\n捍衛國家主權和領土完整？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 23,
+            "options_unverified": {
+              "A": "《海警法》完全符合聯合國海洋法公約，因為沿海國有權在領海內驅逐任何船隻，不論是否無害",
+              "B": "《海警法》可能違反聯合國海洋法公約，因其賦予海警過度的執法裁量，限制了外國船隻在不危害\n沿海國安全前提下的無害通過權",
+              "C": "聯合國海洋法公約並未規範「無害通過」，所以中國可依國內法自由處理進入領海的外國船隻",
+              "D": "中國是聯合國海洋法公約締約國，其國內法自動優先於國際法，因此無違反問題"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "23 中國《海警法》第三章規定海警可對外國船隻進行登檢或驅離。根據《聯合國海洋法公約》（UNCLOS）\n第 17 條至第 19 條對「無害通過權」的規範，下列那一項說法最為正確？\n《海警法》完全符合聯合國海洋法公約，因為沿海國有權在領海內驅逐任何船隻，不論是否無害\n《海警法》可能違反聯合國海洋法公約，因其賦予海警過度的執法裁量，限制了外國船隻在不危害\n沿海國安全前提下的無害通過權\n聯合國海洋法公約並未規範「無害通過」，所以中國可依國內法自由處理進入領海的外國船隻\n中國是聯合國海洋法公約締約國，其國內法自動優先於國際法，因此無違反問題\n代號：3401\n頁次：6－4",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "中國《海警法》第三章規定海警可對外國船隻進行登檢或驅離。根據《聯合國海洋法公約》（UNCLOS）\n第 17 條至第 19 條對「無害通過權」的規範，下列那一項說法最為正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 24,
+            "options_unverified": {
+              "A": "行政院得逕行開啟協商，事後報請立法院備查",
+              "B": "行政院應於協商開始90 日內，將協議計畫送交立法院審查",
+              "C": "行政院應於協商開始 90 日前，提出協議締結計畫及影響評估報告，並經立法院四分之一立法委員\n同意後，始得協商",
+              "D": "行政院應於協商開始 90 日前，提出協議締結計畫及評估報告，並經全體立法委員四分之三出席，\n及出席委員四分之三同意，始得開啟協商"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "24 根據臺灣地區與大陸地區人民關係條例第5 條之3，有關涉及政治議題之協議，下列那一項為正確？\n行政院得逕行開啟協商，事後報請立法院備查\n行政院應於協商開始90 日內，將協議計畫送交立法院審查\n行政院應於協商開始 90 日前，提出協議締結計畫及影響評估報告，並經立法院四分之一立法委員\n同意後，始得協商\n行政院應於協商開始 90 日前，提出協議締結計畫及評估報告，並經全體立法委員四分之三出席，\n及出席委員四分之三同意，始得開啟協商",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "根據臺灣地區與大陸地區人民關係條例第5 條之3，有關涉及政治議題之協議，下列那一項為正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 25,
+            "options_unverified": {
+              "A": "暫時限制其停留或居留資格，並進行相關調查",
+              "B": "內政部移民署得逕行強制出境，或限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署\n得強制出境",
+              "C": "內政部移民署只得限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署得強制出境",
+              "D": "內政部移民署只能約談和告誡"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "25 根據臺灣地區與大陸地區人民關係條例第 18 條之規定，對於有「危害國家安全或社會安定之虞」之\n大陸地區人民，內政部移民署得採取何種措施？\n暫時限制其停留或居留資格，並進行相關調查\n內政部移民署得逕行強制出境，或限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署\n得強制出境\n內政部移民署只得限令其於十日內出境，逾限令出境期限仍未出境，內政部移民署得強制出境\n內政部移民署只能約談和告誡",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "根據臺灣地區與大陸地區人民關係條例第 18 條之規定，對於有「危害國家安全或社會安定之虞」之\n大陸地區人民，內政部移民署得採取何種措施？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 26,
+            "options_unverified": {
+              "A": "政務人員、直轄市長",
+              "B": "於國防、外交、科技、情報、大陸事務或其他相關機關從事涉及國家安全、利益或機密業務之人員",
+              "C": "縣（市）長",
+              "D": "立法委員"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "26 下列那類人員依據臺灣地區與大陸地區人民關係條例第 9 條第 4 項，進入大陸地區不需申請，並經內\n政部會同國家安全局、法務部、大陸委員會及相關機關組成之審查會審查許可？\n政務人員、直轄市長\n於國防、外交、科技、情報、大陸事務或其他相關機關從事涉及國家安全、利益或機密業務之人員\n縣（市）長\n立法委員",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "下列那類人員依據臺灣地區與大陸地區人民關係條例第 9 條第 4 項，進入大陸地區不需申請，並經內\n政部會同國家安全局、法務部、大陸委員會及相關機關組成之審查會審查許可？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 27,
+            "options_unverified": {
+              "A": "第 17 條",
+              "B": "第 18 條",
+              "C": "第 19 條",
+              "D": "第 20 條"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "27 某網紅陸配因公開宣揚「武統臺灣」而遭驅逐出境，係依據臺灣地區與大陸地區人民關係條例那一條\n之規定？\n第 17 條 第 18 條 第 19 條 第 20 條",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "某網紅陸配因公開宣揚「武統臺灣」而遭驅逐出境，係依據臺灣地區與大陸地區人民關係條例那一條\n之規定？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 28,
+            "options_unverified": {
+              "A": "正式結束兩岸敵對狀態",
+              "B": "決定中華人民共和國憲法在臺灣地區的具體適用方式",
+              "C": "臺灣地區在國際上與其地位相適應的活動空間",
+              "D": "臺灣當局的政治地位"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "28 根據 2006 年中國所頒布的反分裂國家法第 7 條，下列那一項不是臺灣海峽兩岸可以進行協商和談判\n的事項？\n正式結束兩岸敵對狀態\n決定中華人民共和國憲法在臺灣地區的具體適用方式\n臺灣地區在國際上與其地位相適應的活動空間\n臺灣當局的政治地位",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "根據 2006 年中國所頒布的反分裂國家法第 7 條，下列那一項不是臺灣海峽兩岸可以進行協商和談判\n的事項？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 29,
+            "options_unverified": {
+              "A": "大陸地區人民在自由地區不享有任何憲法基本權利",
+              "B": "大陸地區人民原則上享有憲法保障的基本權利，但得因國家安全等理由受限制",
+              "C": "大陸地區人民可完全自由行使所有基本權利，不受任何限制",
+              "D": "大陸地區人民只享有與外國人相同的權利"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "29 根據司法院釋字第 710 號解釋，關於大陸地區人民在自由地區的基本權利，下列敘述何者正確？\n大陸地區人民在自由地區不享有任何憲法基本權利\n大陸地區人民原則上享有憲法保障的基本權利，但得因國家安全等理由受限制\n大陸地區人民可完全自由行使所有基本權利，不受任何限制\n大陸地區人民只享有與外國人相同的權利",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "根據司法院釋字第 710 號解釋，關於大陸地區人民在自由地區的基本權利，下列敘述何者正確？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 30,
+            "options_unverified": {
+              "A": "行政院逕行簽署後，交由總統公布生效即可",
+              "B": "經立法院三分之二出席，及出席委員三分之二同意後，交由公投決定",
+              "C": "經立法院全體立法委員四分之三出席，及出席委員四分之三同意後，由中央選舉委員會辦理全國性\n公民投票，且須獲有效同意票超過投票權人總額之半數，協議草案方可通過",
+              "D": "只要行政院提出公民投票主文與理由書，即可逕行交由中央選舉委員會辦理全國性公投"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "30 根據臺灣地區與大陸地區人民關係條例第5 條之3，涉及政治議題之協議草案完成簽署前，需經下列\n那一程序？\n行政院逕行簽署後，交由總統公布生效即可\n經立法院三分之二出席，及出席委員三分之二同意後，交由公投決定\n經立法院全體立法委員四分之三出席，及出席委員四分之三同意後，由中央選舉委員會辦理全國性\n公民投票，且須獲有效同意票超過投票權人總額之半數，協議草案方可通過\n只要行政院提出公民投票主文與理由書，即可逕行交由中央選舉委員會辦理全國性公投\n代號：3401\n頁次：6－5",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [
+              "trailing_official_page_frame_excluded_from_candidate"
+            ],
+            "stem_unverified": "根據臺灣地區與大陸地區人民關係條例第5 條之3，涉及政治議題之協議草案完成簽署前，需經下列\n那一程序？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 31,
+            "options_unverified": {
+              "A": "kaleidoscope",
+              "B": "monotony",
+              "C": "dullness",
+              "D": "tedium"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "31 Her art exhibit was a of imaginative sculptures and paintings that captured the audience’s imagination.\n kaleidoscope  monotony  dullness  tedium",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Her art exhibit was a of imaginative sculptures and paintings that captured the audience’s imagination."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 32,
+            "options_unverified": {
+              "A": "ample",
+              "B": "scarce",
+              "C": "meager",
+              "D": "insufficient"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "32 The generous host provided a/an amount of food and drinks for all the guests at the party.\n ample  scarce  meager  insufficient",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "The generous host provided a/an amount of food and drinks for all the guests at the party."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 33,
+            "options_unverified": {
+              "A": "subtract",
+              "B": "reimburse",
+              "C": "console",
+              "D": "condone"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "33 After I submitted the receipt, the company agreed to me for the travel expenses incurred during the\nbusiness trip.\n subtract  reimburse  console  condone",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "After I submitted the receipt, the company agreed to me for the travel expenses incurred during the\nbusiness trip."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 34,
+            "options_unverified": {
+              "A": "fierce",
+              "B": "seductive",
+              "C": "tame",
+              "D": "flexible"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "34 Even with proper training and care, some wild animals cannot become and affectionate companions.\n fierce  seductive  tame  flexible",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Even with proper training and care, some wild animals cannot become and affectionate companions."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 35,
+            "options_unverified": {
+              "A": "moderation",
+              "B": "prudence",
+              "C": "restraint",
+              "D": "haste"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "35 Working in often leads to mistakes that could have been avoided with a more careful approach.\n moderation  prudence  restraint  haste",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Working in often leads to mistakes that could have been avoided with a more careful approach."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 36,
+            "options_unverified": {
+              "A": "diminish",
+              "B": "divide",
+              "C": "condense",
+              "D": "coordinate"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "36 The team members worked together to their efforts, each contributing their skills and expertise to\nachieve a common goal efficiently and effectively.\n diminish  divide  condense  coordinate",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "The team members worked together to their efforts, each contributing their skills and expertise to\nachieve a common goal efficiently and effectively."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 37,
+            "options_unverified": {
+              "A": "approximate",
+              "B": "intimate",
+              "C": "passionate",
+              "D": "obstinate"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "37 The old man is as as a mule; he never listens to others’ opinions.\n approximate  intimate  passionate  obstinate",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "The old man is as as a mule; he never listens to others’ opinions."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 38,
+            "options_unverified": {
+              "A": "gleefully",
+              "B": "miserably",
+              "C": "pathetically",
+              "D": "fluently"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "38 My three-year old niece showed off the birthday present that she liked very much.\n gleefully  miserably  pathetically  fluently",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "My three-year old niece showed off the birthday present that she liked very much."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 39,
+            "options_unverified": {
+              "A": "baffled",
+              "B": "bailed",
+              "C": "barged",
+              "D": "banned"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "39 All students were by the puzzle given by the instructor as none of them was able to solve it.\n baffled  bailed  barged  banned",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "All students were by the puzzle given by the instructor as none of them was able to solve it."
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 40,
+            "options_unverified": {
+              "A": "promoted",
+              "B": "prompted",
+              "C": "prevented",
+              "D": "preempted\n請依下文回答第41 題至第 45 題：\nThe world renowned Songkran, much celebrated on April 13th each year, is the Thai New Year’s national day.\nIn order to let people go home for this holiday, the Thai government 41 the festival to a seven-day holiday\nbeginning from April 9th to 16th. The word, “Songkran,” which is “samkrānti” in Sanskrit, carries the meaning of \n“astrological passage” with its 42 of transformation or change. Viewed as ritual cleansing, the Songkran\ncelebrations have people engage themselves to water fighting in public. It has thus become 43 and widespread\namong Thai and foreign visitors. The origin of Songkran Festival can be 44 back to a Buddhist folk myth\nconcerning harvest and spring. In the city of Sukhavati in Suvvannabhumi, Indra, King of Devas, witnessed the\noccurrence of corruption in the city where people were sinful for their bad behaviors and they led a life without\nfaith in Dhamma. The king then decided to punish people by having them 45 by lack of water and food. There\nis even a drought with a hot sun burning people to death."
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "40 The imminent threat of a thunderstorm us to quickly gather our belongings and seek shelter indoors\nbefore the rain started pouring down.\n promoted  prompted  prevented  preempted\n請依下文回答第41 題至第 45 題：\nThe world renowned Songkran, much celebrated on April 13th each year, is the Thai New Year’s national day.\nIn order to let people go home for this holiday, the Thai government 41 the festival to a seven-day holiday\nbeginning from April 9th to 16th. The word, “Songkran,” which is “samkrānti” in Sanskrit, carries the meaning of \n“astrological passage” with its 42 of transformation or change. Viewed as ritual cleansing, the Songkran\ncelebrations have people engage themselves to water fighting in public. It has thus become 43 and widespread\namong Thai and foreign visitors. The origin of Songkran Festival can be 44 back to a Buddhist folk myth\nconcerning harvest and spring. In the city of Sukhavati in Suvvannabhumi, Indra, King of Devas, witnessed the\noccurrence of corruption in the city where people were sinful for their bad behaviors and they led a life without\nfaith in Dhamma. The king then decided to punish people by having them 45 by lack of water and food. There\nis even a drought with a hot sun burning people to death.",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "The imminent threat of a thunderstorm us to quickly gather our belongings and seek shelter indoors\nbefore the rain started pouring down."
+          },
+          {
+            "candidate_status": "isolated_question_fragment_NEEDS_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 41,
+            "options_unverified": {
+              "A": "compressed",
+              "B": "abridged",
+              "C": "extended",
+              "D": "abbreviated"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "41  compressed  abridged  extended  abbreviated",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [
+              "missing_question_stem"
+            ],
+            "source_normalizations_unverified": [],
+            "stem_unverified": ""
+          },
+          {
+            "candidate_status": "isolated_question_fragment_NEEDS_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 42,
+            "options_unverified": {
+              "A": "capability",
+              "B": "complexity",
+              "C": "coincidence",
+              "D": "connotation"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "42  capability  complexity  coincidence  connotation",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [
+              "missing_question_stem"
+            ],
+            "source_normalizations_unverified": [],
+            "stem_unverified": ""
+          },
+          {
+            "candidate_status": "isolated_question_fragment_NEEDS_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 43,
+            "options_unverified": {
+              "A": "prevalent",
+              "B": "negligible",
+              "C": "isolated",
+              "D": "occasional"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "43  prevalent  negligible  isolated  occasional",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [
+              "missing_question_stem"
+            ],
+            "source_normalizations_unverified": [],
+            "stem_unverified": ""
+          },
+          {
+            "candidate_status": "isolated_question_fragment_NEEDS_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 44,
+            "options_unverified": {
+              "A": "traced",
+              "B": "spread",
+              "C": "merged",
+              "D": "disregarded"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "44  traced  spread  merged  disregarded",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [
+              "missing_question_stem"
+            ],
+            "source_normalizations_unverified": [],
+            "stem_unverified": ""
+          },
+          {
+            "candidate_status": "isolated_question_fragment_NEEDS_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 45,
+            "options_unverified": {
+              "A": "nurtured",
+              "B": "impaired",
+              "C": "intact",
+              "D": "sound\n代號：3401\n頁次：6－6\n請依下文回答第46 題至第 50 題：\nPollinators, such as bees, butterflies, and birds, contribute roughly $500 billion a year to global food\nproduction. Being the primary pollinators of most wild plants and many crops, bees are particularly crucial to both\necosystem stability and agricultural productivity. However, bee populations have been on the decline worldwide\nover the years, which has captured the attention of scientists, governments, media, and the general public.\nSeveral anthropogenic drivers have been associated with declining bee populations, such as disturbances of\ntheir natural habitats as result of agricultural intensifications and urbanization, climate change, pesticides, and\nmanagement practices. Bees’ habitat loss and fragmentation are considered a major driver of their declines. Besides,\nclimate changes in temperature and rainfall can cause significant alterations in natural habitats, thus reducing their\nsuitability for wild bee populations.\nPesticides have received much attention for their potential effects on bees. In a recent study, the research group\nreviews important agrochemicals with demonstrated deleterious effects on eusocial bees. Using artificial\nintelligence tools, the researchers explore how pesticide exposure contributes to declines in populations of honey\nbees, bumble bees, and stingless bees. Still, many knowledge gaps remain. Future studies should continue to\nincrease their focus and sophistication when tackling questions concerning the declining bee populations associated\nwith the pesticide contamination.\nHowever, little research attention has been given to potential effects of management techniques on bee declines.\nNot until recently, a group of researchers has addressed the importance of improving beekeeping techniques and\nconse"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "45  nurtured  impaired  intact  sound\n代號：3401\n頁次：6－6\n請依下文回答第46 題至第 50 題：\nPollinators, such as bees, butterflies, and birds, contribute roughly $500 billion a year to global food\nproduction. Being the primary pollinators of most wild plants and many crops, bees are particularly crucial to both\necosystem stability and agricultural productivity. However, bee populations have been on the decline worldwide\nover the years, which has captured the attention of scientists, governments, media, and the general public.\nSeveral anthropogenic drivers have been associated with declining bee populations, such as disturbances of\ntheir natural habitats as result of agricultural intensifications and urbanization, climate change, pesticides, and\nmanagement practices. Bees’ habitat loss and fragmentation are considered a major driver of their declines. Besides,\nclimate changes in temperature and rainfall can cause significant alterations in natural habitats, thus reducing their\nsuitability for wild bee populations.\nPesticides have received much attention for their potential effects on bees. In a recent study, the research group\nreviews important agrochemicals with demonstrated deleterious effects on eusocial bees. Using artificial\nintelligence tools, the researchers explore how pesticide exposure contributes to declines in populations of honey\nbees, bumble bees, and stingless bees. Still, many ",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [
+              "empty_or_oversized_option",
+              "missing_question_stem",
+              "page_header_or_footer_inside_question"
+            ],
+            "source_normalizations_unverified": [],
+            "stem_unverified": ""
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 46,
+            "options_unverified": {
+              "A": "Pollinators and Their Natural Habitats.",
+              "B": "Causes for Declining Bee Populations.",
+              "C": "Pollinators and Their Contribution to Food Production.",
+              "D": "Measures for Keeping Bees from Becoming Endangered."
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "46 Which of the following titles best describes this passage？\n Pollinators and Their Natural Habitats.\n Causes for Declining Bee Populations.\n Pollinators and Their Contribution to Food Production.\n Measures for Keeping Bees from Becoming Endangered.",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Which of the following titles best describes this passage？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 47,
+            "options_unverified": {
+              "A": "A recent study showed deleterious effects of agrochemicals on eusocial bees.",
+              "B": "Artificial intelligence tools have been used to explore declining bee populations.",
+              "C": "More research is needed to study the link between pesticide use and bee declines.",
+              "D": "Researchers are trying to prove damaging effects of pesticides on bee populations."
+            },
+            "options_verified": false,
+            "published_standard_candidate": "D",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "47 What is the main idea of the third paragraph？\n A recent study showed deleterious effects of agrochemicals on eusocial bees.\n Artificial intelligence tools have been used to explore declining bee populations.\n More research is needed to study the link between pesticide use and bee declines.\n Researchers are trying to prove damaging effects of pesticides on bee populations.",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "What is the main idea of the third paragraph？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 48,
+            "options_unverified": {
+              "A": "Bees’ natural habitat loss is a major driver for their declining populations.",
+              "B": "Effects of management techniques on bee declines have been well studied.",
+              "C": "Bees’ exposure to pesticide has contributed to declines in their populations.",
+              "D": "Changes in public awareness about wild bees can help reduce their declines."
+            },
+            "options_verified": false,
+            "published_standard_candidate": "B",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "48 According to the passage, which of the following statements is NOT true？\n Bees’ natural habitat loss is a major driver for their declining populations.\n Effects of management techniques on bee declines have been well studied.\n Bees’ exposure to pesticide has contributed to declines in their populations.\n Changes in public awareness about wild bees can help reduce their declines.",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "According to the passage, which of the following statements is NOT true？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 49,
+            "options_unverified": {
+              "A": "Disclosures",
+              "B": "Disengagements",
+              "C": "Disruptions",
+              "D": "Dissatisfactions"
+            },
+            "options_verified": false,
+            "published_standard_candidate": "C",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "49 Which of the following best replaces “disturbances” in the second paragraph？\n Disclosures  Disengagements  Disruptions  Dissatisfactions",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Which of the following best replaces “disturbances” in the second paragraph？"
+          },
+          {
+            "candidate_status": "four_options_extracted_NEEDS_VISUAL_REVIEW",
+            "correction_applied": false,
+            "correction_notice_mentions_question": false,
+            "eligible_for_scoring": false,
+            "final_answer_verified": false,
+            "legal_explanation_verified": false,
+            "number": 50,
+            "options_unverified": {
+              "A": "Declining bee populations is expected to damage global food production.",
+              "B": "Controlling climate changes can resolve the problem of bees' habitat loss.",
+              "C": "Artificial selection has replaced natural selection for genetic diversity in bees.",
+              "D": "Group scientific efforts are key to keeping wild bees from becoming endangered."
+            },
+            "options_verified": false,
+            "published_standard_candidate": "A",
+            "question_text_verified": false,
+            "raw_pdf_excerpt_unverified": "50 Which of the following statements can be inferred from the passage？\n Declining bee populations is expected to damage global food production.\n Controlling climate changes can resolve the problem of bees' habitat loss.\n Artificial selection has replaced natural selection for genetic diversity in bees.\n Group scientific efforts are key to keeping wild bees from becoming endangered.",
+            "requires_official_correction_finality_review": true,
+            "review_reasons": [],
+            "source_normalizations_unverified": [],
+            "stem_unverified": "Which of the following statements can be inferred from the passage？"
+          }
+        ],
+        "schema": "lexflow.moex.question.candidates.v1",
+        "scoring_enabled": false,
+        "source_subject_title_check": {
+          "published_standard_answer": "full_printed_subject_name_matched",
+          "question": "full_printed_subject_name_matched"
+        },
+        "special_scoring_applied": false,
+        "status": "candidate_question_and_published_answer_review_only"
+      },
+      "question_content_verified": false,
+      "question_type_label_unverified": "題型待原卷核對（可能包含申論及測驗）",
+      "source_link_identity_confirmed": true,
+      "state": "pdfs_readable_CONTENT_NOT_VERIFIED",
+      "subject": "綜合法政知識與英文(包括中華民國憲法、法學緒論、兩岸關係、英文)",
+      "warnings": [
+        "mixed_or_unclassified_paper_not_entirely_one_legal_field",
+        "official_correction_present_requires_manual_application",
+        "Q_subject_label_requires_manual_review"
+      ],
+      "year_roc": "114"
+    }
+  ],
+  "schema": "lexflow.moex.universal.batch.v1",
+  "scoring_enabled": false,
+  "source_method": "official_exam_page_html",
+  "staging": {
+    "human_content_and_answer_review_satisfied": false,
+    "origin_sha256": "c963f742f6d7bdb60a6a1272427cbcc3439042d93c9f393ea6249fc3bb9a96c3",
+    "personal_attempts_included": false,
+    "schema": "lexflow.moex.unscored.preview-staging.v1",
+    "source": "bounded MOEX official PDF batch (links + extracted text only)",
+    "website_display_only_after_review_and_merge": true
+  },
+  "status": "bounded_pdf_review_not_a_scored_bank",
+  "summary": {
+    "candidate_question_pipeline": {
+      "final_scoring_enabled": false,
+      "four_option_candidacies": 95,
+      "papers_needing_extraction_review": 0,
+      "published_standard_key_pairs": 100,
+      "question_and_answer_content_verified": false
+    },
+    "completed_review_plans_or_pdfs": 3,
+    "document_fetch_attempts": 7,
+    "download_or_validation_errors": 0,
+    "focus_coverage": {
+      "刑法": 1,
+      "憲法": 1,
+      "民法": 1
+    },
+    "isolated_papers": 0,
+    "selected_papers": 3,
+    "total_source_index_papers": 80
+  }
+}
