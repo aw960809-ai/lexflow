@@ -90,6 +90,9 @@ jobs:
       - name: Final98 V5 cached official-answer parser regression (synthetic, never score)
         run: |
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_final98_answer_candidate_v5.py' -v
+      - name: Final98 V6 exact-class and mixed 60+10 answer evidence regression (not scored)
+        run: |
+          "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_final98_v6_targeted.py' -v
       - name: Verify positioned answer PDF grids (synthetic, never scored)
         run: |
           "$RUNNER_TEMP/lexflow-pdf-venv/bin/python" -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
