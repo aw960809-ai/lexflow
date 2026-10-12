@@ -34,6 +34,8 @@ jobs:
           python3 -m unittest discover -s tests -p 'test_moex_answer_grid.py' -v
       - name: Verify V0.3 local-only practice model and safety flags
         run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs tests/official-scoring-core.test.mjs tests/official-preview-integration.test.mjs
+      - name: Test Final98 private staging bridge (synthetic only, never publish)
+        run: node --test tests/staging-native.test.mjs
       - name: Check JavaScript syntax
         run: |
           node --check app.js
@@ -45,6 +47,7 @@ jobs:
           node --check official-scoring-core.mjs
           node --check catalog-core.mjs
           node --check candidate-feed.mjs
+          node --check staging-native.mjs
 
   # This deliberately exposes true HTTP/HTML failures instead of claiming
   # a successful CI test proves the official live source worked.

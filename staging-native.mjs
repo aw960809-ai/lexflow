@@ -106,6 +106,18 @@ export function inspectStagingRecords(raw, catalog, validator){
   return {status:'ok',history,drafts,countHistory:history.length,countDrafts:drafts.length};
 }
 
+/** Format scalar record counts; arrays must never be interpolated as text. */
+export function formatStagingRecordCounts(summary){
+  if(summary?.status==='ok'){
+    insist(Number.isSafeInteger(summary.countHistory) && summary.countHistory>=0 &&
+           Number.isSafeInteger(summary.countDrafts) && summary.countDrafts>=0,
+           '整卷作答紀錄數量無效');
+    return `此網址已有 ${summary.countHistory} 次整卷交卷紀錄、${summary.countDrafts} 份暫存；與正式成績分開。`;
+  }
+  if(summary?.status==='empty')return '目前沒有整卷練習紀錄；作答只儲存在這個網址的本機資料。';
+  return '現有候審練習紀錄格式不相容，已維持原樣、停止讀取，請先在練習室匯出備份。';
+}
+
 async function readStageRecords(catalog){
   try{
     // Import only after catalog checksum and flags have passed validation.
@@ -164,9 +176,7 @@ export async function mountStagingBank(root){
     const stat=text('p','stage-notice','Final98 候審整卷：449 份／9,399 題（選擇 8,290；申論 1,109）。機器核證不等於正式內容審核；目前不提供官方答案、計分或正式發布。');
     const wrap=text('div','stage-bank');wrap.append(stat);
     const counts=text('div','stage-record-status');
-    if(summary.status==='ok') counts.textContent=`此網址已有 ${summary.history} 次整卷交卷紀錄、${summary.drafts} 份暫存；與正式成績分開。`;
-    else if(summary.status==='empty')counts.textContent='目前沒有整卷練習紀錄；作答只儲存在這個網址的本機資料。';
-    else counts.textContent='現有候審練習紀錄格式不相容，已維持原樣、停止讀取，請先在練習室匯出備份。';
+    counts.textContent=formatStagingRecordCounts(summary);
     const records=text('a','stage-record-link','查看整卷作答紀錄 ↗'); records.href='./_staging_449/practice.html';
     wrap.append(counts,records);
     const chipbar=text('div','stage-chipbar');

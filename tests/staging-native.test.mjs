@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {validateStagingCatalog, selectStagingPapers,inspectStagingRecords,
-  STAGE_SOURCE_SHA,STAGE_CATALOG_SHA} from '../staging-native.mjs';
+  STAGE_SOURCE_SHA,STAGE_CATALOG_SHA,formatStagingRecordCounts} from '../staging-native.mjs';
 
 function fakeCatalog(){
   const papers=[], questions=[];
@@ -96,4 +96,14 @@ test('real uploaded Final98 staging catalog (offline optional)', {skip:!process.
   assert.equal(selectStagingPapers(cat,{kind:'MCQ'}).matchingQuestions,8290);
   assert.equal(selectStagingPapers(cat,{kind:'ESSAY'}).matchingQuestions,1109);
   assert.equal(selectStagingPapers(cat,{domain:'其他'}).matchingQuestions,1225);
+});
+
+test('stage record summaries format counts, never stringify history arrays',()=>{
+  const good={status:'ok',countHistory:2,countDrafts:1,history:[{id:'one'},{id:'two'}],drafts:[{id:'draft'}]};
+  const view=formatStagingRecordCounts(good);
+  assert.match(view,/2 次整卷交卷紀錄、1 份暫存/);
+  assert(!view.includes('[object Object]'));
+  assert.match(formatStagingRecordCounts({status:'empty'}),/目前沒有整卷/);
+  assert.match(formatStagingRecordCounts({status:'blocked'}),/已維持原樣/);
+  assert.throws(()=>formatStagingRecordCounts({status:'ok',countHistory:[],countDrafts:0}));
 });
