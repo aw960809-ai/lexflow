@@ -36,6 +36,8 @@ jobs:
         run: node --test tests/catalog-core.test.mjs tests/practice-core.test.mjs tests/candidate-feed.test.mjs tests/service-worker-scope.test.mjs tests/official-scoring-core.test.mjs tests/official-preview-integration.test.mjs
       - name: Test Final98 private staging bridge (synthetic only, never publish)
         run: node --test tests/staging-native.test.mjs
+      - name: Final98 full-source evidence campaign safety (synthetic fixtures only)
+        run: python3 -m unittest discover -s tests -p 'test_final98_source_qa.py' -v
       - name: Check JavaScript syntax
         run: |
           node --check app.js
