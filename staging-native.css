@@ -1,0 +1,51 @@
+/* V2.0.1 UI repair: native tokens from LexFlow root (light/dark-safe). */
+#staging-bank-host{color:var(--ink)}
+#staging-bank-host{max-width:100%;min-width:0;margin-top:12px}
+.stage-bank{display:flex;flex-direction:column;gap:14px;min-width:0}
+.stage-notice{font-size:13px;line-height:1.7;color:var(--ink);padding:13px 15px;border-radius:14px;border:1px solid var(--border);background:var(--paper2);margin:0}
+.stage-record-status{font-size:13px;color:var(--muted);line-height:1.7}
+.stage-record-link{align-self:flex-start;color:var(--accent);font-size:13px;text-underline-offset:4px}
+.stage-chipbar{display:flex;flex-direction:column;gap:6px}
+.stage-field-label{font-size:12px;font-weight:700;color:var(--muted)}
+.stage-chips{display:flex;flex-wrap:wrap;gap:6px}
+.stage-chip{border-radius:100px;cursor:pointer;border:1px solid var(--border);font:inherit;font-size:13px;font-weight:600;padding:8px 13px;background:transparent;color:inherit;min-height:37px;line-height:1.25}
+.stage-chip.active{background:var(--accent);color:var(--bg);border-color:transparent}
+.stage-chip:focus-visible,.stage-action:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.stage-search-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,.45fr);gap:10px;align-items:end}
+.stage-search-label{font-size:12px;font-weight:700;display:flex;flex-direction:column;gap:6px;min-width:0;color:var(--muted)}
+.stage-search{border-radius:10px;padding:12px;border:1px solid var(--border);background:var(--paper);color:inherit;max-width:100%;font-size:15px;min-height:45px}
+.stage-advanced{padding:9px 12px;border:1px solid var(--border);border-radius:12px;min-height:45px;min-width:0}
+.stage-advanced summary{font-size:13px;cursor:pointer;line-height:24px}
+.stage-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding-top:10px}
+.stage-options label{display:flex;flex-direction:column;gap:6px;font-size:12px;min-width:0}
+.stage-select{width:100%;max-width:100%;padding:8px;border-radius:9px;background:var(--paper);color:inherit;border:1px solid var(--border)}
+.stage-count{font-size:13px;color:var(--muted);margin:0}
+.stage-list{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(270px,100%),1fr));min-width:0}
+.stage-paper{border:1px solid var(--border);border-radius:14px;padding:15px;min-width:0;display:flex;flex-direction:column;gap:8px;background:var(--paper)}
+.stage-overline{font-size:11px;letter-spacing:.035em;color:var(--muted)}
+.stage-paper h3{font-size:16px;line-height:1.55;margin:0;overflow-wrap:anywhere;color:inherit}
+.stage-meta{font-size:12px;line-height:1.6;color:var(--muted);margin:0}
+.stage-warning{font-size:12px;color:#94531d;line-height:1.6;margin:0}
+.stage-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:5px}
+.stage-action{display:inline-flex;padding:9px 12px;border-radius:10px;font-size:13px;text-decoration:none;line-height:1.2;border:1px solid var(--border);color:inherit;font-weight:600}
+.stage-action.primary{background:var(--accent);border-color:transparent;color:var(--bg)}
+.stage-pager{display:flex;justify-content:center;align-items:center;gap:14px;font-size:13px;padding:9px}
+.stage-pager button:disabled{opacity:.35;cursor:default}
+.stage-error{border:1px solid var(--danger);color:var(--danger);background:var(--paper);border-radius:10px;padding:12px 14px;font-size:14px}
+.stage-message{padding:15px;color:var(--muted)}
+@media(max-width:560px){.stage-search-row{grid-template-columns:minmax(0,1fr)}.stage-list{grid-template-columns:minmax(0,1fr)}.stage-paper{padding:14px}.stage-chip{font-size:12px;padding:8px 11px}.stage-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+:root[data-theme="dark"] .stage-warning{color:#ebbc8c}
+.stage-action.primary{color:#fff}
+:root[data-theme="dark"] .stage-action.primary{color:#13231d}
+.stage-chip.active{color:#fff}
+:root[data-theme="dark"] .stage-chip.active{color:#13231d}
+
+/* Final98 V3: candidates and user practice archive are visually separated. */
+.stage-history{margin-top:14px}
+.stage-history-section{display:grid;gap:9px}
+.stage-history-heading{font-size:15px;font-weight:750;margin:6px 0 0;color:var(--ink)}
+.stage-history-card{gap:5px}
+.stage-history-card h4{font-size:14px;margin:0;color:var(--ink)}
+.stage-history-card .stage-action{align-self:flex-start}
+.stage-record-status{overflow-wrap:anywhere}
